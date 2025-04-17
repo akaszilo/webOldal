@@ -19,13 +19,11 @@ return new class extends Migration
             $table->string("price_sign");
             $table->string("currency");
             $table->string("image_link");
-            $table->string("desciption");
+            $table->string("description");
             $table->integer("rating");
             $table->foreignId("category_id");
             $table->foreignId("type_id");
             $table->string("tag_list");
-            $table->string("created_at");
-            $table->string("updated_at");
             $table->string("product_colors");
             $table->timestamps();
             $table->softDeletes();
