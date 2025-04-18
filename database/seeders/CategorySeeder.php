@@ -12,6 +12,11 @@ class CategorySeeder extends Seeder
      */
     public function run(): void
     {
-        //
+        $categories = [
+            'Face',
+            'Eyes',
+            'Lips',
+            'Hair',
+        ];
     }
 }

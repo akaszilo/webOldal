@@ -37,7 +37,9 @@ class ProductController extends Controller
      */
     public function show(Product $product)
     {
-        //
+        return response()->json()
+        $bestsellers = Product::inRandomOrder()->take(8)->get(); // or your logic
+        return view('welcome')->with('bestsellers', $bestsellers);
     }
 
     /**
