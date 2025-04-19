@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Category;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -15,8 +16,14 @@ class CategorySeeder extends Seeder
         $categories = [
             'Face',
             'Eyes',
-            'Lips',
-            'Hair',
+            'Lips'
         ];
+
+        
+        foreach ($categories as $category) {
+            Category::create([
+                'category' => $category
+            ]);
+        }
     }
 }
