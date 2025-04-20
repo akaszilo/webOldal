@@ -334,7 +334,7 @@ class ProductSeeder extends Seeder
 
             ]);
         }
-        $table->foreignId("brand_id");
+     /*    $table->foreignId("brand_id");
         $table->string("name");
         $table->string("price");
         $table->string("image_link");
@@ -342,7 +342,7 @@ class ProductSeeder extends Seeder
         $table->integer("rating");
         $table->foreignId("category_id");
         $table->foreignId("type_id");
-
+ */
     }
 
 }

@@ -17,3 +17,4 @@ Route::resource('home', HomeController::class);
 Route::resource('order', OrderController::class);
 Route::resource('product', ProductController::class);
 Route::resource('type', TypeController::class);
+Route::get('/bestsellers', [ProductController::class, 'bestsellers']);

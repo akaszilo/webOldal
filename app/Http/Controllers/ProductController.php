@@ -8,12 +8,19 @@ use App\Http\Requests\UpdateProductRequest;
 
 class ProductController extends Controller
 {
+    public function bestsellers(): JsonResponse
+    {
+        $bestsellers = Product::inRandomOrder()->take(8)->get();
+
+        return response()->json($bestsellers);
+    }
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
         return view('welcome');
+        
     }
 
     /**
@@ -37,9 +44,7 @@ class ProductController extends Controller
      */
     public function show(Product $product)
     {
-        return response()->json()
-        $bestsellers = Product::inRandomOrder()->take(8)->get(); // or your logic
-        return view('welcome')->with('bestsellers', $bestsellers);
+        
     }
 
     /**
