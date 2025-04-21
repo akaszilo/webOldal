@@ -13,15 +13,14 @@ return new class extends Migration
     {
         Schema::create('products', function (Blueprint $table) {
             $table->id();
-            $table->foreignId("brand_id");
             $table->string("name");
             $table->string("price");
             $table->string("image_link");
             $table->string("description");
             $table->integer("rating");
-            $table->foreignId("category_id");
-            $table->foreignId("type_id");
-            // $table->string("product_colors");
+            $table->integer("sold_quantity")->default(0);
+            $table->foreignId('brand_id')->constrained('brands');
+            $table->foreignId('category_id')->constrained('categories');
             $table->timestamps();
             $table->softDeletes();
         });

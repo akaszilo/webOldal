@@ -2,9 +2,12 @@
 
 namespace Database\Seeders;
 
+use App\Models\Brand;
+use App\Models\Category;
+use App\Models\Product;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
-use Database\Seeders\BrandSeeder;
+use Illuminate\Support\Arr;
 
 class ProductSeeder extends Seeder
 {
@@ -13,18 +16,6 @@ class ProductSeeder extends Seeder
      */
     public function run(): void
     {
-        $products = [
-            [
-                'brand' => '',
-                'name' => 'MAC Studio Fix Fluid Foundation',
-                'price' => 39.99,
-                'type' => 'makeup',
-                'storageQuantity' => 150,
-                'soldQuantity' => 120,
-                'img' => 'https://example.com/images/mac_studio_fix_foundation.jpg'
-            ]
-        ];
-
         // Face products
         $faceProducts = [
             'No Filter Foundation',
@@ -76,7 +67,6 @@ class ProductSeeder extends Seeder
             'Clean Oil Control Makeup',
             'Advanced Radiance Age Defying Liquid Makeup',
         ];
-
         // Eyes products
         $eyesProducts = [
             'Liquid Liner',
@@ -129,7 +119,6 @@ class ProductSeeder extends Seeder
             'Professional Super Thick Lash Mascara Very Black',
             'Professional Waterproof Mascara',
         ];
-
         // Lips products
         $lipsProducts = [
             'Lippie Pencil',
@@ -182,7 +171,7 @@ class ProductSeeder extends Seeder
             'https://s3.amazonaws.com/donovanbailey/products/api_featured_images/000/000/398/original/open-uri20171223-4-11xbwij?1514063314',
             'https://s3.amazonaws.com/donovanbailey/products/api_featured'
         ];
-
+        
         $eyeImg = [
             "https://s3.amazonaws.com/donovanbailey/products/api_featured_images/000/001/048/original/open-uri20180708-4-13okqci?1531093614",
             "https://s3.amazonaws.com/donovanbailey/products/api_featured_images/000/001/047/original/open-uri20180708-4-e7idod?1531087336",
@@ -242,7 +231,7 @@ class ProductSeeder extends Seeder
             "https://s3.amazonaws.com/donovanbailey/products/api_featured_images/000/000/850/original/open-uri20171224-4-w3yj1s?1514073895",
             "https://s3.amazonaws.com/donovanbailey/products/api_featured_images/000/000/848/original/open-uri20171223-4-gjj2xg?1514072782",
         ];
-
+        
         $faceImg = [
             "https://s3.amazonaws.com/donovanbailey/products/api_featured_images/000/001/048/original/open-uri20180708-4-13okqci?1531093614",
             "https://s3.amazonaws.com/donovanbailey/products/api_featured_images/000/001/047/original/open-uri20180708-4-e7idod?1531087336",
@@ -299,50 +288,31 @@ class ProductSeeder extends Seeder
             "https://s3.amazonaws.com/donovanbailey/products/api_featured_images/000/000/398/original/open-uri20171223-4-11xbwij?1514063314",
         ];
 
-        /* foreach ($products as $key => $value) {
-            Product::create([
-                'brand' => $value[$brands],
-                'name' => $value['name'],
-                'price' => $value['price'],
-                'img' => $value['img'],
-                'storageQuantity' => $value['storageQuantity'],
-                'soldQuantity' => $value['soldQuantity'],
-                'type' => $value['type']
-            ]);
-        } */
+        $brands = Brand::pluck('id')->toArray();
+        $categories = Category::pluck('id')->toArray();
+        
+        $faker = Faker::create();
 
-        $availableNames = $lipsProducts;
-        $availableImages = $lipsImg;
-        for ($i = 0; $i < Count($lipsProducts); $i++) {
-            if (empty($availableNames)) {
-                $availableNames = $lipsProducts;
-                shuffle($availableNames);
-            }
-            if (empty($availableImages)) {
-                $availableImages = $lipsImg;
-                shuffle($availableImages);
-            }
-            $image = array_pop($availableImages);
-            $name = array_pop($availableNames);
+        for ($i = 0; $i < 100; $i++) {
+            // Randomly select a category
+            $categoryId = Arr::random($categories);
+
+            // Determine which image array to use based on the category
+            $imageLinks = match ($categoryId) {
+                1 => $faceImg, 
+                2 => $eyeImg, 
+                3 => $lipsImg
+            };
 
             Product::create([
-                'name' => $name,
-                'price' => rand(5, 1000),
-                'image_link' => $image,
-                'description' => fake()->text(),
-                'rating' => fake()->numberBetween(1, 5)
-
+                'brand_id' => Arr::random($brands),
+                'category_id' => $categoryId,
+                'name' => $faker->sentence(3),
+                'price' => rand(1000, 100000) / 100,
+                'image_link' => Arr::random($imageLinks),
+                'description' => $faker->paragraph(2),
+                'rating' => rand(1, 5),
             ]);
         }
-     /*    $table->foreignId("brand_id");
-        $table->string("name");
-        $table->string("price");
-        $table->string("image_link");
-        $table->string("description");
-        $table->integer("rating");
-        $table->foreignId("category_id");
-        $table->foreignId("type_id");
- */
     }
-
 }

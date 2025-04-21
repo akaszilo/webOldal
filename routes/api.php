@@ -12,9 +12,7 @@ Route::get('/user', function (Request $request) {
 Route::resource('brand', BrandController::class);
 Route::resource('cart', CartController::class);
 Route::resource('category', CategoryController::class);
-Route::resource('categoryType', CategoryTypeController::class);
 Route::resource('home', HomeController::class);
 Route::resource('order', OrderController::class);
 Route::resource('product', ProductController::class);
-Route::resource('type', TypeController::class);
 Route::get('/bestsellers', [ProductController::class, 'bestsellers']);

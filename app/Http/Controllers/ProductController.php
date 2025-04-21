@@ -8,7 +8,7 @@ use App\Http\Requests\UpdateProductRequest;
 
 class ProductController extends Controller
 {
-    public function bestsellers(): JsonResponse
+    public function bestsellers()
     {
         $bestsellers = Product::inRandomOrder()->take(8)->get();
 
@@ -44,7 +44,7 @@ class ProductController extends Controller
      */
     public function show(Product $product)
     {
-        
+
     }
 
     /**
