@@ -307,14 +307,14 @@ class ProductSeeder extends Seeder
             };
 
             Product::create([
-                'brand_id' => Arr::random($brands),
-                'category_id' => $categoryId,
                 'name' => $faker->sentence(3),
                 'price' => rand(1000, 100000) / 100,
                 'image_link' => Arr::random($imageLinks),
                 'description' => $faker->paragraph(2),
                 'rating' => rand(1, 5),
                 'sold_quantity' => rand(500,1700),
+                'brand_id' => Arr::random($brands),
+                'category_id' => $categoryId,
             ]);
         }
     }

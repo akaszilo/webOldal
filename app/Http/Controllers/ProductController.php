@@ -13,8 +13,7 @@ class ProductController extends Controller
     {
         $bestsellers = Product::orderBy('sold_quantity', 'desc')->take(8)->get();
         dd($bestsellers);
-        return view('/' ,['bestsellers' => $bestsellers] )
-        
+        return view('/' ,['bestsellers' => $bestsellers] );
     }
     /**
      * Display a listing of the resource.
