@@ -5,7 +5,6 @@ namespace Database\Seeders;
 use App\Models\Brand;
 use App\Models\Category;
 use App\Models\Product;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Arr;
 use Nette\Utils\Random;
@@ -174,7 +173,7 @@ class ProductSeeder extends Seeder
             'https://s3.amazonaws.com/donovanbailey/products/api_featured'
         ];
         
-        $eyeImg = [
+        $eyesImg = [
             "https://s3.amazonaws.com/donovanbailey/products/api_featured_images/000/001/048/original/open-uri20180708-4-13okqci?1531093614",
             "https://s3.amazonaws.com/donovanbailey/products/api_featured_images/000/001/047/original/open-uri20180708-4-e7idod?1531087336",
             "https://s3.amazonaws.com/donovanbailey/products/api_featured_images/000/001/046/original/open-uri20180708-4-1f333k1?1531086651",
@@ -290,29 +289,41 @@ class ProductSeeder extends Seeder
             "https://s3.amazonaws.com/donovanbailey/products/api_featured_images/000/000/398/original/open-uri20171223-4-11xbwij?1514063314",
         ];
 
-        $brands = Brand::pluck('id')->toArray();
-        $categories = Category::pluck('id')->toArray();
-        
         $faker = Faker::create();
+        $brands = Brand::all()->pluck('id')->toArray();
+        $categories = Category::all()->pluck('id')->toArray();
 
         for ($i = 0; $i < 100; $i++) {
-            // Randomly select a category
+            // Randomly select a category id from 1 to 3
             $categoryId = Arr::random($categories);
 
-            // Determine which image array to use based on the category
-            $imageLinks = match ($categoryId) {
-                1 => $faceImg, 
-                2 => $eyeImg, 
-                3 => $lipsImg
-            };
+            // Determine which product and image arrays to use based on the category
+            switch ($categoryId) {
+                case 1:
+                    $productName = Arr::random($faceProducts);
+                    $imageLink = Arr::random($faceImg);
+                    break;
+                case 2:
+                    $productName = Arr::random($eyesProducts);
+                    $imageLink = Arr::random($eyesImg);
+                    break;
+                case 3:
+                    $productName = Arr::random($lipsProducts);
+                    $imageLink = Arr::random($lipsImg);
+                    break;
+                default:
+                    $productName = Arr::random($faceProducts);
+                    $imageLink = Arr::random($faceImg);
+                    break;
+            }
 
             Product::create([
-                'name' => $faker->sentence(3),
+                'name' => $productName,
                 'price' => rand(1000, 100000) / 100,
-                'image_link' => Arr::random($imageLinks),
+                'image_link' => $imageLink,
                 'description' => $faker->paragraph(2),
                 'rating' => rand(1, 5),
-                'sold_quantity' => rand(500,1700),
+                'sold_quantity' => rand(10, 1200),
                 'brand_id' => Arr::random($brands),
                 'category_id' => $categoryId,
             ]);

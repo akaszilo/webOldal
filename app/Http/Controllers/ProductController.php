@@ -3,25 +3,22 @@
 namespace App\Http\Controllers;
 
 use App\Models\Product;
-use App\Http\Requests\StoreProductRequest;
-use App\Http\Requests\UpdateProductRequest;
-use Illuminate\Http\Request;
+use App\Models\Brand;
+use Illuminate\View\View;
 
 class ProductController extends Controller
 {
-    public function bestsellers()
+    public function index(): View
     {
-        $bestsellers = Product::orderBy('sold_quantity', 'desc')->take(8)->get();
-        dd($bestsellers);
-        return view('/' ,['bestsellers' => $bestsellers] );
-    }
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
-    {
-        return view('welcome');
-        
+        $bestsellers = Product::orderBy('sold_quantity', 'desc')->take(15)->get();
+        $latestProducts = Product::orderBy('created_at', 'desc')->take(10)->get();
+        $featuredBrands = Brand::take(5)->get();
+
+        return view('welcome', [
+            'bestsellers' => $bestsellers,
+            'latestProducts' => $latestProducts,
+            'featuredBrands' => $featuredBrands,
+        ]);
     }
 
     /**
