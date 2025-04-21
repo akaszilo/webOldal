@@ -1,7 +1,8 @@
 <?php
-
+use App\Http\Controllers\ProductController;
 use Illuminate\Support\Facades\Route;
 
-Route::get('home', function () {
+Route::get('/', function () {
     return view('welcome');
 });
+Route::get('/bestsellers',[ProductController::class, 'bestsellers']);

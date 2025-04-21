@@ -12,8 +12,8 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('brands', function (Blueprint $table) {
-            $table->id();
-            $table->string("brandName");
+            $table->unsignedBigInteger("id");
+            $table->string("brand");
             $table->timestamps();
             $table->softDeletes();
         });

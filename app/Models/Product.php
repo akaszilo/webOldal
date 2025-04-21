@@ -15,17 +15,12 @@ class Product extends Model
     protected $fillabe = [
         "name",
         "price",
-        "price_sign",
-        "currency",
         "image_link",
         "desciption",
         "rating",
         "category_id",
-        "type_id",
-        "tag_list",
-        "created_at",
-        "updated_at",
-        "product_colors"
+        "brand_id",
+        "sold_quantity"
     ];
     public function brand(): HasOne
     {

@@ -5,14 +5,16 @@ namespace App\Http\Controllers;
 use App\Models\Product;
 use App\Http\Requests\StoreProductRequest;
 use App\Http\Requests\UpdateProductRequest;
+use Illuminate\Http\Request;
 
 class ProductController extends Controller
 {
     public function bestsellers()
     {
-        $bestsellers = Product::inRandomOrder()->take(8)->get();
-
-        return response()->json($bestsellers);
+        $bestsellers = Product::orderBy('sold_quantity', 'desc')->take(8)->get();
+        dd($bestsellers);
+        return view('/' ,['bestsellers' => $bestsellers] )
+        
     }
     /**
      * Display a listing of the resource.

@@ -1,35 +1,37 @@
+
 @extends('app')
 
 @section('content')
 
 <main class="container mt-4">
     <!-- Legnépszerűbb termékek -->
-    <section class="bestsellers mb-5">
-        <h2 class="mb-4">Legnépszerűbb termékek</h2>
-        <div class="row">
-            @foreach($bestsellers as $product)
-            <div class="col-md-3 mb-4">
-                <div class="card h-100">
-                    <img src="{{ $product->image }}" class="card-img-top" alt="{{ $product->name }}">
-                    <div class="card-body">
-                        <h5 class="card-title">{{ $product->name }}</h5>
-                        <p class="card-text">
-                            @if($product->is_in_sale)
-                                <del>{{ number_format($product->price, 0, ',', ' ') }} Ft</del>
-                                {{ number_format($product->price * (1 - $product->sale_percent/100), 0, ',', ' ') }} Ft
-                                <span class="badge bg-danger">{{ $product->sale_percent }}%</span>
-                            @else
-                                {{ number_format($product->price, 0, ',', ' ') }} Ft
-                            @endif
-                        </p>
-                        <p class="text-muted">Eladott darab: {{ $product->sold_quantity }}</p>
-                    </div>
-                </div>
+   {{-- resources/views/partials/bestsellers.blade.php --}}
+<section class="bestsellers mb-5">
+    <h2 class="mb-4">Legnépszerűbb termékek</h2>
+    <div class="row">
+      @foreach($bestsellers as $product)
+        <div class="col-md-3 mb-4">
+          <div class="card h-100">
+            <img src="{{ $product->image_link }}" class="card-img-top" alt="{{ $product->name }}">
+            <div class="card-body">
+              <h5 class="card-title">{{ $product->name }}</h5>
+              <p class="card-text">
+                @if($product->is_in_sale)
+                  <del>{{ number_format($product->price,0,',',' ') }} Ft</del>
+                  {{ number_format($product->price*(1-$product->sale_percent/100),0,',',' ') }} Ft
+                  <span class="badge bg-danger">{{ $product->sale_percent }}%</span>
+                @else
+                  {{ number_format($product->price,0,',',' ') }} Ft
+                @endif
+              </p>
+              <p class="text-muted">Eladott darab: {{ $product->sold_quantity }}</p>
             </div>
-            @endforeach
+          </div>
         </div>
-    </section>
-
+      @endforeach
+    </div>
+  </section>
+  
     <!-- Kedvezményes termékek -->
     {{-- 
     <section class="discounted-products mb-5">

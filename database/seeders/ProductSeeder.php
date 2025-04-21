@@ -8,6 +8,7 @@ use App\Models\Product;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Arr;
+use Nette\Utils\Random;
 
 class ProductSeeder extends Seeder
 {
@@ -312,6 +313,7 @@ class ProductSeeder extends Seeder
                 'image_link' => Arr::random($imageLinks),
                 'description' => $faker->paragraph(2),
                 'rating' => rand(1, 5),
+                'sold_quantity' => rand(500,1700),
             ]);
         }
     }
