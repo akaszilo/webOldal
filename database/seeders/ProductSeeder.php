@@ -9,6 +9,7 @@ use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Arr;
 use Nette\Utils\Random;
+use Faker\Factory as Faker;
 
 class ProductSeeder extends Seeder
 {
