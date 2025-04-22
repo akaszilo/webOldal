@@ -11,6 +11,7 @@ class ProductController extends Controller
 {
     public function index(): View
     {
+        
         $userName = Auth::check() ? Auth::user()->name : 'Vendég';
 
         $bestsellers = Product::orderBy('sold_quantity', 'desc')->take(15)->get();
@@ -23,6 +24,11 @@ class ProductController extends Controller
             'featuredBrands' => $featuredBrands,
             'userName' => $userName
         ]);
+
+        
+
+
+        
     }
 
     /**
@@ -44,9 +50,25 @@ class ProductController extends Controller
     /**
      * Display the specified resource.
      */
+
+     public function filterByBrand(Brand $brand)
+{
+    $brands = Brand::all();
+    $products = Product::where('brand_id', $brand->id)->get();
+
+    return view('products.index', compact('products', 'brands', 'brand'));
+}
     public function show(Product $product)
     {
+        $brand = $product->brand;  // A Product modelben definiált kapcsolatot használjuk
 
+        return view('product.show', compact('product', 'brand'));
+
+        if (!$product) {
+            abort(404); // Ha nincs ilyen termék, 404-es hibát adunk vissza
+        }
+    
+        return view('product.show', compact('product'));
     }
 
     /**

@@ -12,4 +12,9 @@ class Brand extends Model
     use SoftDeletes;
 
     protected $fillable = ["name"]; 
+
+    public function products()
+    {
+        return $this->hasMany(Product::class);  // Ez határozza meg, hogy a Brand több Product-tal rendelkezik
+    }
 }

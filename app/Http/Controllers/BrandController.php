@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Brand;
+use App\Models\Product;
 use App\Http\Requests\StoreBrandRequest;
 use App\Http\Requests\UpdateBrandRequest;
 
@@ -37,7 +38,11 @@ class BrandController extends Controller
      */
     public function show(Brand $brand)
     {
-        //
+        $products = $brand->products()->with('brand')->get();
+
+    return view('brand.show', compact('brand', 'products'));
+    
+
     }
 
     /**
