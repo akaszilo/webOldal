@@ -107,6 +107,7 @@
                                 <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                                     <li><a class="dropdown-item" href="#">Profil</a></li>
                                     <li><a class="dropdown-item" href="#">Kosár</a></li>
+                                    <li><a class="dropdown-item" href="#">Rendelés</a></li>
                                     <li>
                                         <hr class="dropdown-divider">
                                     </li>

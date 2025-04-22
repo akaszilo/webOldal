@@ -17,7 +17,8 @@ class ProductSeeder extends Seeder
      */
     public function run(): void
     {
-        // Face products
+        $faker = Faker::create();
+
         $faceProducts = [
             'No Filter Foundation',
             'Serum Foundation',
@@ -68,7 +69,7 @@ class ProductSeeder extends Seeder
             'Clean Oil Control Makeup',
             'Advanced Radiance Age Defying Liquid Makeup',
         ];
-        // Eyes products
+
         $eyesProducts = [
             'Liquid Liner',
             'Eyeshadow',
@@ -120,7 +121,7 @@ class ProductSeeder extends Seeder
             'Professional Super Thick Lash Mascara Very Black',
             'Professional Waterproof Mascara',
         ];
-        // Lips products
+
         $lipsProducts = [
             'Lippie Pencil',
             'Blotted Lip',
@@ -289,25 +290,22 @@ class ProductSeeder extends Seeder
             "https://s3.amazonaws.com/donovanbailey/products/api_featured_images/000/000/398/original/open-uri20171223-4-11xbwij?1514063314",
         ];
 
-        $faker = Faker::create();
         $brands = Brand::all()->pluck('id')->toArray();
         $categories = Category::all()->pluck('id')->toArray();
 
-        for ($i = 0; $i < 100; $i++) {
-            // Randomly select a category id from 1 to 3
+        for ($i = 0; $i < 1000; $i++) {
             $categoryId = Arr::random($categories);
 
-            // Determine which product and image arrays to use based on the category
             switch ($categoryId) {
-                case 1:
+                case 0:
                     $productName = Arr::random($faceProducts);
                     $imageLink = Arr::random($faceImg);
                     break;
-                case 2:
+                case 1:
                     $productName = Arr::random($eyesProducts);
                     $imageLink = Arr::random($eyesImg);
                     break;
-                case 3:
+                case 2:
                     $productName = Arr::random($lipsProducts);
                     $imageLink = Arr::random($lipsImg);
                     break;
@@ -315,11 +313,11 @@ class ProductSeeder extends Seeder
                     $productName = Arr::random($faceProducts);
                     $imageLink = Arr::random($faceImg);
                     break;
-            }
+            }            
 
             Product::create([
                 'name' => $productName,
-                'price' => rand(1000, 100000) / 100,
+                'price' => rand(3, 100000),
                 'image_link' => $imageLink,
                 'description' => $faker->paragraph(2),
                 'rating' => rand(1, 5),

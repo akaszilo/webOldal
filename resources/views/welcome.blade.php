@@ -1,6 +1,7 @@
 @extends('app')
 
 @section('content')
+    {{-- regisztráció után kapott sikeres regisztráció üzenet --}}
     <main class="container mt-4">
         <div class="toast-container position-fixed top-0 end-0 p-3">
             <div id="registrationToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">

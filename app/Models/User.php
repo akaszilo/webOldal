@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Auth\Passwords\CanResetPassword;
 
 class User extends Authenticatable
 {
@@ -15,8 +16,6 @@ class User extends Authenticatable
     use HasFactory;
     use SoftDeletes;
     protected $fillabe = [""];
-
-
     /**
      * The attributes that are mass assignable.
      *
