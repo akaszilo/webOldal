@@ -11,6 +11,7 @@ class ProductController extends Controller
 {
     public function index(): View
     {
+        
         $userName = Auth::check() ? Auth::user()->name : 'Vendég';
 
         $bestsellers = Product::orderBy('sold_quantity', 'desc')->take(15)->get();
@@ -44,9 +45,16 @@ class ProductController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Product $product)
+    public function show(Product $product, $id)
     {
+        $product = Product::with('brand')->find($id);
+        
 
+        if (!$product) {
+            return redirect('/')->with('error', 'Product not found');
+        }
+    
+        return view('product.show', compact('product'));
     }
 
     /**

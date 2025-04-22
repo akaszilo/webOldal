@@ -22,14 +22,18 @@
                 @foreach ($bestsellers as $product)
                     <div class="col-md-3 mb-4">
                         <div class="card h-100">
+                            <a href="{{ route('product.show', ['id' => $product->id]) }}" class="product-link">
                             <img src="{{ $product->image_link }}" class="card-img-top w-[154px] h-[154px]" alt="{{ $product->name }}">
                             <div class="card-body">
                                 <h5 class="card-title">{{ $product->name }}</h5>
+                            </a>
                                 <p class="card-text">
                                     {{ number_format($product->price, 0, ',', ' ') }} $
                                 </p>
-                                <p class="text-muted">Eladott darab: {{ $product->sold_quantity }}</p>
+                                <p>{{ $product->brand->name }}</p>
+                                <p class="text-muted">Sold quantity: {{ $product->sold_quantity }}</p>
                             </div>
+                        
                         </div>
                     </div>
                 @endforeach
@@ -43,13 +47,18 @@
                 @foreach ($latestProducts as $product)
                     <div class="col-md-3 mb-4">
                         <div class="card h-100">
-                            <img src="{{ $product->image_link }}" class="card-img-top" alt="{{ $product->name }}">
-                            <div class="card-body">
-                                <h5 class="card-title">{{ $product->name }}</h5>
-                                <p class="card-text">
-                                    {{ number_format($product->price, 0, ',', ' ') }} $
-                                </p>
-                            </div>
+                            <a href="{{ route('product.show', ['id' => $product->id]) }}" class="product-link">
+                                <img src="{{ $product->image_link }}" class="card-img-top w-[154px] h-[154px]" alt="{{ $product->name }}">
+                                <div class="card-body">
+                                    <h5 class="card-title">{{ $product->name }}</h5>
+                                </a>
+                                 <a href="{{ route('brand.show', $brand->id) }}">
+                                <p>{{ $product->brand->name }}</p>
+                                    <p class="card-text">
+                                        {{ number_format($product->price, 0, ',', ' ') }} $
+                                    </p>
+                                </div>
+                           
                         </div>
                     </div>
                 @endforeach
@@ -62,7 +71,10 @@
             <div class="row">
                 @foreach ($featuredBrands as $brand)
                     <div class="col-md-3 mb-4">
-                        <button>{{$brand->name}}</button>
+                        <a href="{{ route('brands.show', $brand->id) }}">
+                            <button class="bg-gradient-to-r from-pink-500 to-red-500 text-black text-lg font-semibold py-3 px-6 rounded-full">{{$brand->name}}</button>
+                        </a>
+                        
                     </div>
                 @endforeach
             </div>
