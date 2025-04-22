@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Auth\ResetPasswordController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
@@ -13,18 +14,8 @@ Route::get('/', [ProductController::class, 'index'])->name('home');
 
 Auth::routes();
 
-Route::get('/forgot-password', function () {
-    return view('auth.forgot-password');
-})->middleware('guest')->name('password.request');
+Route::view('/forgot-password', 'auth.forgot-password')->name('password.request');
 
-Route::post('/forgot-password', function (Request $request) {
-    $request->validate(['email' => 'required|email']);
- 
-    $status = Password::sendResetLink(
-        $request->only('email')
-    );
- 
-    return $status === Password::ResetLinkSent
-        ? back()->with(['status' => __($status)])
-        : back()->withErrors(['email' => __($status)]);
-})->middleware('guest')->name('password.email');
+Route::post('/forgot-password', [ResetPasswordController::class, 'passwordEmail']);
+
+Route::get('/reset-password/{token}', [ResetPasswordController::class, 'passwordReset'])->name('password.reset');

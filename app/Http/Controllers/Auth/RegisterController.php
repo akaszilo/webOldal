@@ -40,7 +40,6 @@ class RegisterController extends Controller
     {
         $this->middleware('guest');
     }
-
     /**
      * Get a validator for an incoming registration request.
      *
@@ -55,7 +54,6 @@ class RegisterController extends Controller
             'password' => ['required', 'string', 'min:8', 'confirmed'],
         ]);
     }
-
     /**
      * Create a new user instance after a valid registration.
      *
@@ -70,6 +68,7 @@ class RegisterController extends Controller
             'password' => Hash::make($data['password']),
         ]);
     }
+
     public function register(\Illuminate\Http\Request $request)
     {
         $this->validator($request->all())->validate();
