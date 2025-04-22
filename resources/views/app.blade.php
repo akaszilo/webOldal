@@ -34,6 +34,10 @@
                             Arc
                         </a>
                         <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="#">Arc</a></li>
+                            <li>
+                                <hr class="dropdown-divider">
+                            </li>
                             <li><a class="dropdown-item" href="#">Alapozó</a></li>
                             <li><a class="dropdown-item" href="#">Korrektor</a></li>
                             <li><a class="dropdown-item" href="#">Púder</a></li>
@@ -48,6 +52,10 @@
                             Száj
                         </a>
                         <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="#">Száj</a></li>
+                            <li>
+                                <hr class="dropdown-divider">
+                            </li>
                             <li><a class="dropdown-item" href="#">Rúzs</a></li>
                             <li><a class="dropdown-item" href="#">Ajak ceruza</a></li>
                             <li><a class="dropdown-item" href="#">Szájfény</a></li>
@@ -60,6 +68,10 @@
                             Szem
                         </a>
                         <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="#">Szem</a></li>
+                            <li>
+                                <hr class="dropdown-divider">
+                            </li>
                             <li><a class="dropdown-item" href="#">Szemceruza</a></li>
                             <li><a class="dropdown-item" href="#">Szemhéj paletta</a></li>
                             <li><a class="dropdown-item" href="#">Szempilla spirál</a></li>
@@ -88,21 +100,27 @@
                             @endif
                         @else
                             <li class="nav-item dropdown">
-                                <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button"
-                                    data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                                    data-bs-toggle="dropdown" aria-expanded="false">
                                     {{ Auth::user()->name }}
                                 </a>
-                                <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" href="{{ route('logout') }}"
-                                        onclick="event.preventDefault();
-                                    document.getElementById('logout-form').submit();">
-                                        {{ __('Logout') }}
-                                    </a>
-                                    <form id="logout-form" action="{{ route('logout') }}" method="POST"
-                                        class="d-none">
-                                        @csrf
-                                    </form>
-                                </div>
+                                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                    <li><a class="dropdown-item" href="#">Profil</a></li>
+                                    <li><a class="dropdown-item" href="#">Kosár</a></li>
+                                    <li>
+                                        <hr class="dropdown-divider">
+                                    </li>
+                                    <li>
+                                        <a class="dropdown-item" href="{{ route('logout') }}"
+                                            onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                                            {{ __('Logout') }}
+                                        </a>
+                                        <form id="logout-form" action="{{ route('logout') }}" method="POST"
+                                            class="d-none">
+                                            @csrf
+                                        </form>
+                                    </li>
+                                </ul>
                             </li>
                         @endguest
                     </ul>

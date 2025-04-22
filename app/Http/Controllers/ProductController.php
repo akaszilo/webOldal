@@ -4,12 +4,15 @@ namespace App\Http\Controllers;
 
 use App\Models\Product;
 use App\Models\Brand;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
 
 class ProductController extends Controller
 {
     public function index(): View
     {
+        $userName = Auth::check() ? Auth::user()->name : 'Vendég';
+
         $bestsellers = Product::orderBy('sold_quantity', 'desc')->take(15)->get();
         $latestProducts = Product::orderBy('created_at', 'desc')->take(10)->get();
         $featuredBrands = Brand::take(5)->get();
@@ -18,6 +21,7 @@ class ProductController extends Controller
             'bestsellers' => $bestsellers,
             'latestProducts' => $latestProducts,
             'featuredBrands' => $featuredBrands,
+            'userName' => $userName
         ]);
     }
 
