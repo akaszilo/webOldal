@@ -169,8 +169,7 @@ class ProductSeeder extends Seeder
             'https://s3.amazonaws.com/donovanbailey/products/api_featured_images/000/000/515/original/data?1514062146',
             'https://s3.amazonaws.com/donovanbailey/products/api_featured_images/000/000/413/original/data?1514063320',
             'https://s3.amazonaws.com/donovanbailey/products/api_featured_images/000/000/412/original/data?1514063320',
-            'https://s3.amazonaws.com/donovanbailey/products/api_featured_images/000/000/398/original/open-uri20171223-4-11xbwij?1514063314',
-            'https://s3.amazonaws.com/donovanbailey/products/api_featured'
+            'https://s3.amazonaws.com/donovanbailey/products/api_featured_images/000/000/398/original/open-uri20171223-4-11xbwij?1514063314'
         ];
         
         $eyesImg = [
@@ -206,7 +205,6 @@ class ProductSeeder extends Seeder
             "https://s3.amazonaws.com/donovanbailey/products/api_featured_images/000/000/876/original/open-uri20171224-4-wz7a6o?1514082425",
             "https://s3.amazonaws.com/donovanbailey/products/api_featured_images/000/000/875/original/open-uri20171224-4-16xna3r?1514082424",
             "https://s3.amazonaws.com/donovanbailey/products/api_featured_images/000/000/874/original/open-uri20171224-4-14udrjs?1514082454",
-            "https://s3.amazonaws.com/donovanbailey/products/api_featured_images/000/000/873/original/open-uri20171224-4-1r5y1g1?1514082422",
             "https://s3.amazonaws.com/donovanbailey/products/api_featured_images/000/000/872/original/open-uri20171224-4-193brnk?1514082418",
             "https://s3.amazonaws.com/donovanbailey/products/api_featured_images/000/000/871/original/open-uri20171224-4-qu6f92?1514082411",
             "https://s3.amazonaws.com/donovanbailey/products/api_featured_images/000/000/870/original/open-uri20171224-4-1x4oohd?1514082406",
