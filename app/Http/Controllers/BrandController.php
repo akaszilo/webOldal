@@ -39,10 +39,7 @@ class BrandController extends Controller
     public function show(Brand $brand)
     {
         $products = $brand->products()->with('brand')->get();
-
-    return view('brand.show', compact('brand', 'products'));
-    
-
+        return view('brand.show', compact('brand', 'products'));
     }
 
     /**

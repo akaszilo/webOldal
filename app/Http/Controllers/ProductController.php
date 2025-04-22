@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreProductRequest;
+use App\Http\Requests\UpdateProductRequest;
 use App\Models\Product;
 use App\Models\Brand;
 use Illuminate\Support\Facades\Auth;
@@ -11,7 +13,6 @@ class ProductController extends Controller
 {
     public function index(): View
     {
-        
         $userName = Auth::check() ? Auth::user()->name : 'Vendég';
 
         $bestsellers = Product::orderBy('sold_quantity', 'desc')->take(15)->get();
@@ -23,12 +24,7 @@ class ProductController extends Controller
             'latestProducts' => $latestProducts,
             'featuredBrands' => $featuredBrands,
             'userName' => $userName
-        ]);
-
-        
-
-
-        
+        ]);       
     }
 
     /**
