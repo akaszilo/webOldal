@@ -8,9 +8,29 @@ use App\Models\Product;
 use App\Models\Brand;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
+use Illuminate\Http\Request;
 
 class ProductController extends Controller
 {
+
+    public function autocomplete(Request $request)
+    {
+        $query = $request->get('query');
+        $products = Product::where('name', 'like', '%' . $query . '%')
+            ->take(5)
+            ->get();
+
+        return response()->json($products);
+    }
+
+    public function search(Request $request)
+    {
+        $query = $request->get('search');
+        $products = Product::where('name', 'like', '%' . $query . '%')->get();
+
+        return view('product.search', ['products' => $products, 'query' => $query]);
+    }
+
     public function index(): View
     {
         $userName = Auth::check() ? Auth::user()->name : 'Vendég';
@@ -24,7 +44,7 @@ class ProductController extends Controller
             'latestProducts' => $latestProducts,
             'featuredBrands' => $featuredBrands,
             'userName' => $userName
-        ]);       
+        ]);
     }
 
     /**
@@ -47,13 +67,13 @@ class ProductController extends Controller
      * Display the specified resource.
      */
 
-     public function filterByBrand(Brand $brand)
-{
-    $brands = Brand::all();
-    $products = Product::where('brand_id', $brand->id)->get();
+    public function filterByBrand(Brand $brand)
+    {
+        $brands = Brand::all();
+        $products = Product::where('brand_id', $brand->id)->get();
 
-    return view('products.index', compact('products', 'brands', 'brand'));
-}
+        return view('product.show', compact('products', 'brands', 'brand'));
+    }
     public function show(Product $product)
     {
         $brand = $product->brand;  // A Product modelben definiált kapcsolatot használjuk
@@ -63,9 +83,9 @@ class ProductController extends Controller
         if (!$product) {
             abort(404); // Ha nincs ilyen termék, 404-es hibát adunk vissza
         }
-    
+
         return view('product.show', compact('product'));
-    }   
+    }
 
     /**
      * Show the form for editing the specified resource.

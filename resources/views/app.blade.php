@@ -19,7 +19,9 @@
 <body class="d-flex flex-column min-vh-100">
     <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
         <div class="container">
-            <a class="navbar-brand" href="{{ route('home') }}">Main</a>
+            <a class="navbar-brand" href="{{ route('home') }}">
+                Main
+            </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                 data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
                 aria-label="{{ __('Toggle navigation') }}">
@@ -27,7 +29,7 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <!-- Left Side Of Navbar -->
-                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <ul class="navbar-nav me-auto ">
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
                             aria-expanded="false">
@@ -81,10 +83,13 @@
                 </ul>
                 <!-- Right Side Of Navbar -->
                 <div class="d-flex ms-auto align-items-center">
-                    <form class="d-flex me-2" role="search">
-                        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                    <form class="d-flex me-2" role="search" action="{{ route('search') }}" method="GET">
+                        <input class="form-control me-2" type="search" id="search" name="search"
+                            placeholder="Search" aria-label="Search" autocomplete="off">
                         <button class="btn btn-outline-success" type="submit">Search</button>
+                        <div id="searchResults" class="list-group"></div>
                     </form>
+
                     <ul class="navbar-nav">
                         <!-- Authentication Links -->
                         @guest
@@ -157,6 +162,47 @@
     </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const searchInput = document.getElementById('search');
+            const searchResults = document.getElementById('searchResults');
+
+            searchInput.addEventListener('input', function() {
+                let query = this.value;
+
+                if (query.length > 2) {
+                    fetch('/search/autocomplete?query=' + query)
+                        .then(response => response.json())
+                        .then(data => {
+                            searchResults.innerHTML = '';
+                            if (data.length > 0) {
+                                data.forEach(product => {
+                                    let a = document.createElement('a');
+                                    a.href = '/product/' + product.id;
+                                    a.classList.add('list-group-item',
+                                    'list-group-item-action');
+                                    a.textContent = product.name;
+                                    searchResults.appendChild(a);
+                                });
+                                searchResults.style.display = 'block';
+                            } else {
+                                searchResults.style.display = 'none';
+                            }
+                        });
+                } else {
+                    searchResults.style.display = 'none';
+                }
+            });
+
+            document.addEventListener('click', function(event) {
+                if (!searchInput.contains(event.target) && !searchResults.contains(event.target)) {
+                    searchResults.style.display = 'none';
+                }
+            });
+        });
+    </script>
+
+
 </body>
 
 </html>

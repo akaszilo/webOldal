@@ -9,3 +9,15 @@
     --font-sans: 'Instrument Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
         'Segoe UI Symbol', 'Noto Color Emoji';
 }
+
+#searchResults {
+    position: absolute;
+    top: 56px; /* Navbar magassága */
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+    display: none;
+    background-color: white; /* A találatok háttere */
+    border: 1px solid #ccc; /* Keret a találatok körül */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Árnyék a "message box" hatásért */
+}

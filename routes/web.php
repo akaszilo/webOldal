@@ -41,3 +41,6 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/email/verification-notification', [VerificationController::class, 'resend'])
         ->name('verification.resend');
 });
+
+Route::get('/search/autocomplete', [ProductController::class, 'autocomplete'])->name('search.autocomplete');
+Route::get('/search', [ProductController::class, 'search'])->name('search');
