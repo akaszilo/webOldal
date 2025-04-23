@@ -21,3 +21,23 @@ Route::post('/forgot-password', [ResetPasswordController::class, 'passwordEmail'
 Route::get('/reset-password/{token}', [ResetPasswordController::class, 'passwordReset'])->name('password.reset');
 
 Route::post('/reset-password', [ResetPasswordController::class, 'passwordUpdate'])->name('password.update');
+
+use Illuminate\Foundation\Auth\EmailVerificationRequest;
+use Illuminate\Http\Request;
+use App\Http\Controllers\Auth\VerificationController;
+
+Route::middleware(['auth'])->group(function () {
+    // Email verification notice page
+    Route::get('/email/verify', function () {
+        return view('auth.verify');
+    })->name('verification.notice');
+
+    // Email verification handler
+    Route::get('/email/verify/{id}/{hash}', [VerificationController::class, 'verify'])
+        ->middleware(['signed'])
+        ->name('verification.verify');
+
+    // Resend verification email
+    Route::post('/email/verification-notification', [VerificationController::class, 'resend'])
+        ->name('verification.resend');
+});
