@@ -5,7 +5,7 @@
 
 
 
-.div {
+#searchResults {
     position: absolute;
     top: 56px; /* Navbar magassága */
     left: 0;
@@ -15,35 +15,4 @@
     background-color: white; /* A találatok háttere */
     border: 1px solid #ccc; /* Keret a találatok körül */
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Árnyék a "message box" hatásért */
-}
-
-
-.simplebar-scrollbar:before {
-    background: var(--color-border) !important;
-  }
-  [data-simplebar], .simplebar-offset, .simplebar-content,.simplebar-wrapper,.simplebar-mask,.simplebar-content-wrapper{
-    outline:none !important;
-    border:none !important
-  }
-
-  @keyframes gradient {
-    0% {
-      background-position: 0% 50%;
-    }
-    50% {
-      background-position: 100% 50%;
-    }
-    100% {
-      background-position: 0% 50%;
-    }
-  }
-
-@media screen and (max-width:1280px) {
-    .page-wrapper{
-        margin-left: 0px;
-    }
-}
-
-[data-sidebar-type="mini-sidebar"] .page-wrapper-sub {
-    margin-left: 15px;
 }

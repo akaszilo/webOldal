@@ -6,12 +6,27 @@ use App\Http\Requests\StoreProductRequest;
 use App\Http\Requests\UpdateProductRequest;
 use App\Models\Product;
 use App\Models\Brand;
+use App\Models\Category;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
 use Illuminate\Http\Request;
 
 class ProductController extends Controller
 {
+
+    /* public function showCategory(string $categorySlug): View
+    {
+
+        $category = Category::where('slug', $categorySlug)->firstOrFail(); 
+        $products = Product::where('category_id', $category->id)->get();
+        $categories = Category::all();
+
+        return view('product.category', [
+            'category' => $category,
+            'products' => $products,
+            'categories' => $categories,
+        ]);
+    } */
 
     public function autocomplete(Request $request)
     {

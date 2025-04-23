@@ -14,11 +14,20 @@ class CategorySeeder extends Seeder
     public function run(): void
     {
         $categories = [
-            'Face',
-            'Eyes',
-            'Lips'
+            'Foundation',
+            'Powder',
+            'Blush',
+            'Bronzer',
+            'Contour',
+            'Lipstick',
+            'Lip Liner',
+            'Lip Gloss',
+            'Lip Oil',
+             'Eyeliner',
+             'Eyeshadow Palette',
+             'Mascara',
+             'Eyebrow Pencil',
         ];
-
         
         foreach ($categories as $category) {
             Category::create([

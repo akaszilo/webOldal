@@ -40,12 +40,12 @@
                             <li>
                                 <hr class="dropdown-divider">
                             </li>
-                            <li><a class="dropdown-item" href="#">Alapozó</a></li>
+                            <li><a class="dropdown-item" href="{{ route('categories.show', ['category' => 1]) }}">Foundation</a></li>
                             <li><a class="dropdown-item" href="#">Korrektor</a></li>
-                            <li><a class="dropdown-item" href="#">Púder</a></li>
-                            <li><a class="dropdown-item" href="#">Pirosító</a></li>
-                            <li><a class="dropdown-item" href="#">Kontúr</a></li>
-                            <li><a class="dropdown-item" href="#">Bronzer</a></li>
+                            <li><a class="dropdown-item" href="{{ route('categories.show', ['category' => 2]) }}">Powder</a></li>
+                            <li><a class="dropdown-item" href="{{ route('categories.show', ['category' => 3]) }}">Blush</a></li>
+                            <li><a class="dropdown-item" href="{{ route('categories.show', ['category' => 5]) }}">Contour</a></li>
+                            <li><a class="dropdown-item" href="{{ route('categories.show', ['category' => 4]) }}">Bronzer</a></li>
                         </ul>
                     </li>
                     <li class="nav-item dropdown">
@@ -58,10 +58,10 @@
                             <li>
                                 <hr class="dropdown-divider">
                             </li>
-                            <li><a class="dropdown-item" href="#">Rúzs</a></li>
-                            <li><a class="dropdown-item" href="#">Ajak ceruza</a></li>
-                            <li><a class="dropdown-item" href="#">Szájfény</a></li>
-                            <li><a class="dropdown-item" href="#">Ajak olaj</a></li>
+                            <li><a class="dropdown-item" href="{{ route('categories.show', ['category' => 6]) }}">Lipstick</a></li>
+                            <li><a class="dropdown-item" href="{{ route('categories.show', ['category' => 7]) }}">Lip liner</a></li>
+                            <li><a class="dropdown-item" href="{{ route('categories.show', ['category' => 8]) }}">Lipgloss</a></li>
+                            <li><a class="dropdown-item" href="{{ route('categories.show', ['category' => 9]) }}">Lip oil</a></li>
                         </ul>
                     </li>
                     <li class="nav-item dropdown">
@@ -74,10 +74,10 @@
                             <li>
                                 <hr class="dropdown-divider">
                             </li>
-                            <li><a class="dropdown-item" href="#">Szemceruza</a></li>
-                            <li><a class="dropdown-item" href="#">Szemhéj paletta</a></li>
-                            <li><a class="dropdown-item" href="#">Szempilla spirál</a></li>
-                            <li><a class="dropdown-item" href="#">Szemöldök ceruza</a></li>
+                            <li><a class="dropdown-item" href="{{ route('categories.show', ['category' => 10]) }}">Eyeliner</a></li>
+                            <li><a class="dropdown-item" href="{{ route('categories.show', ['category' => 11]) }}">Eyeshadpw Palette</a></li>
+                            <li><a class="dropdown-item" href="{{ route('categories.show', ['category' => 12]) }}">Mascara</a></li>
+                            <li><a class="dropdown-item" href="{{ route('categories.show', ['category' => 13]) }}">Eyebrow Pencil</a></li>
                         </ul>
                     </li>
                 </ul>
