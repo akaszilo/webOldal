@@ -1,5 +1,5 @@
 @extends('app')
-@vite('resources/css/app.css')
+
 @section('content')
 
     <main class="container mt-4">

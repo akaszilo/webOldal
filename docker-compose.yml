@@ -1,0 +1,26 @@
+version: "3.9"
+services:
+  app:
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./:/var/www/html
+    depends_on:
+      - mailpit
+    networks:
+      - app-network
+
+  mailpit:
+    image: axllent/mailpit:latest
+    ports:
+      - "1025:1025" # SMTP Port
+      - "8025:8025" # Web UI
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge
