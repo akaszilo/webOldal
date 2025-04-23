@@ -12,6 +12,7 @@ Route::get('/product/{product}', [ProductController::class, 'show'])->name('prod
 Route::get('/products', [ProductController::class, 'index'])->name('products.index');
 Route::get('/products/brand/{brand}', [ProductController::class, 'filterByBrand'])->name('products.byBrand');
 
+
 Auth::routes();
 
 Route::view('/forgot-password', 'auth.forgot-password')->name('password.request');

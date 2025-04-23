@@ -15,6 +15,7 @@ class ProductController extends Controller
 
     public function autocomplete(Request $request)
     {
+        
         $query = $request->get('query');
         $products = Product::where('name', 'like', '%' . $query . '%')
             ->take(5)
@@ -77,6 +78,7 @@ class ProductController extends Controller
     public function show(Product $product)
     {
         $brand = $product->brand;  // A Product modelben definiált kapcsolatot használjuk
+        $products = $brand->products()->with('brand')->get();
 
         return view('product.show', compact('product', 'brand'));
 

@@ -17,3 +17,4 @@ Route::resource('cart', CartController::class);
 Route::resource('category', CategoryController::class);
 Route::resource('order', OrderController::class);
 Route::resource('product', ProductController::class);
+

@@ -50,12 +50,13 @@
                              <img src="{{ $product->image_link }}" class="card-img-top" alt="{{ $product->name }}">
                             <div class="card-body">
                                 <h5 class="card-title">{{ $product->name }}</h5>
+                            </a>
+                            
                                 <p>{{ $product->brand->name }}</p>
                                 <p class="card-text">
                                     {{ number_format($product->price, 0, ',', ' ') }} $
                                 </p>
                             </div>
-                            </a>
                            
                         </div>
                     </div>
@@ -69,8 +70,9 @@
             <div class="row">
                 @foreach ($featuredBrands as $brand)
                     <div class="col-md-3 mb-4">
-                        <a href=""></a>
+                        <a href="{{route('brand.show', $brand->id)}}">
                         <button>{{$brand->name}}</button>
+                    </a>
                     </div>
                 @endforeach
             </div>
