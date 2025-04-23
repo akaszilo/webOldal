@@ -23,7 +23,7 @@
                     <div class="col-md-3 mb-4">
                         <div class="card h-100">
                             <a href="{{ route('product.show', $product->id) }}">
-                            <img src="{{ $product->image_link }}" class="card-img-top w-[154px] h-[154px]" alt="{{ $product->name }}">
+                            <img src="{{ $product->image_link }}" class="card-img-top" alt="{{ $product->name }}">
                             <div class="card-body">
                                 <h5 class="card-title">{{ $product->name }}</h5>
                             </a>

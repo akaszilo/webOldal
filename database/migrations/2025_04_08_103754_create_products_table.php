@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string("description");
             $table->integer("rating");
             $table->integer("sold_quantity")->default(0);
+            $table->integer("instock");
             $table->foreignId('brand_id')->constrained('brands', 'id');
             $table->foreignId('category_id')->constrained('categories', 'id');
             $table->timestamps();

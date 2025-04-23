@@ -23,10 +23,10 @@ class CategorySeeder extends Seeder
             'Lip Liner',
             'Lip Gloss',
             'Lip Oil',
-             'Eyeliner',
-             'Eyeshadow Palette',
-             'Mascara',
-             'Eyebrow Pencil',
+            'Eyeliner',
+            'Eyeshadow Palette',
+            'Mascara',
+            'Eyebrow Pencil',
         ];
         
         foreach ($categories as $category) {

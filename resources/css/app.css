@@ -42,16 +42,18 @@
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
+}
 
 .simplebar-scrollbar:before {
     background: var(--color-border) !important;
   }
-  [data-simplebar], .simplebar-offset, .simplebar-content,.simplebar-wrapper,.simplebar-mask,.simplebar-content-wrapper{
+
+[data-simplebar], .simplebar-offset, .simplebar-content,.simplebar-wrapper,.simplebar-mask,.simplebar-content-wrapper{
     outline:none !important;
     border:none !important
-  }
+}
 
-  @keyframes gradient {
+@keyframes gradient {
     0% {
       background-position: 0% 50%;
     }
@@ -61,7 +63,7 @@
     100% {
       background-position: 0% 50%;
     }
-  }
+}
 
 @media screen and (max-width:1280px) {
     .page-wrapper{
@@ -72,4 +74,9 @@
 [data-sidebar-type="mini-sidebar"] .page-wrapper-sub {
     margin-left: 15px;
 }
+
+.card-img-top {
+    width: 100%; /* A kép szélessége a card szélességének 100%-a legyen */
+    height: 250px; /* Fix magasság, pl. 200px */
+    object-fit: contain; /* A kép kitölti a területet, levágva, ha szükséges */
 }

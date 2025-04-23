@@ -30,11 +30,10 @@ class ProductController extends Controller
 
     public function autocomplete(Request $request)
     {
-        
         $query = $request->get('query');
         $products = Product::where('name', 'like', '%' . $query . '%')
             ->take(5)
-            ->get();
+            ->get(['id', 'name', 'price', 'instock', 'sold_quantity', 'image_link']);
 
         return response()->json($products);
     }

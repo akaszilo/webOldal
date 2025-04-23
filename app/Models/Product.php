@@ -20,7 +20,8 @@ class Product extends Model
         "rating",
         "category_id",
         "brand_id",
-        "sold_quantity"
+        "sold_quantity",
+        "instock"
     ];
 
     public function brand(): BelongsTo 
