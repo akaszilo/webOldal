@@ -14,9 +14,9 @@ class ProfileController extends Controller
      */
     public function index()
     {
-        $orders = Auth::user()->orders()->get();
+        //$orders = Auth::user()->orders()->get();
 
-        return view('user_pages.profile', compact('orders'));
+        //return view('user_pages.profile', compact('orders'));
     }
 
     /**
