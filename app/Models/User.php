@@ -27,7 +27,11 @@ class User extends Authenticatable implements MustVerifyEmail, CanResetPassword
         'email',
         'password',
     ];
-
+    public function orders()
+    {
+        return $this->hasMany(Order::class);
+    }
+    
     /**
      * The attributes that should be hidden for serialization.
      *

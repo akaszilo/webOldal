@@ -1,27 +1,25 @@
-{{-- resources/views/categories/show.blade.php --}}
-@extends('app') {{-- vagy amit használsz layoutként --}}
+@extends('app')
 
 @section('content')
-<div class="container py-4">
-    <h1 class="mb-4">Smink kategória: {{ $category->name }}</h1>
-
-    
+    <div class="container py-4">
+        <h1 class="mb-4">Smink kategória: {{ $category->name }}</h1>
         <div class="row">
-            @foreach($category->products as $product)
+            @foreach ($category->products as $product)
                 <div class="col-md-4 mb-4">
-                    <div class="card h-100 shadow-sm">
-                            <img src="{{  $product->image_link }}" class="card-img-top" alt="{{ $product->name }}">
-                        
-                        <div class="card-body">
-                            <h5 class="card-title">{{ $product->name }}</h5>
-                            <p class="card-text text-muted">{{ $product->description }}</p>
-                            <p class="card-text fw-bold">{{ number_format($product->price, 0, ',', ' ') }} $</p>
+                    <a href="{{ route('product.show', $product->id) }}" class="card-link">
+                        <div class="card product-card">
+                            <img src="{{ asset($product->image_link) }}" class="card-img-top img-fluid" alt="{{ $product->name }}">
+                            <div class="card-body">
+                                <h3 class="card-title">{{ $product->name }}</h3>
+                                <h5>{{ $product->brand->name }}</h5>
+                                <p class="card-text">Price: {{ $product->price }} $</p>
+                                <p class="card-text">Sold: {{ $product->sold_quantity }} db</p>
+                                <p class="card-text">In stock: {{ $product->instock }} db</p>
+                            </div>
                         </div>
-                    </div>
+                    </a>
                 </div>
             @endforeach
         </div>
-
-    
-</div>
+    </div>
 @endsection

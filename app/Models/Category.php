@@ -11,7 +11,7 @@ class Category extends Model
     use HasFactory;
     use SoftDeletes;
 
-    protected $fillable = ["face", "lips", "eyes"]; 
+    protected $fillable = ["name"]; 
     public function products()
 {
     return $this->hasMany(Product::class);

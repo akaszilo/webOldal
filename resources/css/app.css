@@ -80,3 +80,19 @@
     height: 250px; /* Fix magasság, pl. 200px */
     object-fit: contain; /* A kép kitölti a területet, levágva, ha szükséges */
 }
+
+a {
+    text-decoration: none;
+    color: black;
+}
+
+.nav-link.dropdown-toggle::after {
+    display: none;
+}
+
+@media (max-width: 768px) {
+    /* Stílusok kisebb képernyőkre */
+    .elem {
+        font-size: 16px;
+    }
+}

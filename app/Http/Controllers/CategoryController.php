@@ -5,9 +5,32 @@ namespace App\Http\Controllers;
 use App\Models\Category;
 use App\Http\Requests\StoreCategoryRequest;
 use App\Http\Requests\UpdateCategoryRequest;
+use App\Models\Product;
 
 class CategoryController extends Controller
 {
+    public function showeyes()
+    {
+        $eyeCategories = [11, 12, 13, 14]; 
+        $products = Product::whereIn('category_id', $eyeCategories)->get();
+
+        return view('categories.eyes', compact('products'));
+    }
+    public function showlips()
+    {
+        $lipCategories = [7, 8, 9, 10]; 
+        $products = Product::whereIn('category_id', $lipCategories)->get();
+
+        return view('categories.lips', compact('products'));
+    }
+    
+    public function showface()
+    {
+        $faceCategories = [1, 2, 3, 4, 5, 6]; 
+        $products = Product::whereIn('category_id', $faceCategories)->get();
+
+        return view('categories.face', compact('products'));
+    }
     /**
      * Display a listing of the resource.
      */

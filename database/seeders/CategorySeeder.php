@@ -15,6 +15,7 @@ class CategorySeeder extends Seeder
     {
         $categories = [
             'Foundation',
+            'Concealer',
             'Powder',
             'Blush',
             'Bronzer',
@@ -28,7 +29,7 @@ class CategorySeeder extends Seeder
             'Mascara',
             'Eyebrow Pencil',
         ];
-        
+
         foreach ($categories as $category) {
             Category::create([
                 'name' => $category

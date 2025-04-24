@@ -32,19 +32,28 @@ class ProductController extends Controller
     {
         $query = $request->get('query');
         $products = Product::where('name', 'like', '%' . $query . '%')
+            ->orWhereHas('brand', function ($q) use ($query) {
+                $q->where('name', 'like', '%' . $query . '%');
+            })
             ->take(5)
             ->get(['id', 'name', 'price', 'instock', 'sold_quantity', 'image_link']);
 
         return response()->json($products);
     }
 
+
     public function search(Request $request)
     {
         $query = $request->get('search');
-        $products = Product::where('name', 'like', '%' . $query . '%')->get();
+        $products = Product::where('name', 'like', '%' . $query . '%')
+            ->orWhereHas('brand', function ($q) use ($query) {
+                $q->where('name', 'like', '%' . $query . '%');
+            })
+            ->get();
 
         return view('product.search', ['products' => $products, 'query' => $query]);
     }
+
 
     public function index(): View
     {
@@ -89,6 +98,13 @@ class ProductController extends Controller
 
         return view('product.show', compact('products', 'brands', 'brand'));
     }
+
+    public function showRecommended(Product $product)
+    {
+        $randomProducts = Product::inRandomOrder()->take(4)->get();
+        return view('product.show', compact('product', 'randomProducts'));
+    }
+
     public function show(Product $product)
     {
         $brand = $product->brand;  // A Product modelben definiált kapcsolatot használjuk
