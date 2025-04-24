@@ -34,9 +34,6 @@ Route::middleware(['auth'])->group(function () {
 });
 
 //cart add
-Route::middleware(['auth'])->group(function () {
-    Route::post('/cart/add/{id}', [CartController::class, 'add'])->name('cart.add');
-});
 
 
 
@@ -56,4 +53,12 @@ Route::get('/product/{product}', [ProductController::class, 'showRecommended'])-
 Route::get('/products', [ProductController::class, 'index'])->name('products.index');
 Route::get('/products/brand/{brand}', [ProductController::class, 'filterByBrand'])->name('products.byBrand');
 Route::get('/profile', [ProfileController::class, 'index'])->name('profile');
+
+//cart
+Route::middleware(['auth'])->group(function () {
+    Route::get('/cart', [CartController::class, 'index'])->name('cart.index');
+    Route::post('/cart/add/{id}', [CartController::class, 'add'])->name('cart.add');
+    Route::post('/cart/remove/{id}', [CartController::class, 'remove'])->name('cart.remove');
+    Route::post('/cart/clear', [CartController::class, 'clear'])->name('cart.clear');
+});
 

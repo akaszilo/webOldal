@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Cart;
 use App\Models\Product;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\StoreCartRequest;
 use App\Http\Requests\UpdateCartRequest;
@@ -32,7 +33,7 @@ class CartController extends Controller
                  "name" => $product->name,
                  "quantity" => 1,
                  "price" => $product->price,
-                 "image" => $product->image
+                 "image" => $product->image_link
              ];
          }
      
@@ -43,9 +44,32 @@ class CartController extends Controller
          
      }
 
-    public function index()
+     public function remove($id)
     {
-        //
+        $cart = session()->get('cart', []);
+
+        // Ha létezik az elem, töröljük
+        if (isset($cart[$id])) {
+            unset($cart[$id]);
+            session()->put('cart', $cart);
+        }
+
+        return redirect()->route('cart.index')->with( ("prodc"));
+    }
+
+    public function clear()
+    {
+        session()->forget('cart');
+
+        return redirect()->route('cart.index')->with('success', 'Cart cleared.');
+    }
+
+    public function index(Request $request)
+    {
+        $cart = $request->session()->get('cart', []);
+
+        // Átadjuk a cart változót a nézetnek
+        return view('cart.index', compact('cart'));
     }
 
     /**
