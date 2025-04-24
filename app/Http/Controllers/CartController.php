@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Cart;
+use App\Models\Product;
+use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\StoreCartRequest;
 use App\Http\Requests\UpdateCartRequest;
 
@@ -11,6 +13,36 @@ class CartController extends Controller
     /**
      * Display a listing of the resource.
      */
+
+     public function add($id)
+     {
+        
+    if (!Auth::check()) {
+        return redirect()->route('register');
+    }
+    else{
+        $product = Product::findOrFail($id);
+     
+         $cart = session()->get('cart', []);
+     
+         if(isset($cart[$id])) {
+             $cart[$id]['quantity']++;
+         } else {
+             $cart[$id] = [
+                 "name" => $product->name,
+                 "quantity" => 1,
+                 "price" => $product->price,
+                 "image" => $product->image
+             ];
+         }
+     
+         session()->put('cart', $cart);
+     
+         return redirect()->back()->with('success', 'Product added to cart!');
+    }
+         
+     }
+
     public function index()
     {
         //

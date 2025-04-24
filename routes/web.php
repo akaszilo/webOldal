@@ -8,6 +8,7 @@ use App\Http\Controllers\CategoryController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\CartController;
 
 /* For authentication */
 Auth::routes();
@@ -31,6 +32,13 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/email/verification-notification', [VerificationController::class, 'resend'])
         ->name('verification.resend');
 });
+
+//cart add
+Route::middleware(['auth'])->group(function () {
+    Route::post('/cart/add/{id}', [CartController::class, 'add'])->name('cart.add');
+});
+
+
 
 /* For handling category filter */
 Route::get('/eyes', [CategoryController::class, 'showeyes'])->name('eyes');

@@ -17,13 +17,13 @@
                             alt="{{ $product->name }}">
                         <div class="card-body">
                             <h3 class="card-title">{{ $product->name }}</h3>
+                        </a>
                             <h5>{{ $product->brand->name }}</h5>
                             <p class="card-text">Price: {{ $product->price }} $</p>
                             <p class="card-text">Sold: {{ $product->sold_quantity }} db</p>
                             <p class="card-text">In stock: {{ $product->instock }} db</p>
                         </div>
                     </div>
-                </a>
             </div>
             @endforeach
             @endif

@@ -1,6 +1,8 @@
 @extends('app')
 
 @section('content')
+<form action="{{ route('cart.add', $product->id) }}" method="POST">
+    @csrf
     <div class="container py-4">
         <div class="card">
             <div class="card-body">
@@ -40,7 +42,7 @@
                 </div>
             </div>
         </div>
-
+    </form>
         <div class="row mt-4">
             <div class="col-md-12">
                 <h3>Ez is tetszet</h3>
