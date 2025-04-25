@@ -3,7 +3,7 @@
 @section('content')
     <div class="container">
         <h2>Bankkártya szerkesztése</h2>
-        <form method="POST" action="{{ route('credit-cards.update', $creditCard) }}">
+        <form method="POST" action="{{ route('credit_cards.update', $creditCard) }}">
             @csrf
             @method('PUT')
             <div class="mb-3">

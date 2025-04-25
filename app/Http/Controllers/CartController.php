@@ -19,36 +19,34 @@ class CartController extends Controller
 
      public function add($id)
      {
-        
-    if (!Auth::check()) {
-        return redirect()->route('register');
-    }
-    else{
-        $product = Product::findOrFail($id);
-     
-         $cart = session()->get('cart', []);
-     
-         if(isset($cart[$id])) {
-             $cart[$id]['quantity']++;
+         if (!Auth::check()) {
+             return redirect()->route('register');
          } else {
-            $cart[$id] = [ // $id is the product's ID
-                "id" => $product->id, 
-                "name" => $product->name,
-                "quantity" => 1,
-                "price" => $product->price,
-                "image" => $product->image_link,
-                'session_id' => session()->getId()
-            ];
+             $product = Product::findOrFail($id);
+     
+             $cart = session()->get('cart', []);
+     
+             if (isset($cart[$id])) {
+                 $cart[$id]['quantity']++;
+             } else {
+                 $cart[$id] = [ // $id is the product's ID
+                     "id" => $product->id,
+                     "name" => $product->name,
+                     "quantity" => 1,
+                     "price" => $product->price,
+                     "image" => $product->image_link,
+                     'session_id' => session()->getId()
+                 ];
+             }
+     
+             session()->put('cart', $cart);
+     
+             return redirect()->back()->with('success', 'Product added to cart!');
          }
-     
-         session()->put('cart', $cart);
-     
-         return redirect()->back()->with('success', 'Product added to cart!');
-    }
-         
      }
+     
 
-     public function remove($id)
+    public function remove($id)
     {
         $cart = session()->get('cart', []);
 
@@ -111,40 +109,39 @@ class CartController extends Controller
     {
         return view('cart.order-success');
     }
-    
-    
+
+
     public function checkout()
-{
-    // Kosár elemek lekérése session ID alapján
-    $cartItems = Cart::where('session_id', session()->getId())->get();
-
-    // Kosár végösszeg kiszámítása
-    $total = $cartItems->sum(function ($item) {
-        return $item->quantity * $item->price;
-    });
-
-    return view('checkout', [
-        'cartItems' => $cartItems,
-        'total' => $total,
-    ]);
-}
-
-    public function update(UpdateCartRequest $request, Cart $cart, $id)
     {
-       
-        $cart = session()->get('cart', []);
+        // Kosár elemek lekérése session ID alapján
+        $cartItems = Cart::where('session_id', session()->getId())->get();
 
-        
+        // Kosár végösszeg kiszámítása
+        $total = $cartItems->sum(function ($item) {
+            return $item->quantity * $item->price;
+        });
 
-        if(isset($cart[$id])) {
-            $quantity = $request->input('quantity');
-            $cart[$id]['quantity'] = $quantity;
-            session()->put('cart', $cart);
-            session()->flash('success', 'Cart updated!');
+        return view('checkout', [
+            'cartItems' => $cartItems,
+            'total' => $total,
+        ]);
+    }
+    public function update(Request $request, $productId)
+    {
+        $request->validate([
+            'quantity' => 'required|integer|min:1',
+        ]);
+    
+        $cart = session('cart');
+    
+        if(isset($cart[$productId])) {
+            $cart[$productId]['quantity'] = $request->quantity;
+            session(['cart' => $cart]);
         }
-
+    
         return redirect()->route('cart.index');
     }
+    
 
     /**
      * Remove the specified resource from storage.

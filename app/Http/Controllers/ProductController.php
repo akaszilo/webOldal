@@ -117,6 +117,9 @@ class ProductController extends Controller
         }
 
         return view('product.show', compact('product'));
+
+        $randomProducts = Product::inRandomOrder()->limit(4)->get();
+        return view('product.show', compact('product', 'randomProducts'));
     }
 
     /**

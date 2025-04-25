@@ -4,11 +4,13 @@ use App\Http\Controllers\Auth\VerificationController;
 use App\Http\Controllers\Auth\ResetPasswordController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\BrandController;
+use App\Http\Controllers\CreditCardController;
 use App\Http\Controllers\CategoryController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\CartController;
+use App\Http\Controllers\AddressController;
 
 /* For authentication */
 Auth::routes();
@@ -78,3 +80,10 @@ Route::middleware(['auth'])->group(function () {
 
 Route::get('/order/success', [CartController::class, 'orderSuccess'])->name('order.success');
 
+
+Route::middleware(['auth'])->group(function () {
+    Route::resource('credit_cards', CreditCardController::class)->except(['show']);
+});
+
+
+Route::resource('addresses', AddressController::class)->middleware('auth');

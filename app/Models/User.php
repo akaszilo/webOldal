@@ -36,6 +36,10 @@ class User extends Authenticatable implements MustVerifyEmail, CanResetPassword
     {
         return $this->hasMany(Address::class);
     }
+    public function creditCards(): HasMany
+    {
+        return $this->hasMany(CreditCard::class);
+    }
     
     /**
      * The attributes that should be hidden for serialization.

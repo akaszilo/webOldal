@@ -19,7 +19,8 @@ class Address extends Model
         'city',
         'street',
         'houseNumber',
-        'note'
+        'note',
+        'country'
     ];
 
     public function user(): BelongsTo

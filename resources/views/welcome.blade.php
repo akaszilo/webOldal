@@ -1,19 +1,25 @@
 @extends('app')
 
 @section('content')
-    <main class="container mt-4">
-        <div class="toast-container position-fixed top-0 end-0 p-3">
-            <div id="registrationToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
-                <div class="toast-header">
-                    <strong class="me-auto">Hello {{ $userName }}</strong>
-                    <small class="text-muted">most</small>
-                    <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
-                </div>
-                <div class="toast-body">
-                    Sikeresen regisztráltál!
-                </div>
-            </div>
+    <style>
+        .popup {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background-color: #5cb85c;
+            color: white;
+            padding: 15px 20px;
+            border-radius: 5px;
+            z-index: 1000;
+            display: none;
+        }
+    </style>
+
+    @if(session('success'))
+        <div id="successPopup" class="popup">
+            {{ session('success') }}
         </div>
+    @endif
         <!-- Bestsellerek -->
         <section class="bestsellers mb-5">
             <h2 class="mb-4">Legnépszerűbb termékek</h2>
@@ -86,15 +92,16 @@
         </section>
     </main>
 
+
     <script>
-        window.addEventListener('load', () => {
-            @if (Session::has('success'))
-                const toast = new bootstrap.Toast(document.getElementById('registrationToast'));
-                toast.show();
-                setTimeout(() => {
-                    toast.hide();
-                }, 10000);
-            @endif
-        });
+        window.onload = function() {
+            var popup = document.getElementById('successPopup');
+            if (popup) {
+                popup.style.display = 'block';
+                setTimeout(function() {
+                    popup.style.display = 'none';
+                }, 10000); // 10 másodperc
+            }
+        };
     </script>
 @endsection

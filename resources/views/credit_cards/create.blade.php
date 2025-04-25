@@ -3,7 +3,7 @@
 @section('content')
     <div class="container">
         <h2>Bankkártya hozzáadása</h2>
-        <form method="POST" action="{{ route('credit-cards.store') }}">
+        <form method="POST" action="{{ route('credit_cards.store') }}">
             @csrf
             <div class="mb-3">
                 <label for="card_number">Kártyaszám</label>

@@ -1,6 +1,25 @@
 @extends('app')
 
 @section('content')
+    <style>
+        .popup {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background-color: #5cb85c;
+            color: white;
+            padding: 15px 20px;
+            border-radius: 5px;
+            z-index: 1000;
+            display: none;
+        }
+    </style>
+
+    @if(session('success'))
+        <div id="successPopup" class="popup">
+            {{ session('success') }}
+        </div>
+    @endif
 <form action="{{ route('cart.add', $product->id) }}" method="POST">
     @csrf
     <div class="container py-4">
@@ -64,4 +83,16 @@
             @endforeach
         </div>
     </div>
+
+<script>
+    window.onload = function() {
+        var popup = document.getElementById('successPopup');
+        if (popup) {
+            popup.style.display = 'block';
+            setTimeout(function() {
+                popup.style.display = 'none';
+            }, 10000); // 10 másodperc
+        }
+    };
+</script>
 @endsection

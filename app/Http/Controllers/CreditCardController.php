@@ -34,8 +34,10 @@ class CreditCardController extends Controller
     public function store(StoreCreditCardRequest $request): RedirectResponse
     {
         Auth::user()->creditCards()->create($request->validated());
-        return redirect()->route('profile', ['tab' => 'cards'])->with('success', 'Credit card added.');
+        return redirect()->route('profile', ['tab' => 'cards']);
     }
+    
+    
     
     /**
 

@@ -18,44 +18,13 @@ class ProfileController extends Controller
     {
         $user = auth()->user();
         $addresses = auth()->user()->addresses ?? collect();
-        $orders = auth()->user()->orders ?? collect(); // Rendelések lekérdezése
-        return view('user_pages.profile', compact('addresses', 'user', 'orders')); // Add $orders
+        $orders = auth()->user()->orders ?? collect();
+        $creditCards = auth()->user()->creditCards ?? collect();
+        return view('user_pages.profile', compact('addresses', 'user', 'orders', 'creditCards'));
     }
-
-    public function createAddress()
-    {
-        return view('user_pages.address_form');
-    }
-    public function storeAddress(Request $request)
-    {
-        $request->validate([
-            'postCode' => 'required',
-            'city' => 'required',
-            'street' => 'required',
-            'houseNumber' => 'required',
-        ]);
-        $user = auth()->user(); // Lekérjük a felhasználót
-        $user->addresses()->create($request->all()); // Helyes mentés
-        return redirect()->route('profile');
-    }
-    public function editAddress(Address $address)
-    {
-        $this->authorize('update', $address);
-        return view('user_pages.address_form', compact('address'));
-    }
-
-    public function updateAddress(Request $request, Address $address)
-    {
-        $this->authorize('update', $address);
-        $request->validate([
-            'postCode' => 'required',
-            'city' => 'required',
-            'street' => 'required',
-            'houseNumber' => 'required',
-        ]);
-        $address->update($request->all());
-        return redirect()->route('profile');
-    }
+    
+    
+        
     /**
      * Show the form for creating a new resource.
      */
@@ -63,13 +32,7 @@ class ProfileController extends Controller
     {
         //
     }
-    public function deleteAddress(Address $address)
-    {
-        $this->authorize('delete', $address);
-        $address->delete();
-        return redirect()->route('profile');
-    }
-    /**
+        /**
      * Store a newly created resource in storage.
      */
     public function store(StoreProfileRequest $request)
