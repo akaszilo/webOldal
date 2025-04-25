@@ -15,12 +15,6 @@ return new class extends Migration
             $table->id();
             $table->decimal('total', 8, 2);
             $table->string('status')->default('pending');
-            $table->integer('orderId');
-            $table->integer('postCode');
-            $table->string('city');
-            $table->string('street');
-            $table->string('houseNumber');
-            $table->string('note');
             $table->foreignId('user_id');
             $table->foreignId('cart_id');
             $table->foreignId('product_id');

@@ -9,6 +9,7 @@ use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Contracts\Auth\CanResetPassword;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class User extends Authenticatable implements MustVerifyEmail, CanResetPassword
 {
@@ -30,6 +31,10 @@ class User extends Authenticatable implements MustVerifyEmail, CanResetPassword
     public function orders()
     {
         return $this->hasMany(Order::class);
+    }
+    public function addresses(): HasMany
+    {
+        return $this->hasMany(Address::class);
     }
     
     /**

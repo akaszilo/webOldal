@@ -14,12 +14,6 @@ class Order extends Model
     use HasFactory;
     use SoftDeletes;
     protected $fillabe = [
-        "orderId",
-        "postCode",
-        "city",
-        "street",
-        "houseNumber", 
-        "note",
         'user_id',
         'total',
         'status',

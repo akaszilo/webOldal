@@ -62,3 +62,12 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/cart/clear', [CartController::class, 'clear'])->name('cart.clear');
 });
 
+// routes/web.php
+Route::middleware(['auth'])->group(function () {
+    Route::get('/profile', [ProfileController::class, 'index'])->name('profile');
+    Route::get('/profile/address/create', [ProfileController::class, 'createAddress'])->name('profile.address.create');
+    Route::post('/profile/address/store', [ProfileController::class, 'storeAddress'])->name('profile.address.store');
+    Route::get('/profile/address/{address}/edit', [ProfileController::class, 'editAddress'])->name('profile.address.edit');
+    Route::post('/profile/address/{address}/update', [ProfileController::class, 'updateAddress'])->name('profile.address.update');
+    Route::delete('/profile/address/{address}', [ProfileController::class, 'deleteAddress'])->name('profile.address.delete');
+});
