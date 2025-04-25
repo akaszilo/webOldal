@@ -14,9 +14,11 @@ class Order extends Model
     use HasFactory;
     use SoftDeletes;
     protected $fillabe = [
-        'user_id',
         'total',
         'status',
+        'user_id',
+        'cart_id',
+        'product_id',
     ];
 
     public function user(): BelongsTo

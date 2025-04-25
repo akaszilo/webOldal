@@ -8,6 +8,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\StoreCartRequest;
 use App\Http\Requests\UpdateCartRequest;
+use Illuminate\Support\Facades\DB;
+use App\Models\Order;
 
 class CartController extends Controller
 {
@@ -29,12 +31,14 @@ class CartController extends Controller
          if(isset($cart[$id])) {
              $cart[$id]['quantity']++;
          } else {
-             $cart[$id] = [
-                 "name" => $product->name,
-                 "quantity" => 1,
-                 "price" => $product->price,
-                 "image" => $product->image_link
-             ];
+            $cart[$id] = [ // $id is the product's ID
+                "id" => $product->id, 
+                "name" => $product->name,
+                "quantity" => 1,
+                "price" => $product->price,
+                "image" => $product->image_link,
+                'session_id' => session()->getId()
+            ];
          }
      
          session()->put('cart', $cart);
@@ -54,7 +58,7 @@ class CartController extends Controller
             session()->put('cart', $cart);
         }
 
-        return redirect()->route('cart.index')->with( ("prodc"));
+        return redirect()->route('cart.index');
     }
 
     public function clear()
@@ -103,13 +107,43 @@ class CartController extends Controller
     {
         //
     }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(UpdateCartRequest $request, Cart $cart)
+    public function orderSuccess()
     {
-        //
+        return view('cart.order-success');
+    }
+    
+    
+    public function checkout()
+{
+    // Kosár elemek lekérése session ID alapján
+    $cartItems = Cart::where('session_id', session()->getId())->get();
+
+    // Kosár végösszeg kiszámítása
+    $total = $cartItems->sum(function ($item) {
+        return $item->quantity * $item->price;
+    });
+
+    return view('checkout', [
+        'cartItems' => $cartItems,
+        'total' => $total,
+    ]);
+}
+
+    public function update(UpdateCartRequest $request, Cart $cart, $id)
+    {
+       
+        $cart = session()->get('cart', []);
+
+        
+
+        if(isset($cart[$id])) {
+            $quantity = $request->input('quantity');
+            $cart[$id]['quantity'] = $quantity;
+            session()->put('cart', $cart);
+            session()->flash('success', 'Cart updated!');
+        }
+
+        return redirect()->route('cart.index');
     }
 
     /**

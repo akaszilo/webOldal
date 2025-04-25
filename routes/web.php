@@ -58,12 +58,16 @@ Route::get('/profile', [ProfileController::class, 'index'])->name('profile');
 Route::middleware(['auth'])->group(function () {
     Route::get('/cart', [CartController::class, 'index'])->name('cart.index');
     Route::post('/cart/add/{id}', [CartController::class, 'add'])->name('cart.add');
+    Route::post('/cart/update/{id}', [CartController::class, 'update'])->name('cart.update');
+    Route::post('/cart/checkout', [CartController::class, 'checkout'])->name('cart.checkout');  
+
     Route::post('/cart/remove/{id}', [CartController::class, 'remove'])->name('cart.remove');
     Route::post('/cart/clear', [CartController::class, 'clear'])->name('cart.clear');
 });
 
 // routes/web.php
 Route::middleware(['auth'])->group(function () {
+    Route::post('/cart/checkout', [CartController::class, 'checkout'])->name('cart.checkout');
     Route::get('/profile', [ProfileController::class, 'index'])->name('profile');
     Route::get('/profile/address/create', [ProfileController::class, 'createAddress'])->name('profile.address.create');
     Route::post('/profile/address/store', [ProfileController::class, 'storeAddress'])->name('profile.address.store');
@@ -71,3 +75,6 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/profile/address/{address}/update', [ProfileController::class, 'updateAddress'])->name('profile.address.update');
     Route::delete('/profile/address/{address}', [ProfileController::class, 'deleteAddress'])->name('profile.address.delete');
 });
+
+Route::get('/order/success', [CartController::class, 'orderSuccess'])->name('order.success');
+

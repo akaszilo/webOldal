@@ -6,3 +6,8 @@
 
 // Bootstrap
 @import 'bootstrap/scss/bootstrap';
+.form-control-xs {
+    font-size: 0.75rem;
+    padding: 0.2rem 0.4rem;
+    height: auto;
+  }

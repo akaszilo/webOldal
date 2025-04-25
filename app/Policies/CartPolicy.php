@@ -37,7 +37,8 @@ class CartPolicy
      */
     public function update(User $user, Cart $cart): bool
     {
-        return false;
+        return true;
+
     }
 
     /**

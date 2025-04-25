@@ -11,5 +11,10 @@ class Cart extends Model
     /** @use HasFactory<\Database\Factories\CartFactory> */
     use HasFactory;
     use SoftDeletes;
-    protected $fillabe = ["quantity"];
+    protected $fillabe = ["quantity, user_id"];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }
