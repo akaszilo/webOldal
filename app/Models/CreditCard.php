@@ -17,7 +17,8 @@ class CreditCard extends Model
         'name',
         'expiry_month',
         'expiry_year',
-    ];
+        'cvv',
+    ];    
 
     public function user(): BelongsTo
     {

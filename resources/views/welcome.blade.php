@@ -1,33 +1,41 @@
 @extends('app')
 
 @section('content')
-    <style>
-        .popup {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            background-color: #5cb85c;
-            color: white;
-            padding: 15px 20px;
-            border-radius: 5px;
-            z-index: 1000;
-            display: none;
-        }
-    </style>
 
     @if(session('success'))
-        <div id="successPopup" class="popup">
-            {{ session('success') }}
+        <div class="toast-container position-fixed top-0 end-0 p-3" style="z-index: 1055;">
+            <div id="successToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true" data-bs-delay="10000">
+                <div class="toast-header">
+                    <strong class="me-auto">Siker!</strong>
+                    <small class="text-muted">most</small>
+                    <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+                </div>
+                <div class="toast-body">
+                    {{ session('success') }}
+                </div>
+            </div>
         </div>
+        <script>
+            window.addEventListener('DOMContentLoaded', function() {
+                var toastEl = document.getElementById('successToast');
+                if (toastEl) {
+                    var toast = new bootstrap.Toast(toastEl);
+                    toast.show();
+                }
+            });
+        </script>
     @endif
+
+    <main class="container mt-4">
+
         <!-- Bestsellerek -->
         <section class="bestsellers mb-5">
             <h2 class="mb-4">Legnépszerűbb termékek</h2>
             <div class="row">
                 @foreach ($bestsellers as $product)
-                    <div class="col-md-4 mb-4">
+                    <div class="col-md-3 mb-4">
                         <a href="{{ route('product.show', $product->id) }}" class="card-link">
-                            <div class="card product-card">
+                            <div class="card product-card h-100">
                                 <img src="{{ asset($product->image_link) }}" class="card-img-top img-fluid"
                                     alt="{{ $product->name }}">
                                 <div class="card-body">
@@ -49,9 +57,9 @@
             <h2>Newest products</h2>
             <div class="row">
                 @foreach ($latestProducts as $product)
-                    <div class="col-md-4 mb-4">
+                    <div class="col-md-3 mb-4">
                         <a href="{{ route('product.show', $product->id) }}" class="card-link">
-                            <div class="card product-card">
+                            <div class="card product-card h-100">
                                 <img src="{{ asset($product->image_link) }}" class="card-img-top img-fluid"
                                     alt="{{ $product->name }}">
                                 <div class="card-body">
@@ -65,7 +73,6 @@
                             </div>
                     </div>
                 @endforeach
-            </div>
             </div>
         </section>
 
@@ -91,17 +98,4 @@
             <button>☹️</button>
         </section>
     </main>
-
-
-    <script>
-        window.onload = function() {
-            var popup = document.getElementById('successPopup');
-            if (popup) {
-                popup.style.display = 'block';
-                setTimeout(function() {
-                    popup.style.display = 'none';
-                }, 10000); // 10 másodperc
-            }
-        };
-    </script>
 @endsection

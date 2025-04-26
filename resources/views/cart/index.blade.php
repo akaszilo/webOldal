@@ -27,23 +27,22 @@
                             <td><img src="{{ $product['image'] }}" width="50" alt="{{ $product['name'] }}"></td>
                             <td>${{ number_format($product['price'], 2) }}</td>
                             <td>
+                                <form action="{{ route('cart.update', $productId) }}" method="POST" class="quantity-form me-2">
+                                    @csrf
+                                    <input type="number" name="quantity" value="{{ $product['quantity'] }}" min="1" class="form-control form-control-sm quantity-input">
+                                    <button type="submit" class="btn btn-primary btn-sm">Frissítés</button>
+                                </form>
+                            </td>
+                            <td>${{ number_format($subtotal, 2) }}</td>
                             <td>
-                                <div class="d-flex align-items-center">
-                                    <form action="{{ route('cart.update', $productId) }}" method="POST"
-                                        class="quantity-form me-2">
-                                        @csrf
-                                        <input type="number" name="quantity" value="{{ $product['quantity'] }}"
-                                            min="1" class="form-control form-control-sm quantity-input">
-                                        <button type="submit" class="btn btn-primary btn-sm">Frissítés</button>
-                                    </form>
-                                    <form action="{{ route('cart.remove', $productId) }}" method="POST" class="d-inline">
-                                        @csrf
-                                        @method('POST')
-                                        <button type="submit" class="btn btn-danger btn-sm">Törlés</button>
-                                    </form>
-                                </div>
+                                <form action="{{ route('cart.remove', $productId) }}" method="POST" class="d-inline">
+                                    @csrf
+                                    @method('POST')
+                                    <button type="submit" class="btn btn-danger btn-sm">Törlés</button>
+                                </form>
                             </td>
                         </tr>
+                        
                     @endforeach
                     <tr>
                         <td colspan="4" class="text-end"><strong>Total:</strong></td>
@@ -52,9 +51,10 @@
                 </tbody>
             </table>
 
-            <form action="{{ route('cart.checkout') }}" method="POST" class="text-center"> @csrf @method('POST')
+            <form action="{{ route('order.checkout') }}" method="GET" class="text-center">
                 <button type="submit" class="btn btn-success btn-lg">Checkout</button>
             </form>
+            
         @else
             <p>Your cart is empty.</p>
         @endif

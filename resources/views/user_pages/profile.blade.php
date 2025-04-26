@@ -11,7 +11,7 @@
                     <a href="#" class="list-group-item list-group-item-action" data-tab="cards">
                         Bankkártyáim
                     </a>
-                    <a href="#" class="list-group-item list-group-item-action active" data-tab="addresses">
+                    <a href="#" class="list-group-item list-group-item-action" data-tab="addresses">
                         Címeim
                     </a>
                     <a href="#" class="list-group-item list-group-item-action" data-tab="cart">
@@ -20,55 +20,10 @@
                 </div>
             </div>
             <div class="col-md-9">
-                <h1 class="mt-3 mb-3">Hello, {{ Auth::user()->name }}!</h1>
-
-                <!-- CÍMEK -->
-                <div id="tab-addresses" class="profile-tab-content">
-                    <h2>Címeim</h2>
-
-                    @if ($addresses->count() > 0)
-                        <table class="table">
-                            <thead>
-                                <tr>
-                                    <th>Irányítószám</th>
-                                    <th>Város</th>
-                                    <th>Utca</th>
-                                    <th>Házszám</th>
-                                    <th>Megjegyzés</th>
-                                    <th>Műveletek</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach ($addresses as $address)
-                                    <tr>
-                                        <td>{{ $address->postCode }}</td>
-                                        <td>{{ $address->city }}</td>
-                                        <td>{{ $address->street }}</td>
-                                        <td>{{ $address->houseNumber }}</td>
-                                        <td>{{ $address->note }}</td>
-                                        <td>
-                                            <a href="{{ route('addresses.edit', $address->id) }}"
-                                                class="btn btn-sm btn-warning">Módosít</a>
-                                            <form action="{{ route('addresses.destroy', $address->id) }}" method="POST"
-                                                style="display:inline;">
-                                                @csrf
-                                                @method('DELETE')
-                                                <button class="btn btn-sm btn-danger"
-                                                    onclick="return confirm('Biztosan törlöd?')">Töröl</button>
-                                            </form>
-                                        </td>
-                                    </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
-                    @else
-                        <p>Nincs mentett címed.</p>
-                    @endif
-                    <a href="{{ route('addresses.create') }}" class="btn btn-primary">Cím hozzáadása</a>
-                </div>
+                <h1 class="mt-3 mb-3">Hello, {{ $user->name }}!</h1>
 
                 <!-- RENDELÉSEK -->
-                <div id="tab-orders" class="profile-tab-content" style="display:none;">
+                <div id="tab-orders" class="profile-tab-content" style="display: none;">
                     <h2>Rendeléseim</h2>
                     @if (count($orders) > 0)
                         <table class="table">
@@ -97,7 +52,7 @@
                 </div>
 
                 <!-- BANKKÁRTYÁK -->
-                <div id="tab-cards" class="profile-tab-content" style="display:none;">
+                <div id="tab-cards" class="profile-tab-content" style="display: none;">
                     <h2>Bankkártyáim</h2>
                     @if ($creditCards->count() > 0)
                         <table class="table">
@@ -136,8 +91,52 @@
                     <a href="{{ route('credit_cards.create') }}" class="btn btn-primary mt-2">Bankkártya hozzáadása</a>
                 </div>
 
+                <!-- CÍMEK -->
+                <div id="tab-addresses" class="profile-tab-content" style="display: none;">
+                    <h2>Címeim</h2>
+                    @if ($addresses->count() > 0)
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Irányítószám</th>
+                                    <th>Város</th>
+                                    <th>Utca</th>
+                                    <th>Házszám</th>
+                                    <th>Megjegyzés</th>
+                                    <th>Műveletek</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach ($addresses as $address)
+                                    <tr>
+                                        <td>{{ $address->postCode }}</td>
+                                        <td>{{ $address->city }}</td>
+                                        <td>{{ $address->street }}</td>
+                                        <td>{{ $address->houseNumber }}</td>
+                                        <td>{{ $address->note }}</td>
+                                        <td>
+                                            <a href="{{ route('addresses.edit', $address->id) }}"
+                                                class="btn btn-sm btn-warning">Szerkesztés</a>
+                                            <form action="{{ route('addresses.destroy', $address->id) }}" method="POST"
+                                                style="display:inline;">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button class="btn btn-sm btn-danger"
+                                                    onclick="return confirm('Biztosan törlöd?')">Törlés</button>
+                                            </form>
+                                        </td>
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    @else
+                        <p>Nincs mentett címed.</p>
+                        <a href="{{ route('addresses.create') }}" class="btn btn-primary">Cím hozzáadása</a>
+                    @endif
+                </div>
+
                 <!-- KOSÁR -->
-                <div id="tab-cart" class="profile-tab-content" style="display:none;">
+                <div id="tab-cart" class="profile-tab-content" style="display: none;">
                     <h2>Kosár</h2>
                     <p>A kosár tartalma itt jelenhet meg.</p>
                 </div>
@@ -146,20 +145,27 @@
     </div>
 
     <script>
-        document.querySelectorAll('#profile-tabs a').forEach(function(tab) {
-            tab.addEventListener('click', function(e) {
-                e.preventDefault();
-                // Tab aktiválása
-                document.querySelectorAll('#profile-tabs a').forEach(function(t) {
-                    t.classList.remove('active');
+        document.addEventListener('DOMContentLoaded', function() {
+            const tabs = document.querySelectorAll('#profile-tabs a');
+            const contents = document.querySelectorAll('.profile-tab-content');
+
+            tabs.forEach(tab => {
+                tab.addEventListener('click', function(e) {
+                    e.preventDefault();
+
+                    tabs.forEach(t => t.classList.remove('active'));
+                    contents.forEach(c => c.style.display = 'none');
+
+                    this.classList.add('active');
+                    document.getElementById('tab-' + this.dataset.tab).style.display = 'block';
                 });
-                tab.classList.add('active');
-                // Tartalom váltása
-                document.querySelectorAll('.profile-tab-content').forEach(function(content) {
-                    content.style.display = 'none';
-                });
-                document.getElementById('tab-' + tab.dataset.tab).style.display = 'block';
             });
+
+            // Show default tab
+            const defaultTab = document.querySelector('#profile-tabs a[data-tab="orders"]');
+            if (defaultTab) {
+                defaultTab.click();
+            }
         });
     </script>
 @endsection

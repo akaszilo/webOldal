@@ -23,10 +23,12 @@ class StoreCreditCardRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'card_number' => 'required|string|size:16|unique:credit_cards,card_number',
-            'name' => 'required|string',
+            'card_number' => 'required|string|size:16',
+            'name' => 'required|string|max:255',
             'expiry_month' => 'required|integer|min:1|max:12',
             'expiry_year' => 'required|integer|min:' . date('Y'),
+            'cvv' => 'required|string|size:3', //THIS LINE
         ];
     }
+
 }

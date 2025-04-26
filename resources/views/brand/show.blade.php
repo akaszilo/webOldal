@@ -10,9 +10,9 @@
             <p>No products available for this brand.</p>
             @else
             @foreach($products as $product)
-            <div class="col-md-4 mb-4">
+            <div class="col-md-3 mb-4">
                 <a href="{{ route('product.show', $product->id) }}" class="card-link">
-                    <div class="card product-card">
+                    <div class="card product-card h-100">
                         <img src="{{ asset($product->image_link) }}" class="card-img-top img-fluid"
                             alt="{{ $product->name }}">
                         <div class="card-body">

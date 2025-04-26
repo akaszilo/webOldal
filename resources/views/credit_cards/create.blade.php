@@ -32,6 +32,10 @@
                     </div>
                 </div>
             </div>
+            <div class="mb-3">
+                <label for="cvv">CVV kód</label>
+                <input type="text" name="cvv" class="form-control" required>
+            </div>            
             <button class="btn btn-success" type="submit">Mentés</button>
             <a href="{{ route('profile') }}" class="btn btn-secondary">Mégsem</a>
         </form>

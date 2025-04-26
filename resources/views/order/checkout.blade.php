@@ -1,11 +1,10 @@
-
 @extends('app')
 
 @section('content')
 <div class="container">
     <h2>Checkout</h2>
 
-    @if($cartItems->isEmpty())
+    @if(empty($cartItems))
         <p>A kosarad üres.</p>
     @else
         <table class="table">

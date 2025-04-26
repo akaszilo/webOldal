@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('name');
             $table->unsignedTinyInteger('expiry_month');
             $table->unsignedInteger('expiry_year');
+            $table->string('cvv', 3);
             $table->timestamps();
             $table->softDeletes();
         });

@@ -24,9 +24,11 @@ class UpdateCreditCardRequest extends FormRequest
     {
         return [
             'card_number' => 'required|string|size:16',
-            'name' => 'required|string',
+            'name' => 'required|string|max:255',
             'expiry_month' => 'required|integer|min:1|max:12',
             'expiry_year' => 'required|integer|min:' . date('Y'),
+            'cvv' => 'required|string|size:3', //THIS LINE
         ];
     }
+
 }
