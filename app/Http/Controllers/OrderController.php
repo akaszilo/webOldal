@@ -71,23 +71,25 @@ class OrderController extends Controller
     {
         //
     }
-        public function checkout()
+    public function checkout()
     {
         $cart = session('cart');
         if (!$cart) {
             return redirect()->route('cart.index')->with('error', 'A kosár üres.');
         }
-
+    
         $user = Auth::user();
         $addresses = $user->addresses;
         $creditCards = $user->creditCards;
-
+    
         if ($addresses->isEmpty() || $creditCards->isEmpty()) {
+            // Ez az átirányítás okozza, hogy profilra kerülsz:
             return redirect()->route('profile')->with('error', 'Adj meg szállítási címet és bankkártyát a rendeléshez.');
         }
-
+    
         return view('checkout.select_payment', compact('addresses', 'creditCards', 'cart'));
     }
+    
     public function process_order(Request $request)
     {
         $request->validate([
@@ -112,20 +114,20 @@ class OrderController extends Controller
         $request->validate([
             'cvv' => 'required|string|size:3',
         ]);
-    
+
         $checkoutData = session('checkout_data');
         if (!$checkoutData) {
             return redirect()->route('cart.index')->with('error', 'A fizetési adatok hiányoznak.');
         }
-    
+
         $creditCard = CreditCard::find($checkoutData['credit_card_id']);
         if (!$creditCard || $creditCard->cvv !== $request->input('cvv')) {
             return redirect()->back()->with('error', 'Hibás CVV kód.');
         }
-    
+
         // Rendelés létrehozása itt (adatbázisba mentés stb.)
         session()->forget('cart');
-    
+
         return redirect()->route('order.success');
     }
     public function orderSuccess()

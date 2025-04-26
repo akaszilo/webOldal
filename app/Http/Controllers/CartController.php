@@ -200,9 +200,17 @@ class CartController extends Controller
         // Rendelés mentése adatbázisba - egyszerű példa
         $order = new Order();
         $order->user_id = $user->id;
-        $order->total = 0;
+        $order->total = $totalPrice;
         $order->status = 'pending';
         $order->save();
+        
+        foreach ($cart as $item) {
+            $order->items()->create([
+                'product_id' => $item['id'],
+                'quantity' => $item['quantity'],
+                'price' => $item['price'],
+            ]);
+        }        
 
         $totalPrice = 0;
         foreach ($cart as $item) {
@@ -247,6 +255,7 @@ class CartController extends Controller
         $order->total = array_sum(array_map(function ($item) {
             return $item['price'] * $item['quantity'];
         }, $cart));
+        $order->cart_id = null;
         $order->status = 'pending';
         $order->save();
 
