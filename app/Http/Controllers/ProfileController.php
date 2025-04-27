@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Order;
 use App\Models\Profile;
 use App\Http\Requests\StoreProfileRequest;
 use App\Http\Requests\UpdateProfileRequest;
@@ -14,10 +15,22 @@ class ProfileController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
         $user = Auth::user();
-        $orders = $user->orders()->latest()->get();
+        $ordersQuery = $user->orders()->latest();
+    
+        // Check if there is a 'orders' parameter in the request
+        if ($request->has('orders')) {
+            $status = $request->input('orders');
+    
+            // Filter orders based on status
+            if ($status !== 'all') {
+                $ordersQuery->where('status', $status);
+            }
+        }
+    
+        $orders = $ordersQuery->get();
         $creditCards = $user->creditCards;
         $addresses = $user->addresses;
         $cart = session('cart', []); // vagy ha userhez kötöd, akkor onnan
@@ -25,9 +38,17 @@ class ProfileController extends Controller
         return view('user_pages.profile', compact('user', 'orders', 'creditCards', 'addresses', 'cart'));
     }
     
-    
-    
-        
+    public function showOrderDetails(Order $order)
+    {
+        // Eager load the items relationship to prevent N+1 queries
+        $order->load('items.product');
+
+        return view('user_pages.order_details', compact('order'));
+    }
+
+
+
+
     /**
      * Show the form for creating a new resource.
      */
@@ -35,7 +56,7 @@ class ProfileController extends Controller
     {
         //
     }
-        /**
+    /**
      * Store a newly created resource in storage.
      */
     public function store(StoreProfileRequest $request)

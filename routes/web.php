@@ -94,4 +94,9 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/order/process_order', [OrderController::class, 'process_order'])->name('order.process_order');
     Route::post('/order/confirm_order', [OrderController::class, 'confirm_order'])->name('order.confirm_order');
     Route::get('/order/success', [OrderController::class, 'orderSuccess'])->name('order.success');
+    Route::get('/order/{order}/details', [ProfileController::class, 'showOrderDetails'])->name('order.details');
 });
+
+Route::get('/profile', [ProfileController::class, 'index'])
+    ->name('profile')
+    ->middleware('auth', App\Http\Middleware\OrderStatus::class);

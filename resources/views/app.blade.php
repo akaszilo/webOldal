@@ -105,7 +105,7 @@
                             placeholder="Search" aria-label="Search" autocomplete="off">
                         <button class="btn btn-outline-success" type="submit">Search</button>
                     </form>
-
+    
                     <ul class="navbar-nav">
                         <!-- Authentication Links -->
                         @guest
@@ -127,7 +127,7 @@
                                 </a>
                                 <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                                     <li><a class="dropdown-item" href="{{ route('profile') }}">Profile</a></li>
-                                    <li><a class="dropdown-item" href="{{ route('profile') }}#tab-cart">Kosár</a></li>
+                                    <li><a class="dropdown-item" href="#tab-cart">Kosár</a></li>  <!-- Updated line -->
                                     <li><a class="dropdown-item" href="#">Order</a></li>
                                     <li>
                                         <hr class="dropdown-divider">
