@@ -59,7 +59,9 @@ Route::middleware(['auth'])->group(function () {
 
 /* Kosár (Cart) kezelése */
 Route::middleware(['auth'])->group(function () {
-    Route::get('/cart', [CartController::class, 'index'])->name('cart.index');
+    Route::get('/cart', function () {
+        return redirect()->route('profile');
+    })->name('cart.index');
     Route::post('/cart/add/{id}', [CartController::class, 'add'])->name('cart.add');
     Route::post('/cart/update/{id}', [CartController::class, 'update'])->name('cart.update');
     Route::post('/cart/remove/{id}', [CartController::class, 'remove'])->name('cart.remove');

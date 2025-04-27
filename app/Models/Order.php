@@ -17,7 +17,6 @@ class Order extends Model
         'total',
         'status',
         'user_id',
-        'cart_id',
         'product_id',
     ];
 

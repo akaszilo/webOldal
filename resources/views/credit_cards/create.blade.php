@@ -1,6 +1,25 @@
 @extends('app')
 
 @section('content')
+<style>
+    .popup {
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        background-color: #5cb85c;
+        color: white;
+        padding: 15px 20px;
+        border-radius: 5px;
+        z-index: 1000;
+        display: none;
+    }
+</style>
+
+@if(session('success'))
+    <div id="successPopup" class="popup">
+        {{ session('success') }}
+    </div>
+@endif
     <div class="container">
         <h2>Bankkártya hozzáadása</h2>
         <form method="POST" action="{{ route('credit_cards.store') }}">

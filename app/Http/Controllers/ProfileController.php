@@ -16,12 +16,15 @@ class ProfileController extends Controller
      */
     public function index()
     {
-        $user = auth()->user();
-        $addresses = auth()->user()->addresses ?? collect();
-        $orders = auth()->user()->orders ?? collect();
-        $creditCards = auth()->user()->creditCards ?? collect();
-        return view('user_pages.profile', compact('addresses', 'user', 'orders', 'creditCards'));
+        $user = Auth::user();
+        $orders = $user->orders()->latest()->get();
+        $creditCards = $user->creditCards;
+        $addresses = $user->addresses;
+        $cart = session('cart', []); // vagy ha userhez kötöd, akkor onnan
+    
+        return view('user_pages.profile', compact('user', 'orders', 'creditCards', 'addresses', 'cart'));
     }
+    
     
     
         

@@ -131,14 +131,69 @@
                         </table>
                     @else
                         <p>Nincs mentett címed.</p>
-                        <a href="{{ route('addresses.create') }}" class="btn btn-primary">Cím hozzáadása</a>
                     @endif
+                    <a href="{{ route('addresses.create') }}" class="btn btn-primary">Cím hozzáadása</a>
                 </div>
 
                 <!-- KOSÁR -->
                 <div id="tab-cart" class="profile-tab-content" style="display: none;">
                     <h2>Kosár</h2>
-                    <p>A kosár tartalma itt jelenhet meg.</p>
+                    @if ($cart && count($cart) > 0)
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Termék</th>
+                                    <th>Kép</th>
+                                    <th>Ár</th>
+                                    <th>Mennyiség</th>
+                                    <th>Részösszeg</th>
+                                    <th>Művelet</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @php $total = 0; @endphp
+                                @foreach ($cart as $productId => $product)
+                                    @php
+                                        $subtotal = $product['price'] * $product['quantity'];
+                                        $total += $subtotal;
+                                    @endphp
+                                    <tr>
+                                        <td>{{ $product['name'] }}</td>
+                                        <td><img src="{{ $product['image'] }}" width="50"
+                                                alt="{{ $product['name'] }}">
+                                        </td>
+                                        <td>${{ number_format($product['price'], 2) }}</td>
+                                        <td>
+                                            <form action="{{ route('cart.update', $productId) }}" method="POST"
+                                                class="quantity-form me-2">
+                                                @csrf
+                                                <input type="number" name="quantity" value="{{ $product['quantity'] }}"
+                                                    min="1" class="form-control form-control-sm quantity-input">
+                                                <button type="submit" class="btn btn-primary btn-sm">Frissítés</button>
+                                            </form>
+                                        </td>
+                                        <td>${{ number_format($subtotal, 2) }}</td>
+                                        <td>
+                                            <form action="{{ route('cart.remove', $productId) }}" method="POST"
+                                                class="d-inline">
+                                                @csrf
+                                                <button type="submit" class="btn btn-danger btn-sm">Törlés</button>
+                                            </form>
+                                        </td>
+                                    </tr>
+                                @endforeach
+                                <tr>
+                                    <td colspan="4" class="text-end"><strong>Végösszeg:</strong></td>
+                                    <td><strong>${{ number_format($total, 2) }}</strong></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <form action="{{ route('order.checkout') }}" method="GET" class="text-center">
+                            <button type="submit" class="btn btn-success btn-lg">Checkout</button>
+                        </form>
+                    @else
+                        <p>A kosarad üres.</p>
+                    @endif
                 </div>
             </div>
         </div>

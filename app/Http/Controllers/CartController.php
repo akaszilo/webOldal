@@ -108,7 +108,7 @@ class CartController extends Controller
     }
     public function orderSuccess()
     {
-        return view('cart.order_success');
+        return view('order.success');
     }
 
     public function update(Request $request, $productId)
@@ -203,14 +203,14 @@ class CartController extends Controller
         $order->total = $totalPrice;
         $order->status = 'pending';
         $order->save();
-        
+
         foreach ($cart as $item) {
             $order->items()->create([
                 'product_id' => $item['id'],
                 'quantity' => $item['quantity'],
                 'price' => $item['price'],
             ]);
-        }        
+        }
 
         $totalPrice = 0;
         foreach ($cart as $item) {
@@ -249,17 +249,16 @@ class CartController extends Controller
 
         $user = Auth::user();
 
-        // Példa: rendelés mentése (testreszabható a saját modelled szerint)
+        // 1. Rendelés létrehozása
         $order = new Order();
         $order->user_id = $user->id;
         $order->total = array_sum(array_map(function ($item) {
             return $item['price'] * $item['quantity'];
         }, $cart));
-        $order->cart_id = null;
         $order->status = 'pending';
         $order->save();
 
-        // Ha van OrderItem modelled:
+        // 2. Rendelés tételek (OrderItem) létrehozása
         foreach ($cart as $item) {
             $order->items()->create([
                 'product_id' => $item['id'],
@@ -268,10 +267,11 @@ class CartController extends Controller
             ]);
         }
 
-        // Kosár ürítése
+        // 3. Kosár ürítése
         session()->forget('cart');
 
         return redirect()->route('order.success')->with('success', 'Sikeres rendelés!');
     }
+
 
 }

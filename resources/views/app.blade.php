@@ -127,7 +127,7 @@
                                 </a>
                                 <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                                     <li><a class="dropdown-item" href="{{ route('profile') }}">Profile</a></li>
-                                    <li><a class="dropdown-item" href="{{ route('cart.index') }}">Cart</a></li>
+                                    <li><a class="dropdown-item" href="{{ route('profile') }}#tab-cart">Kosár</a></li>
                                     <li><a class="dropdown-item" href="#">Order</a></li>
                                     <li>
                                         <hr class="dropdown-divider">
@@ -199,7 +199,7 @@
             });
         });
 
-         document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', function() {
             const searchInput = document.getElementById('search');
             const searchResults = document.getElementById('searchResults');
 

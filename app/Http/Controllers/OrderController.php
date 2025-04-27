@@ -87,7 +87,7 @@ class OrderController extends Controller
             return redirect()->route('profile')->with('error', 'Adj meg szállítási címet és bankkártyát a rendeléshez.');
         }
     
-        return view('checkout.select_payment', compact('addresses', 'creditCards', 'cart'));
+        return view('order.select_payment', compact('addresses', 'creditCards', 'cart'));
     }
     
     public function process_order(Request $request)
@@ -132,6 +132,6 @@ class OrderController extends Controller
     }
     public function orderSuccess()
     {
-        return view('cart.order_success');
+        return view('order.success');
     }
 }
