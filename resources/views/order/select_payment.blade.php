@@ -3,7 +3,7 @@
 @section('content')
 <div class="container">
     <h2>Rendelés leadása</h2>
-    <form action="{{ route('cart.process_order') }}" method="POST">
+    <form action="{{ route('order.place_order') }}" method="POST">
         @csrf
         <div class="mb-3">
             <label for="address_id">Szállítási cím kiválasztása</label>

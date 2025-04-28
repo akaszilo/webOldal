@@ -34,7 +34,7 @@ class CreditCardController extends Controller
     public function store(StoreCreditCardRequest $request): RedirectResponse
     {
         Auth::user()->creditCards()->create($request->validated());
-        return redirect()->route('profile', ['tab' => 'cards']);
+        return redirect()->to(route('profile') . '#tab-cards')->with('success', 'Kártya sikeresen mentve!');
     }
     
     
@@ -56,7 +56,7 @@ class CreditCardController extends Controller
     {
         $this->authorize('update', $creditCard);
         $creditCard->update($request->validated());
-        return redirect()->route('profile', ['tab' => 'cards'])->with('success', 'Credit card updated.');
+        return redirect()->to(route('profile') . '#tab-cards')->with('success', 'Kártya sikeresen frissítve!');
     }
 
     /**
@@ -66,6 +66,6 @@ class CreditCardController extends Controller
     {
         $this->authorize('delete', $creditCard);
         $creditCard->delete();
-        return redirect()->route('profile', ['tab' => 'cards'])->with('success', 'Credit card deleted.');
+        return redirect()->to(route('profile') . '#tab-cards')->with('success', 'Kártya sikeresen törölve!');
     }
 }

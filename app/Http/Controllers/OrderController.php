@@ -69,27 +69,43 @@ class OrderController extends Controller
      */
     public function destroy(Order $order)
     {
-        //
+        // Ellenőrzés: csak a pending státuszú rendelés törölhető
+        if ($order->status !== 'pending') {
+            return redirect()->back()->with('error', 'Csak függőben lévő rendelést törölhetsz.');
+        }
+    
+        $order->delete();
+    
+        return redirect()->route('profile', ['#tab-orders'])->with('success', 'A rendelés sikeresen törölve lett.');
     }
-    public function checkout()
+    
+    public function checkout(Request $request)
     {
-        $cart = session('cart');
-        if (!$cart) {
-            return redirect()->route('cart.index')->with('error', 'A kosár üres.');
+        $cart = session('cart', []);
+        $selected = $request->input('selected_products', []);
+
+        if (empty($selected)) {
+            return redirect()->back()->with('error', 'Nem választottál terméket!');
         }
-    
-        $user = Auth::user();
-        $addresses = $user->addresses;
-        $creditCards = $user->creditCards;
-    
-        if ($addresses->isEmpty() || $creditCards->isEmpty()) {
-            // Ez az átirányítás okozza, hogy profilra kerülsz:
-            return redirect()->route('profile')->with('error', 'Adj meg szállítási címet és bankkártyát a rendeléshez.');
+
+        // Csak a kiválasztott termékek
+        $cartItems = [];
+        $total = 0;
+        foreach ($selected as $productId) {
+            if (isset($cart[$productId])) {
+                $item = $cart[$productId];
+                $cartItems[] = (object) $item;
+                $total += $item['price'] * $item['quantity'];
+            }
         }
-    
-        return view('order.select_payment', compact('addresses', 'creditCards', 'cart'));
+
+        // Ezt a kiválasztást eltároljuk a sessionben a következő lépéshez
+        session(['checkout_selected_products' => $selected]);
+
+        // Megjelenítjük a kosár összegző oldalát
+        return view('order.checkout', compact('cartItems', 'total'));
     }
-    
+
     public function process_order(Request $request)
     {
         $request->validate([
@@ -109,29 +125,96 @@ class OrderController extends Controller
 
         return view('checkout.cvv_verification');
     }
-    public function confirm_order(Request $request)
+    public function place_order(Request $request)
     {
-        $request->validate([
-            'cvv' => 'required|string|size:3',
-        ]);
+        $cart = session('cart', []);
+        $selected = session('checkout_selected_products', []);
 
-        $checkoutData = session('checkout_data');
-        if (!$checkoutData) {
-            return redirect()->route('cart.index')->with('error', 'A fizetési adatok hiányoznak.');
+        $user = Auth::user();
+
+        $order = new Order();
+        $order->user_id = $user->id;
+        $order->total = 0;
+        $order->status = 'pending';
+        $order->save();
+
+        $total = 0;
+        foreach ($selected as $productId) {
+            if (isset($cart[$productId])) {
+                $item = $cart[$productId];
+                $order->items()->create([
+                    'product_id' => $item['id'],
+                    'quantity' => $item['quantity'],
+                    'price' => $item['price'],
+                ]);
+                $total += $item['price'] * $item['quantity'];
+                // Ha akarod, töröld a kosárból is a kiválasztottakat:
+                unset($cart[$productId]);
+            }
         }
 
-        $creditCard = CreditCard::find($checkoutData['credit_card_id']);
-        if (!$creditCard || $creditCard->cvv !== $request->input('cvv')) {
-            return redirect()->back()->with('error', 'Hibás CVV kód.');
-        }
+        $order->total = $total;
+        $order->save();
 
-        // Rendelés létrehozása itt (adatbázisba mentés stb.)
-        session()->forget('cart');
+        // Frissítsd a kosarat a session-ben (csak a nem kiválasztottak maradnak)
+        session(['cart' => $cart]);
+        session()->forget('checkout_selected_products');
 
-        return redirect()->route('order.success');
+        return redirect()->route('order.success')->with('success', 'Sikeres rendelés!');
     }
+
     public function orderSuccess()
     {
         return view('order.success');
     }
+
+    public function processCheckout(Request $request)
+    {
+        $cart = session('cart', []);
+        $selected = $request->input('selected_products', []);
+
+        if (empty($selected)) {
+            return redirect()->back()->with('error', 'Nem választottál terméket!');
+        }
+
+        $order = new Order();
+        $order->user_id = auth()->id();
+        $order->total = 0;
+        $order->status = 'pending';
+        $order->save();
+
+        $total = 0;
+        foreach ($selected as $productId) {
+            if (!isset($cart[$productId]))
+                continue;
+
+            $item = $cart[$productId];
+            $order->items()->create([
+                'product_id' => $item['id'],
+                'quantity' => $item['quantity'],
+                'price' => $item['price'],
+            ]);
+            $total += $item['price'] * $item['quantity'];
+
+            // Töröljük a megvett terméket a kosárból
+            unset($cart[$productId]);
+        }
+
+        $order->total = $total;
+        $order->save();
+
+        // Frissítsük a kosarat a session-ben
+        session(['cart' => $cart]);
+
+        return redirect()->route('order.success')->with('success', 'Sikeres rendelés!');
+    }
+    public function select_payment()
+    {
+        $user = Auth::user();
+        $addresses = $user->addresses;
+        $creditCards = $user->creditCards;
+        return view('order.select_payment', compact('addresses', 'creditCards'));
+    }
+
+    
 }
