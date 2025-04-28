@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Category;
 use App\Http\Requests\StoreCategoryRequest;
 use App\Http\Requests\UpdateCategoryRequest;
+use Illuminate\Http\Request;
 use App\Models\Product;
 
 class CategoryController extends Controller
@@ -31,12 +32,39 @@ class CategoryController extends Controller
 
         return view('categories.face', compact('products'));
     }
+
+    
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+        $sort = $request->query('sort', 'newest'); // alapértelmezett: newest
+
+    $products = Product::query();
+
+    if ($sort == 'oldest') {
+        $products = $products->orderBy('created_at', 'asc');
+    } 
+    else if ($sort == 'newest') {
+        $products = $products->orderBy('created_at', 'desc');
+    }
+    else if ($sort == 'cheapest') {
+        $products = $products->orderBy('price', 'asc');
+    }
+    else if ($sort == 'most_expensive') {
+        $products = $products->orderBy('price', 'desc');
+    }
+    else if ($sort == 'popular') {
+        $products = $products->orderBy('sold_quantity', 'desc');
+    }
+    else if ($sort == 'least_popular') {
+        $products = $products->orderBy('sold_quantity', 'asc');
+    }
+
+    $products = $products->get();
+
+    return view('categories.all', compact('products', 'sort'));
     }
 
     /**

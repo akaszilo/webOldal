@@ -30,11 +30,16 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <!-- Left Side Of Navbar -->
                 <ul class="navbar-nav me-auto ">
+                    <a class="nav-link" href="{{ route('all') }}" role="button"
+                         >
+                        All products
+                    </a>
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="{{ route('face') }}" role="button"
                             data-bs-toggle="dropdown" aria-expanded="false">
                             Face
                         </a>
+                        
                         <ul class="dropdown-menu">
                             <li><a class="dropdown-item" href="{{ route('face') }}">Face</a></li>
                             <li>
@@ -55,7 +60,9 @@
                             <li><a class="dropdown-item"
                                     href="{{ route('categories.show', ['category' => 5]) }}">Contour</a></li>
                         </ul>
+                        
                     </li>
+                    
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="{{ route('lips') }}" role="button"
                             data-bs-toggle="dropdown" aria-expanded="false">

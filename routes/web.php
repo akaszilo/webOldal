@@ -37,10 +37,12 @@ Route::middleware(['auth'])->group(function () {
         ->name('verification.resend');
 });
 
-/* Public category and product routes */
+
 Route::get('/eyes', [CategoryController::class, 'showeyes'])->name('eyes');
 Route::get('/lips', [CategoryController::class, 'showlips'])->name('lips');
 Route::get('/face', [CategoryController::class, 'showface'])->name('face');
+Route::get('/all', [CategoryController::class, 'index'])->name('all');
+
 Route::get('/categories/{category}', [CategoryController::class, 'show'])->name('categories.show');
 
 Route::get('/search/autocomplete', [ProductController::class, 'autocomplete'])->name('search.autocomplete');
