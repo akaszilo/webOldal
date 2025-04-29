@@ -4,8 +4,14 @@ use App\Http\Controllers\Auth\VerificationController;
 use App\Http\Controllers\Auth\ResetPasswordController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\BrandController;
+<<<<<<< HEAD
 use App\Http\Controllers\CreditCardController;
 use App\Http\Controllers\CategoryController;
+=======
+use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\Auth\RegisterController;
+use App\Http\Controllers\LogoutController;
+>>>>>>> web
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\ProfileController;
@@ -47,10 +53,15 @@ Route::get('/search/autocomplete', [ProductController::class, 'autocomplete'])->
 Route::get('/search', [ProductController::class, 'search'])->name('search');
 
 Route::get('/', [ProductController::class, 'index'])->name('home');
+<<<<<<< HEAD
 Route::get('/brand/{brand}', [BrandController::class, 'show'])->name('brands.show');
 Route::get('/product/{product}', [ProductController::class, 'showRecommended'])->name('product.show');
 Route::get('/products', [ProductController::class, 'index'])->name('products.index');
 Route::get('/products/brand/{brand}', [ProductController::class, 'filterByBrand'])->name('products.byBrand');
+=======
+Route::get('/product/{id}', [ProductController::class, 'show'])->name('product.show');
+Route::get('/brand/{brand}', [BrandController::class, 'show'])->name('brand.show');
+>>>>>>> web
 
 /* Profile page */
 Route::get('/profile', [ProfileController::class, 'index'])->name('profile');

@@ -56,6 +56,7 @@ class ProductController extends Controller
 
     public function index(): View
     {
+        
         $userName = Auth::check() ? Auth::user()->name : 'Vendég';
 
         $bestsellers = Product::orderBy('sold_quantity', 'desc')->take(15)->get();
@@ -89,6 +90,7 @@ class ProductController extends Controller
     /**
      * Display the specified resource.
      */
+<<<<<<< HEAD
 
     public function filterByBrand(Brand $brand)
     {
@@ -119,6 +121,18 @@ class ProductController extends Controller
 
         $randomProducts = Product::inRandomOrder()->limit(4)->get();
         return view('product.show', compact('product', 'randomProducts'));
+=======
+    public function show(Product $product, $id)
+    {
+        $product = Product::with('brand')->find($id);
+        
+
+        if (!$product) {
+            return redirect('/')->with('error', 'Product not found');
+        }
+    
+        return view('product.show', compact('product'));
+>>>>>>> web
     }
 
     /**
