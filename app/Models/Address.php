@@ -27,5 +27,4 @@ class Address extends Model
     {
         return $this->belongsTo(User::class);
     }
-
 }
