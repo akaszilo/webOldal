@@ -29,11 +29,10 @@
         </table>
 
         <h4>Végösszeg: ${{ number_format($total, 2) }}</h4>
-
-        <form action="{{ route('cart.placeOrder') }}" method="POST">
-            @csrf
-            <button type="submit" class="btn btn-success">Megrendelés leadása</button>
+        <form action="{{ route('order.select_payment') }}" method="GET">
+            <button type="submit" class="btn btn-primary">Tovább a fizetéshez</button>
         </form>
+        
     @endif
 </div>
 @endsection

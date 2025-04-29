@@ -41,7 +41,6 @@ class ProductController extends Controller
         return response()->json($products);
     }
 
-
     public function search(Request $request)
     {
         $query = $request->get('search');

@@ -26,3 +26,8 @@ class StoreCartRequest extends FormRequest
         ];
     }
 }
+
+
+
+
+

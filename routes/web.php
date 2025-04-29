@@ -24,18 +24,16 @@ Route::post('/forgot-password', [ResetPasswordController::class, 'passwordEmail'
 Route::post('/reset-password', [ResetPasswordController::class, 'passwordUpdate'])->name('password.update');
 
 /* Email verification */
-Route::middleware(['auth'])->group(function () {
-    Route::get('/email/verify', function () {
-        return view('auth.verify');
-    })->name('verification.notice');
+Route::get('/email/verify', function () {
+    return view('auth.verify');
+})->name('verification.notice');
 
-    Route::get('/email/verify/{id}/{hash}', [VerificationController::class, 'verify'])
-        ->middleware(['signed'])
-        ->name('verification.verify');
+Route::get('/email/verify/{id}/{hash}', [VerificationController::class, 'verify'])
+    ->middleware(['signed'])
+    ->name('verification.verify');
 
-    Route::post('/email/verification-notification', [VerificationController::class, 'resend'])
-        ->name('verification.resend');
-});
+Route::post('/email/verification-notification', [VerificationController::class, 'resend'])
+    ->name('verification.resend');
 
 
 Route::get('/eyes', [CategoryController::class, 'showeyes'])->name('eyes');
@@ -55,49 +53,46 @@ Route::get('/products', [ProductController::class, 'index'])->name('products.ind
 Route::get('/products/brand/{brand}', [ProductController::class, 'filterByBrand'])->name('products.byBrand');
 
 /* Profile page */
-Route::middleware(['auth'])->group(function () {
-    Route::get('/profile', [ProfileController::class, 'index'])->name('profile');
-});
+Route::get('/profile', [ProfileController::class, 'index'])->name('profile');
 
 /* Kosár (Cart) kezelése */
-Route::middleware(['auth'])->group(function () {
-    Route::get('/cart', function () {
-        return redirect()->route('profile');
-    })->name('cart.index');
-    Route::post('/cart/add/{id}', [CartController::class, 'add'])->name('cart.add');
-    Route::post('/cart/update/{id}', [CartController::class, 'update'])->name('cart.update');
-    Route::post('/cart/remove/{id}', [CartController::class, 'remove'])->name('cart.remove');
-    Route::post('/cart/clear', [CartController::class, 'clear'])->name('cart.clear');
-    Route::post('/cart/place-order', [CartController::class, 'placeOrder'])->name('cart.placeOrder');
+Route::get('/cart', function () {
+    return redirect()->route('profile');
+})->name('cart.index');
+Route::post('/cart/add/{id}', [CartController::class, 'add'])->name('cart.add');
+Route::post('/cart/destroy/{id}', [CartController::class, 'destroy'])->name('cart.destroy');
+Route::post('/cart/clear', [CartController::class, 'clear'])->name('cart.clear');
+Route::post('/cart/place-order', [CartController::class, 'placeOrder'])->name('cart.placeOrder');
+Route::post('/cart/update/{id}', [CartController::class, 'update'])->name('cart.update');
+// Route::delete('/cart/destroy/{id}', [CartController::class, 'destroy'])->name('cart.destroy');
+ 
+// Rendelés leadás
+Route::post('/cart/process_order', [CartController::class, 'processOrder'])->name('cart.process_order');
 
-    // Rendelés leadás
-    Route::post('/cart/process_order', [CartController::class, 'processOrder'])->name('cart.process_order');
+// CVV megerősítés
+Route::post('/cart/confirm_order', [CartController::class, 'confirmOrder'])->name('cart.confirm_order');
 
-    // CVV megerősítés
-    Route::post('/cart/confirm_order', [CartController::class, 'confirmOrder'])->name('cart.confirm_order');
-
-    // Sikeres rendelés oldal
-    Route::get('/order/success', [CartController::class, 'orderSuccess'])->name('order.success');
-});
+// Sikeres rendelés oldal
+Route::get('/order/success', [CartController::class, 'orderSuccess'])->name('order.success');
 
 /* Címek (Address) kezelése */
-Route::middleware(['auth'])->group(function () {
-    Route::resource('addresses', AddressController::class);
-});
+Route::resource('addresses', AddressController::class);
 
 /* Bankkártyák kezelése */
-Route::middleware(['auth'])->group(function () {
-    Route::resource('credit_cards', CreditCardController::class)->except(['show']);
-});
+Route::resource('credit_cards', CreditCardController::class)->except(['show']);
 
 /* Rendelés (Order) kezelése */
-Route::middleware(['auth'])->group(function () {
-    Route::get('/order/checkout', [OrderController::class, 'checkout'])->name('order.checkout');
-    Route::post('/order/process_order', [OrderController::class, 'process_order'])->name('order.process_order');
-    Route::post('/order/confirm_order', [OrderController::class, 'confirm_order'])->name('order.confirm_order');
-    Route::get('/order/success', [OrderController::class, 'orderSuccess'])->name('order.success');
-    Route::get('/order/{order}/details', [ProfileController::class, 'showOrderDetails'])->name('order.details');
-});
+Route::post('/order/checkout', [OrderController::class, 'checkout'])->name('order.checkout');
+Route::post('/order/process_order', [OrderController::class, 'process_order'])->name('order.process_order');
+Route::post('/order/confirm_order', [OrderController::class, 'confirm_order'])->name('order.confirm_order');
+Route::get('/order/success', [OrderController::class, 'orderSuccess'])->name('order.success');
+Route::get('/order/{order}/details', [ProfileController::class, 'showOrderDetails'])->name('order.details');
+Route::get('/order/select_payment', [OrderController::class, 'select_payment'])->name('order.select_payment');
+Route::post('/order/process_payment', [OrderController::class, 'processPayment'])->name('order.process_payment');
+Route::post('/order/place_order', [OrderController::class, 'place_order'])->name('order.place_order');
+Route::delete('/order/{order}', [OrderController::class, 'destroy'])->name('order.destroy');
+
+
 
 Route::get('/profile', [ProfileController::class, 'index'])
     ->name('profile')

@@ -31,7 +31,7 @@ class AddressController extends Controller
 
         Auth::user()->addresses()->create($request->all());
 
-        return redirect()->route('profile', ['tab' => 'addresses']);
+        return redirect()->route('profile', ['#tab-addresses'])->with('success', 'Cím sikeresen mentve!');
     }
 
     /**
@@ -42,26 +42,27 @@ class AddressController extends Controller
         $this->authorize('update', $address);
         return view('addresses.edit', compact('address'));
     }
-
+    
+    
     /**
      * Update the specified address in storage.
      */
     public function update(Request $request, Address $address)
     {
-        $this->authorize('update', $address);
-
-        $request->validate([
-            'postCode' => 'required',
-            'city' => 'required',
-            'street' => 'required',
-            'houseNumber' => 'required',
-            'country' => 'required',
+        $validated = $request->validate([
+            'postCode' => 'required|string|max:10',
+            'city' => 'required|string|max:255',
+            'street' => 'required|string|max:255',
+            'houseNumber' => 'required|string|max:20',
+            'country' => 'required|string|max:255',
+            'note' => 'nullable|string|max:500',
         ]);
-
-        $address->update($request->all());
-
-        return redirect()->route('profile', ['tab' => 'addresses']);
+    
+        $address->update($validated);
+    
+        return redirect()->to(route('profile') . '#tab-addresses')->with('success', 'Cím sikeresen frissítve!');
     }
+    
 
     /**
      * Remove the specified address from storage.
@@ -72,6 +73,6 @@ class AddressController extends Controller
 
         $address->delete();
 
-        return redirect()->route('profile', ['tab' => 'addresses']);
+        return redirect()->to(route('profile') . '#tab-addresses')->with('success', 'Cím sikeresen törölve!');
     }
 }
