@@ -15,13 +15,7 @@ class Brand extends Model
     protected $fillable = ["name"]; 
 
     public function products()
-<<<<<<< HEAD
     {
         return $this->hasMany(Product::class);  // Ez határozza meg, hogy a Brand több Product-tal rendelkezik
     }
-=======
-{
-    return $this->hasMany(Product::class);
-}
->>>>>>> web
 }

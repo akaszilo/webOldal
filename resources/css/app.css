@@ -30,8 +30,8 @@ body {
 }
 
 a {
-    color: var(--color-primary);
-    text-decoration: underline;
+    color: black;
+    text-decoration: none;
     transition: color var(--transition-duration);
 }
 
