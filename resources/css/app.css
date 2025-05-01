@@ -29,16 +29,6 @@ body {
     transition: background-color var(--transition-duration), color var(--transition-duration);
 }
 
-a {
-    color: black;
-    text-decoration: none;
-    transition: color var(--transition-duration);
-}
-
-a:hover {
-    color: var(--color-secondary);
-}
-
 /* Buttons */
 .button {
     display: inline-block;
@@ -134,15 +124,21 @@ a:hover {
 }
 
 .card-img-top {
-    width: 100%; /* A kép szélessége a card szélességének 100%-a legyen */
-    height: 250px; /* Fix magasság, pl. 200px */
-    object-fit: contain; /* A kép kitölti a területet, levágva, ha szükséges */
+    width: 100%;      /* A kártya szélességéhez igazodik */
+    height: 250px;    /* Fix magasság */
+    object-fit: contain; /* Kitölti a területet, levágja ami kilóg */
+    border-radius: 0.25rem; /* opcionális, szép lekerekítés */
+}
+a {
+    text-decoration: none; /* aláhúzás eltávolítása */
+    color: black;          /* fekete szín */
 }
 
-a {
-    text-decoration: none;
-    color: black;
+a:hover {
+    color: var(--color-secondary); /* vagy más szín hoverre */
+    text-decoration: underline;    /* opcionális: hoverkor aláhúzás */
 }
+
 
 .nav-link.dropdown-toggle::after {
     display: none;

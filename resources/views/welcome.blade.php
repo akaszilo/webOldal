@@ -2,15 +2,9 @@
 @vite('resources/css/app.css')
 @section('content')
 
-<<<<<<< HEAD
     @if(session('success'))
         <div class="toast-container position-fixed top-0 end-0 p-3" style="z-index: 1055;">
             <div id="successToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true" data-bs-delay="10000">
-=======
-    <main class="container mt-4">
-        <div class="toast-container position-fixed top-0 end-0 p-3">
-            <div id="registrationToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
->>>>>>> web
                 <div class="toast-header">
                     <strong class="me-auto">Siker!</strong>
                     <small class="text-muted">most</small>
@@ -40,7 +34,6 @@
             <div class="row">
                 @foreach ($bestsellers as $product)
                     <div class="col-md-3 mb-4">
-<<<<<<< HEAD
                         <a href="{{ route('product.show', $product->id) }}" class="card-link">
                             <div class="card product-card h-100">
                                 <img src="{{ asset($product->image_link) }}" class="card-img-top img-fluid"
@@ -54,22 +47,6 @@
                                     <p class="card-text">In stock: {{ $product->instock }} db</p>
                                 </div>
                             </div>
-=======
-                        <div class="card h-100">
-                            <a href="{{ route('product.show', ['id' => $product->id]) }}" class="product-link">
-                            <img src="{{ $product->image_link }}" class="card-img-top w-[154px] h-[154px]" alt="{{ $product->name }}">
-                            <div class="card-body">
-                                <h5 class="card-title">{{ $product->name }}</h5>
-                            </a>
-                                <p class="card-text">
-                                    {{ number_format($product->price, 0, ',', ' ') }} $
-                                </p>
-                                <p>{{ $product->brand->name }}</p>
-                                <p class="text-muted">Sold quantity: {{ $product->sold_quantity }}</p>
-                            </div>
-                        
-                        </div>
->>>>>>> web
                     </div>
                 @endforeach
             </div>
@@ -81,7 +58,6 @@
             <div class="row">
                 @foreach ($latestProducts as $product)
                     <div class="col-md-3 mb-4">
-<<<<<<< HEAD
                         <a href="{{ route('product.show', $product->id) }}" class="card-link">
                             <div class="card product-card h-100">
                                 <img src="{{ asset($product->image_link) }}" class="card-img-top img-fluid"
@@ -95,22 +71,6 @@
                                     <p class="card-text">In stock: {{ $product->instock }} db</p>
                                 </div>
                             </div>
-=======
-                        <div class="card h-100">
-                            <a href="{{ route('product.show', ['id' => $product->id]) }}" class="product-link">
-                                <img src="{{ $product->image_link }}" class="card-img-top w-[154px] h-[154px]" alt="{{ $product->name }}">
-                                <div class="card-body">
-                                    <h5 class="card-title">{{ $product->name }}</h5>
-                                </a>
-                                 <a href="{{ route('brand.show', $brand->id) }}">
-                                <p>{{ $product->brand->name }}</p>
-                                    <p class="card-text">
-                                        {{ number_format($product->price, 0, ',', ' ') }} $
-                                    </p>
-                                </div>
-                           
-                        </div>
->>>>>>> web
                     </div>
                 @endforeach
             </div>
