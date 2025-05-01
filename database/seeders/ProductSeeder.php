@@ -40,6 +40,7 @@ class ProductSeeder extends Seeder
             'Skin Self-Refreshing Foundation'
         ];
 
+<<<<<<< HEAD
         $foundationImg = [
             "https://s3.amazonaws.com/donovanbailey/products/api_featured_images/000/001/045/original/open-uri20180708-4-4bvqii?1531074237",
             "https://s3.amazonaws.com/donovanbailey/products/api_featured_images/000/001/043/original/open-uri20180706-4-nszgw9?1530919194",
@@ -49,6 +50,44 @@ class ProductSeeder extends Seeder
             "https://s3.amazonaws.com/donovanbailey/products/api_featured_images/000/001/028/original/open-uri20180630-4-1u219s0?1530390378",
             "https://s3.amazonaws.com/donovanbailey/products/api_featured_images/000/001/004/original/open-uri20171227-4-1wp63cr?1514344255",
             "https://s3.amazonaws.com/donovanbailey/products/api_featured_images/000/001/002/original/open-uri20171227-4-1ne7r73?1514343097"
+=======
+        $lipsImg = [
+            'https://s3.amazonaws.com/donovanbailey/products/api_featured_images/000/001/048/original/open-uri20180708-4-13okqci?1531093614',
+            'https://s3.amazonaws.com/donovanbailey/products/api_featured_images/000/001/047/original/open-uri20180708-4-e7idod?1531087336',
+            'https://s3.amazonaws.com/donovanbailey/products/api_featured_images/000/001/046/original/open-uri20180708-4-1f333k1?1531086651',
+            'https://s3.amazonaws.com/donovanbailey/products/api_featured_images/000/001/044/original/data?1531071233',
+            'https://s3.amazonaws.com/donovanbailey/products/api_featured_images/000/001/037/original/open-uri20180630-4-1fa1p2f?1530390384',
+            'https://s3.amazonaws.com/donovanbailey/products/api_featured_images/000/001/030/original/open-uri20180630-4-ucbwbt?1530390380',
+            'https://s3.amazonaws.com/donovanbailey/products/api_featured_images/000/001/029/original/open-uri20180630-4-1rfkucb?1530390379',
+            'https://s3.amazonaws.com/donovanbailey/products/api_featured_images/000/001/023/original/open-uri20180630-4-149dwc3?1530390375',
+            'https://s3.amazonaws.com/donovanbailey/products/api_featured_images/000/000/887/original/data?1514082438',
+            'https://s3.amazonaws.com/donovanbailey/products/api_featured_images/000/000/886/original/open-uri20171224-4-1pbaddr?1514082437',
+            'https://s3.amazonaws.com/donovanbailey/products/api_featured_images/000/000/885/original/open-uri20171224-4-j5xh6b?1514082436',
+            'https://s3.amazonaws.com/donovanbailey/products/api_featured_images/000/000/884/original/open-uri20171224-4-1b2b0di?1514082434',
+            'https://s3.amazonaws.com/donovanbailey/products/api_featured_images/000/000/883/original/open-uri20171224-4-25gmgo?1514082433',
+            'https://s3.amazonaws.com/donovanbailey/products/api_featured_images/000/000/861/original/open-uri20171224-4-1s2vu19?1514082377',
+            'https://s3.amazonaws.com/donovanbailey/products/api_featured_images/000/000/860/original/open-uri20171224-4-1cgu3rl?1514082374',
+            'https://s3.amazonaws.com/donovanbailey/products/api_featured_images/000/000/859/original/open-uri20171224-4-1jzc6ty?1514082372',
+            'https://s3.amazonaws.com/donovanbailey/products/api_featured_images/000/000/858/original/open-uri20171224-4-7z9c9k?1514082356',
+            'https://s3.amazonaws.com/donovanbailey/products/api_featured_images/000/000/857/original/open-uri20171224-4-4k5tpf?1514082354',
+            'https://s3.amazonaws.com/donovanbailey/products/api_featured_images/000/000/770/original/data?1514072332',
+            'https://s3.amazonaws.com/donovanbailey/products/api_featured_images/000/000/769/original/data?1514072332',
+            'https://s3.amazonaws.com/donovanbailey/products/api_featured_images/000/000/768/original/data?1514072331',
+            'https://s3.amazonaws.com/donovanbailey/products/api_featured_images/000/000/663/original/open-uri20171223-4-sznyox?1514062723',
+            'https://s3.amazonaws.com/donovanbailey/products/api_featured_images/000/000/662/original/open-uri20171223-4-b9oitk?1514062722',
+            'https://s3.amazonaws.com/donovanbailey/products/api_featured_images/000/000/614/original/open-uri20171223-4-1ouwppd?1514061757',
+            'https://s3.amazonaws.com/donovanbailey/products/api_featured_images/000/000/613/original/open-uri20171223-4-13bs4e0?1514061757',
+            'https://s3.amazonaws.com/donovanbailey/products/api_featured_images/000/000/612/original/open-uri20171223-4-tnj626?1514061757',
+            'https://s3.amazonaws.com/donovanbailey/products/api_featured_images/000/000/521/original/open-uri20171223-4-15x0iu?1514062149',
+            'https://s3.amazonaws.com/donovanbailey/products/api_featured_images/000/000/519/original/data?1514062148',
+            'https://s3.amazonaws.com/donovanbailey/products/api_featured_images/000/000/518/original/data?1514062147',
+            'https://s3.amazonaws.com/donovanbailey/products/api_featured_images/000/000/517/original/open-uri20171223-4-1p0ttc5?1514062147',
+            'https://s3.amazonaws.com/donovanbailey/products/api_featured_images/000/000/516/original/data?1514062146',
+            'https://s3.amazonaws.com/donovanbailey/products/api_featured_images/000/000/515/original/data?1514062146',
+            'https://s3.amazonaws.com/donovanbailey/products/api_featured_images/000/000/413/original/data?1514063320',
+            'https://s3.amazonaws.com/donovanbailey/products/api_featured_images/000/000/412/original/data?1514063320',
+            'https://s3.amazonaws.com/donovanbailey/products/api_featured_images/000/000/398/original/open-uri20171223-4-11xbwij?1514063314'
+>>>>>>> web
         ];
 
         $concealerName = [
@@ -276,6 +315,7 @@ class ProductSeeder extends Seeder
             "https://s3.amazonaws.com/donovanbailey/products/api_featured_images/000/000/891/original/open-uri20171224-4-mgfb2y?1514082448",
             "https://s3.amazonaws.com/donovanbailey/products/api_featured_images/000/000/890/original/open-uri20171224-4-1p3hisz?1514082445",
             "https://s3.amazonaws.com/donovanbailey/products/api_featured_images/000/000/889/original/open-uri20171224-4-1jtkojq?1514082440",
+<<<<<<< HEAD
             "https://s3.amazonaws.com/donovanbailey/products/api_featured_images/000/000/874/original/open-uri20171224-4-14udrjs?1514082454"
         ];
 
@@ -307,6 +347,33 @@ class ProductSeeder extends Seeder
             "https://s3.amazonaws.com/donovanbailey/products/api_featured_images/000/001/030/original/open-uri20180630-4-ucbwbt?1530390380",
             "https://s3.amazonaws.com/donovanbailey/products/api_featured_images/000/001/022/original/data?1530390374",
             "https://s3.amazonaws.com/donovanbailey/products/api_featured_images/000/001/009/original/open-uri20180630-4-xznfso?1530390363",
+=======
+            "https://s3.amazonaws.com/donovanbailey/products/api_featured_images/000/000/888/original/open-uri20171224-4-zjnp6o?1514082438",
+            "https://s3.amazonaws.com/donovanbailey/products/api_featured_images/000/000/887/original/data?1514082438",
+            "https://s3.amazonaws.com/donovanbailey/products/api_featured_images/000/000/886/original/open-uri20171224-4-1pbaddr?1514082437",
+            "https://s3.amazonaws.com/donovanbailey/products/api_featured_images/000/000/885/original/open-uri20171224-4-j5xh6b?1514082436",
+            "https://s3.amazonaws.com/donovanbailey/products/api_featured_images/000/000/884/original/open-uri20171224-4-1b2b0di?1514082434",
+            "https://s3.amazonaws.com/donovanbailey/products/api_featured_images/000/000/883/original/open-uri20171224-4-25gmgo?1514082433",
+            "https://s3.amazonaws.com/donovanbailey/products/api_featured_images/000/000/882/original/open-uri20171224-4-111jmk6?1514082432",
+            "https://s3.amazonaws.com/donovanbailey/products/api_featured_images/000/000/880/original/open-uri20171224-4-dp6rrb?1514082429",
+            "https://s3.amazonaws.com/donovanbailey/products/api_featured_images/000/000/879/original/open-uri20171224-4-1loshoq?1514082428",
+            "https://s3.amazonaws.com/donovanbailey/products/api_featured_images/000/000/878/original/open-uri20171224-4-1tsev2u?1514082427",
+            "https://s3.amazonaws.com/donovanbailey/products/api_featured_images/000/000/877/original/open-uri20171224-4-r7y0wz?1514082426",
+            "https://s3.amazonaws.com/donovanbailey/products/api_featured_images/000/000/876/original/open-uri20171224-4-wz7a6o?1514082425",
+            "https://s3.amazonaws.com/donovanbailey/products/api_featured_images/000/000/875/original/open-uri20171224-4-16xna3r?1514082424",
+            "https://s3.amazonaws.com/donovanbailey/products/api_featured_images/000/000/874/original/open-uri20171224-4-14udrjs?1514082454",
+            "https://s3.amazonaws.com/donovanbailey/products/api_featured_images/000/000/872/original/open-uri20171224-4-193brnk?1514082418",
+            "https://s3.amazonaws.com/donovanbailey/products/api_featured_images/000/000/871/original/open-uri20171224-4-qu6f92?1514082411",
+            "https://s3.amazonaws.com/donovanbailey/products/api_featured_images/000/000/870/original/open-uri20171224-4-1x4oohd?1514082406",
+            "https://s3.amazonaws.com/donovanbailey/products/api_featured_images/000/000/869/original/open-uri20171224-4-13sob9z?1514082404",
+            "https://s3.amazonaws.com/donovanbailey/products/api_featured_images/000/000/868/original/open-uri20171224-4-i4duyu?1514082402",
+            "https://s3.amazonaws.com/donovanbailey/products/api_featured_images/000/000/867/original/open-uri20171224-4-tp7kxq?1514082397",
+            "https://s3.amazonaws.com/donovanbailey/products/api_featured_images/000/000/866/original/open-uri20171224-4-9fhzot?1514082394",
+            "https://s3.amazonaws.com/donovanbailey/products/api_featured_images/000/000/865/original/open-uri20171224-4-1jh734z?1514082393",
+            "https://s3.amazonaws.com/donovanbailey/products/api_featured_images/000/000/864/original/open-uri20171224-4-1xq0aej?1514082390",
+            "https://s3.amazonaws.com/donovanbailey/products/api_featured_images/000/000/863/original/open-uri20171224-4-16oiz6q?1514082389",
+            "https://s3.amazonaws.com/donovanbailey/products/api_featured_images/000/000/862/original/open-uri20171224-4-zsba91?1514082381",
+>>>>>>> web
             "https://s3.amazonaws.com/donovanbailey/products/api_featured_images/000/000/861/original/open-uri20171224-4-1s2vu19?1514082377",
             "https://s3.amazonaws.com/donovanbailey/products/api_featured_images/000/000/860/original/open-uri20171224-4-1cgu3rl?1514082374",
             "https://s3.amazonaws.com/donovanbailey/products/api_featured_images/000/000/859/original/open-uri20171224-4-1jzc6ty?1514082372",

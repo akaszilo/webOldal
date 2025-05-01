@@ -14,7 +14,7 @@ class BrandController extends Controller
      */
     public function index()
     {
-        //
+        
     }
 
     /**
@@ -38,8 +38,16 @@ class BrandController extends Controller
      */
     public function show(Brand $brand)
     {
+<<<<<<< HEAD
         $products = $brand->products()->with('brand')->get();
         return view('brand.show', compact('brand', 'products'));
+=======
+        $products = $brand->products()->get();
+        $products = $brand->products()->with('brand')->get();
+
+        return view('brand.show', compact('brand', 'products'));
+        
+>>>>>>> web
     }
 
     /**
