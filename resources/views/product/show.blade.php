@@ -45,16 +45,16 @@
                                 {{ $product->price }} $
                             </h1>
                             <div class="d-flex align-items-center mb-2">
-                                <input type="number" class="form-control me-2" value="1" min="1"
-                                    style="width: 60px;">
+                                <input type="number" name="quantity" class="form-control me-2" value="1"
+                                    min="1" style="width: 60px;">
                                 <i class="bi bi-cart-fill me-2" style="font-size: 1.5rem;"></i>
                                 <button class="btn btn-primary">Add to Cart</button>
                             </div>
-
                         </div>
                     </div>
                 </div>
             </div>
+        </div>
     </form>
     <div class="row mt-4">
         <div class="col-md-12">

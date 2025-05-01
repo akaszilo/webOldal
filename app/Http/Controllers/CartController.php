@@ -12,22 +12,22 @@ use App\Models\CreditCard;
 
 class CartController extends Controller
 {
-    public function add($id)
+    public function add(Request $request, $id)
     {
         if (!Auth::check()) {
             return redirect()->route('register');
         } else {
             $product = Product::findOrFail($id);
-
             $cart = session()->get('cart', []);
+            $quantity = max(1, (int) $request->input('quantity', 1)); // Mindig legalább 1
 
             if (isset($cart[$id])) {
-                $cart[$id]['quantity']++;
+                $cart[$id]['quantity'] += $quantity;
             } else {
                 $cart[$id] = [
                     "id" => $product->id,
                     "name" => $product->name,
-                    "quantity" => 1,
+                    "quantity" => $quantity,
                     "price" => $product->price,
                     "image" => $product->image_link,
                     'session_id' => session()->getId()
