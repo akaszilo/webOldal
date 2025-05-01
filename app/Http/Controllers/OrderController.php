@@ -73,12 +73,12 @@ class OrderController extends Controller
         if ($order->status !== 'pending') {
             return redirect()->back()->with('error', 'Csak függőben lévő rendelést törölhetsz.');
         }
-    
+
         $order->delete();
-    
+
         return redirect()->route('profile', ['#tab-orders'])->with('success', 'A rendelés sikeresen törölve lett.');
     }
-    
+
     public function checkout(Request $request)
     {
         $cart = session('cart', []);
@@ -142,13 +142,23 @@ class OrderController extends Controller
         foreach ($selected as $productId) {
             if (isset($cart[$productId])) {
                 $item = $cart[$productId];
+
+                // --- KÉSZLET ÉS ELADOTT MENNYISÉG FRISSÍTÉSE ---
+                $product = Product::find($item['id']);
+                if ($product) {
+                    // Csökkentsd a készletet, de ne menjen 0 alá
+                    $product->instock = max(0, $product->instock - $item['quantity']);
+                    // Növeld az eladott mennyiséget
+                    $product->sold_quantity += $item['quantity'];
+                    $product->save();
+                }
+
                 $order->items()->create([
                     'product_id' => $item['id'],
                     'quantity' => $item['quantity'],
                     'price' => $item['price'],
                 ]);
                 $total += $item['price'] * $item['quantity'];
-                // Ha akarod, töröld a kosárból is a kiválasztottakat:
                 unset($cart[$productId]);
             }
         }
@@ -162,6 +172,7 @@ class OrderController extends Controller
 
         return redirect()->route('order.success')->with('success', 'Sikeres rendelés!');
     }
+
 
     public function orderSuccess()
     {
@@ -216,5 +227,5 @@ class OrderController extends Controller
         return view('order.select_payment', compact('addresses', 'creditCards'));
     }
 
-    
+
 }

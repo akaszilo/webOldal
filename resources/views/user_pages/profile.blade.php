@@ -200,63 +200,66 @@
                     <!-- KOSÁR -->
                     <div class="tab-pane fade" id="tab-cart" role="tabpanel" aria-labelledby="cart-tab">
                         <h2>Kosár</h2>
-                        <table class="table">
-                            <thead>
-                                <tr>
-                                    <th></th>
-                                    <th>Termék</th>
-                                    <th>Kép</th>
-                                    <th>Ár</th>
-                                    <th>Mennyiség</th>
-                                    <th>Részösszeg</th>
-                                    <th>Művelet</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @php $total = 0; @endphp
-                                @foreach ($cart as $productId => $product)
-                                    @php
-                                        $subtotal = $product['price'] * $product['quantity'];
-                                        $total += $subtotal;
-                                    @endphp
-                                    <tr>
-                                        <td>
-                                            <input type="checkbox" name="selected_products[]" value="{{ $productId }}"
-                                                checked>
-                                        </td>
-                                        <td>{{ $product['name'] }}</td>
-                                        <td><img src="{{ $product['image'] }}" width="50"
-                                                alt="{{ $product['name'] }}"></td>
-                                        <td>${{ number_format($product['price'], 2) }}</td>
-                                        <td>
-                                            <form action="{{ route('cart.update', $productId) }}" method="POST"
-                                                class="quantity-form me-2">
-                                                @csrf
-                                                <input type="number" name="quantity" value="{{ $product['quantity'] }}"
-                                                    min="1" class="form-control form-control-sm quantity-input">
-                                                <button type="submit" class="btn btn-primary btn-sm">Frissítés</button>
-                                            </form>
-
-                                        </td>
-                                        <td>${{ number_format($subtotal, 2) }}</td>
-                                        <td>
-                                            <form action="{{ route('cart.destroy', $productId) }}" method="POST"
-                                                class="d-inline">
-                                                @csrf
-                                                <button type="submit" class="btn btn-danger btn-sm">Törlés</button>
-                                            </form>
-                                        </td>
-                                    </tr>
-                                @endforeach
-                                <tr>
-                                    <td colspan="5" class="text-end"><strong>Végösszeg:</strong></td>
-                                    <td><strong>${{ number_format($total, 2) }}</strong></td>
-                                    <td></td>
-                                </tr>
-                            </tbody>
-                        </table>
                         <form action="{{ route('order.checkout') }}" method="POST">
                             @csrf
+                            <table class="table" id="cart-table">
+                                <thead>
+                                    <tr>
+                                        <th></th>
+                                        <th>Termék</th>
+                                        <th>Kép</th>
+                                        <th>Ár</th>
+                                        <th>Mennyiség</th>
+                                        <th>Részösszeg</th>
+                                        <th>Művelet</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach ($cart as $productId => $product)
+                                        @php
+                                            $subtotal = $product['price'] * $product['quantity'];
+                                        @endphp
+                                        <tr>
+                                            <td>
+                                                <input type="checkbox" class="cart-checkbox" name="selected_products[]"
+                                                    value="{{ $productId }}" checked
+                                                    data-subtotal="{{ $subtotal }}">
+                                            </td>
+                                            <td>{{ $product['name'] }}</td>
+                                            <td><img src="{{ $product['image'] }}" width="50"
+                                                    alt="{{ $product['name'] }}"></td>
+                                            <td>${{ number_format($product['price'], 2) }}</td>
+                                            <td>
+                                                <form action="{{ route('cart.update', $productId) }}" method="POST"
+                                                    class="quantity-form me-2">
+                                                    @csrf
+                                                    <input type="number" name="quantity"
+                                                        value="{{ $product['quantity'] }}" min="1"
+                                                        class="form-control form-control-sm quantity-input">
+                                                    <button type="submit"
+                                                        class="btn btn-primary btn-sm">Frissítés</button>
+                                                </form>
+                                            </td>
+                                            <td class="subtotal-cell">${{ number_format($subtotal, 2) }}</td>
+                                            <td>
+                                                <form action="{{ route('cart.destroy', $productId) }}" method="POST"
+                                                    class="d-inline">
+                                                    @csrf
+                                                    <button type="submit" class="btn btn-danger btn-sm">Törlés</button>
+                                                </form>
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                </tbody>
+                                <tfoot>
+                                    <tr>
+                                        <td colspan="5" class="text-end"><strong>Végösszeg:</strong></td>
+                                        <td id="cart-total"><strong>${{ number_format($total, 2) }}</strong></td>
+                                        <td></td>
+                                    </tr>
+                                </tfoot>
+                            </table>
+
                             <button type="submit" class="btn btn-success btn-lg">Checkout</button>
                         </form>
                     </div>
@@ -264,4 +267,22 @@
             </div>
         </div>
     </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            function updateCartTotal() {
+                let total = 0;
+                document.querySelectorAll('.cart-checkbox').forEach(function(checkbox) {
+                    if (checkbox.checked) {
+                        total += parseFloat(checkbox.getAttribute('data-subtotal'));
+                    }
+                });
+                document.getElementById('cart-total').innerHTML = '<strong>$' + total.toFixed(2) + '</strong>';
+            }
+            document.querySelectorAll('.cart-checkbox').forEach(function(checkbox) {
+                checkbox.addEventListener('change', updateCartTotal);
+            });
+            updateCartTotal();
+        });
+    </script>
+
 @endsection

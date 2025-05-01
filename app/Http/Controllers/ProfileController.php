@@ -19,24 +19,25 @@ class ProfileController extends Controller
     {
         $user = Auth::user();
         $ordersQuery = $user->orders()->latest();
-    
-        // Check if there is a 'orders' parameter in the request
         if ($request->has('orders')) {
             $status = $request->input('orders');
-    
-            // Filter orders based on status
             if ($status !== 'all') {
                 $ordersQuery->where('status', $status);
             }
         }
-    
         $orders = $ordersQuery->get();
         $creditCards = $user->creditCards;
         $addresses = $user->addresses;
-        $cart = session('cart', []); // vagy ha userhez kötöd, akkor onnan
+        $cart = session('cart', []);
     
-        return view('user_pages.profile', compact('user', 'orders', 'creditCards', 'addresses', 'cart'));
+        $total = 0;
+        foreach ($cart as $product) {
+            $total += $product['price'] * $product['quantity'];
+        }
+    
+        return view('user_pages.profile', compact('user', 'orders', 'creditCards', 'addresses', 'cart', 'total'));
     }
+    
     
     public function showOrderDetails(Order $order)
     {
@@ -45,9 +46,6 @@ class ProfileController extends Controller
 
         return view('user_pages.order_details', compact('order'));
     }
-
-
-
 
     /**
      * Show the form for creating a new resource.
