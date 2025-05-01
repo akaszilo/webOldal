@@ -41,26 +41,31 @@
                         </a>
                         
                         <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="{{ route('face') }}">Face</a></li>
+                            <li>
+                                <a class="dropdown-item" href="{{ route('face') }}">Face</a>
+                            </li>
                             <li>
                                 <hr class="dropdown-divider">
                             </li>
-                            <li><a class="dropdown-item"
-                                    href="{{ route('categories.show', ['category' => 1]) }}">Foundation</a></li>
-                            <li><a class="dropdown-item"
-                                    href="{{ route('categories.show', ['category' => 2]) }}">Concealer</a></li>
-                            <li><a class="dropdown-item"
-                                    href="{{ route('categories.show', ['category' => 2]) }}">Powder</a>
+                            <li>
+                                <a class="dropdown-item" href="{{ route('categories.show', ['category' => 1]) }}">Foundation</a>
                             </li>
-                            <li><a class="dropdown-item"
-                                    href="{{ route('categories.show', ['category' => 3]) }}">Blush</a>
+                            <li>
+                                <a class="dropdown-item" href="{{ route('categories.show', ['category' => 2]) }}">Concealer</a>
                             </li>
-                            <li><a class="dropdown-item"
-                                    href="{{ route('categories.show', ['category' => 4]) }}">Bronzer</a></li>
-                            <li><a class="dropdown-item"
-                                    href="{{ route('categories.show', ['category' => 5]) }}">Contour</a></li>
+                            <li>
+                                <a class="dropdown-item" href="{{ route('categories.show', ['category' => 3]) }}">Powder</a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="{{ route('categories.show', ['category' => 4]) }}">Blush</a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="{{ route('categories.show', ['category' => 5]) }}">Bronzer</a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="{{ route('categories.show', ['category' => 6]) }}">Contour</a>
+                            </li>
                         </ul>
-                        
                     </li>
                     
                     <li class="nav-item dropdown">
@@ -69,18 +74,24 @@
                             Lips
                         </a>
                         <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="{{ route('lips') }}">Lips</a></li>
+                            <li>
+                                <a class="dropdown-item" href="{{ route('lips') }}">Lips</a>
+                            </li>
                             <li>
                                 <hr class="dropdown-divider">
                             </li>
-                            <li><a class="dropdown-item"
-                                    href="{{ route('categories.show', ['category' => 6]) }}">Lipstick</a></li>
-                            <li><a class="dropdown-item" href="{{ route('categories.show', ['category' => 7]) }}">Lip
-                                    liner</a></li>
-                            <li><a class="dropdown-item"
-                                    href="{{ route('categories.show', ['category' => 8]) }}">Lipgloss</a></li>
-                            <li><a class="dropdown-item" href="{{ route('categories.show', ['category' => 9]) }}">Lip
-                                    oil</a></li>
+                            <li>
+                                <a class="dropdown-item" href="{{ route('categories.show', ['category' => 7]) }}">Lipstick</a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="{{ route('categories.show', ['category' => 8]) }}">Lip liner</a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="{{ route('categories.show', ['category' => 9]) }}">Lipgloss</a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="{{ route('categories.show', ['category' => 10]) }}">Lip oil</a>
+                            </li>
                         </ul>
                     </li>
                     <li class="nav-item dropdown">
@@ -89,19 +100,24 @@
                             Eyes
                         </a>
                         <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="{{ route('eyes') }}">Eyes</a></li>
+                            <li>
+                                <a class="dropdown-item" href="{{ route('eyes') }}">Eyes</a>
+                            </li>
                             <li>
                                 <hr class="dropdown-divider">
                             </li>
-                            <li><a class="dropdown-item"
-                                    href="{{ route('categories.show', ['category' => 10]) }}">Eyeliner</a></li>
-                            <li><a class="dropdown-item"
-                                    href="{{ route('categories.show', ['category' => 11]) }}">Eyeshadow Palette</a>
+                            <li>
+                                <a class="dropdown-item" href="{{ route('categories.show', ['category' => 11]) }}">Eyeliner</a>
+                                </li>
+                            <li>
+                                <a class="dropdown-item" href="{{ route('categories.show', ['category' => 12]) }}">Eyeshadow Palette</a>
                             </li>
-                            <li><a class="dropdown-item"
-                                    href="{{ route('categories.show', ['category' => 12]) }}">Mascara</a></li>
-                            <li><a class="dropdown-item"
-                                    href="{{ route('categories.show', ['category' => 13]) }}">Eyebrow Pencil</a></li>
+                            <li>
+                                <a class="dropdown-item" href="{{ route('categories.show', ['category' => 13]) }}">Mascara</a>
+                                </li>
+                            <li>
+                                <a class="dropdown-item" href="{{ route('categories.show', ['category' => 14]) }}">Eyebrow Pencil</a>
+                                </li>
                         </ul>
                     </li>
                 </ul>

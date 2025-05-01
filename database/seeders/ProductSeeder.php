@@ -502,6 +502,7 @@ class ProductSeeder extends Seeder
                 case 2: // Concealer
                     $productName = Arr::random($concealerName);
                     $imageLink = Arr::random($concealerImg);
+                    break;
                 case 3: // Powder
                     $productName = Arr::random($powderName);
                     $imageLink = Arr::random($powderImg);

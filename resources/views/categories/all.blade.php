@@ -11,11 +11,12 @@
                 <option value="oldest "{{ $sort == 'oldest' ? 'selected' : '' }}>Oldest first</option>
                 <option value="cheapest" {{ $sort == 'cheapest' ? 'selected' : '' }}>Least expensive first</option>
                 <option value="most_expensive"{{ $sort == 'most_expensive' ? 'selected' : '' }}>Most expensive first</option>
-            <option value="popular" {{ $sort == 'popular' ? 'selected' : '' }}>Most popular first</option>
-                <option value="least_popular" {{ $sort == 'least_popular' ? 'selected' : '' }}" {{ $sort == 'oldest' ? 'selected' : '' }}>Least popular first</option>
+                <option value="popular" {{ $sort == 'popular' ? 'selected' : '' }}>Most popular first</option>
+                <option value="abc" {{ $sort == 'abc' ? 'selected' : '' }}>ABC</option>
             </select>
         </form>
     </div>
+
     <div class="row">
         @foreach($products as $product)
         <div class="col-md-3 mb-4">
