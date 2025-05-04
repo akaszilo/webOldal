@@ -74,6 +74,7 @@
                                 <thead>
                                     <tr>
                                         <th>Rendelés Azonosító</th>
+                                        <th>Termék neve</th>
                                         <th>Dátum</th>
                                         <th>Összeg</th>
                                         <th>Státusz</th>
@@ -84,13 +85,19 @@
                                     @foreach ($orders as $order)
                                         <tr>
                                             <td>{{ $order->id }}</td>
-                                            <td>{{ $order->created_at }}</td>
-                                            <td>{{ $order->total }}</td>
-                                            <td>{{ $order->status }}</td>
+                                            <td>
+                                                @foreach ($order->items as $item)
+                                                    {{ $item->product->name }}@if (!$loop->last)
+                                                        ,
+                                                    @endif
+                                                @endforeach
+                                            </td>
+                                            <td>{{ $order->created_at->format('Y-m-d H:i') }}</td>
+                                            <td>{{ number_format($order->total, 2) }} $</td>
+                                            <td>{{ ucfirst($order->status) }}</td>
                                             <td>
                                                 <a href="{{ route('order.details', $order) }}"
                                                     class="btn btn-sm btn-info">Részletek</a>
-
                                                 @if ($order->status === 'pending')
                                                     <form action="{{ route('order.destroy', $order) }}" method="POST"
                                                         class="d-inline"
@@ -101,7 +108,6 @@
                                                     </form>
                                                 @endif
                                             </td>
-
                                         </tr>
                                     @endforeach
                                 </tbody>

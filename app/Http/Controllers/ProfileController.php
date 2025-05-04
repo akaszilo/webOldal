@@ -18,7 +18,7 @@ class ProfileController extends Controller
     public function index(Request $request)
     {
         $user = Auth::user();
-        $ordersQuery = $user->orders()->latest();
+        $ordersQuery = $user->orders()->with('items.product')->latest();
         if ($request->has('orders')) {
             $status = $request->input('orders');
             if ($status !== 'all') {
