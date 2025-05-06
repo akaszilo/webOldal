@@ -4,6 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>Makeup webpage</title>
@@ -30,8 +31,7 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <!-- Left Side Of Navbar -->
                 <ul class="navbar-nav me-auto ">
-                    <a class="nav-link" href="{{ route('all') }}" role="button"
-                         >
+                    <a class="nav-link" href="{{ route('all') }}" role="button">
                         All products
                     </a>
                     <li class="nav-item dropdown">
@@ -39,7 +39,7 @@
                             data-bs-toggle="dropdown" aria-expanded="false">
                             Face
                         </a>
-                        
+
                         <ul class="dropdown-menu">
                             <li>
                                 <a class="dropdown-item" href="{{ route('face') }}">Face</a>
@@ -48,26 +48,32 @@
                                 <hr class="dropdown-divider">
                             </li>
                             <li>
-                                <a class="dropdown-item" href="{{ route('categories.show', ['category' => 1]) }}">Foundation</a>
+                                <a class="dropdown-item"
+                                    href="{{ route('categories.show', ['category' => 1]) }}">Foundation</a>
                             </li>
                             <li>
-                                <a class="dropdown-item" href="{{ route('categories.show', ['category' => 2]) }}">Concealer</a>
+                                <a class="dropdown-item"
+                                    href="{{ route('categories.show', ['category' => 2]) }}">Concealer</a>
                             </li>
                             <li>
-                                <a class="dropdown-item" href="{{ route('categories.show', ['category' => 3]) }}">Powder</a>
+                                <a class="dropdown-item"
+                                    href="{{ route('categories.show', ['category' => 3]) }}">Powder</a>
                             </li>
                             <li>
-                                <a class="dropdown-item" href="{{ route('categories.show', ['category' => 4]) }}">Blush</a>
+                                <a class="dropdown-item"
+                                    href="{{ route('categories.show', ['category' => 4]) }}">Blush</a>
                             </li>
                             <li>
-                                <a class="dropdown-item" href="{{ route('categories.show', ['category' => 5]) }}">Bronzer</a>
+                                <a class="dropdown-item"
+                                    href="{{ route('categories.show', ['category' => 5]) }}">Bronzer</a>
                             </li>
                             <li>
-                                <a class="dropdown-item" href="{{ route('categories.show', ['category' => 6]) }}">Contour</a>
+                                <a class="dropdown-item"
+                                    href="{{ route('categories.show', ['category' => 6]) }}">Contour</a>
                             </li>
                         </ul>
                     </li>
-                    
+
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="{{ route('lips') }}" role="button"
                             data-bs-toggle="dropdown" aria-expanded="false">
@@ -81,16 +87,20 @@
                                 <hr class="dropdown-divider">
                             </li>
                             <li>
-                                <a class="dropdown-item" href="{{ route('categories.show', ['category' => 7]) }}">Lipstick</a>
+                                <a class="dropdown-item"
+                                    href="{{ route('categories.show', ['category' => 7]) }}">Lipstick</a>
                             </li>
                             <li>
-                                <a class="dropdown-item" href="{{ route('categories.show', ['category' => 8]) }}">Lip liner</a>
+                                <a class="dropdown-item" href="{{ route('categories.show', ['category' => 8]) }}">Lip
+                                    liner</a>
                             </li>
                             <li>
-                                <a class="dropdown-item" href="{{ route('categories.show', ['category' => 9]) }}">Lipgloss</a>
+                                <a class="dropdown-item"
+                                    href="{{ route('categories.show', ['category' => 9]) }}">Lipgloss</a>
                             </li>
                             <li>
-                                <a class="dropdown-item" href="{{ route('categories.show', ['category' => 10]) }}">Lip oil</a>
+                                <a class="dropdown-item" href="{{ route('categories.show', ['category' => 10]) }}">Lip
+                                    oil</a>
                             </li>
                         </ul>
                     </li>
@@ -107,17 +117,21 @@
                                 <hr class="dropdown-divider">
                             </li>
                             <li>
-                                <a class="dropdown-item" href="{{ route('categories.show', ['category' => 11]) }}">Eyeliner</a>
-                                </li>
-                            <li>
-                                <a class="dropdown-item" href="{{ route('categories.show', ['category' => 12]) }}">Eyeshadow Palette</a>
+                                <a class="dropdown-item"
+                                    href="{{ route('categories.show', ['category' => 11]) }}">Eyeliner</a>
                             </li>
                             <li>
-                                <a class="dropdown-item" href="{{ route('categories.show', ['category' => 13]) }}">Mascara</a>
-                                </li>
+                                <a class="dropdown-item"
+                                    href="{{ route('categories.show', ['category' => 12]) }}">Eyeshadow Palette</a>
+                            </li>
                             <li>
-                                <a class="dropdown-item" href="{{ route('categories.show', ['category' => 14]) }}">Eyebrow Pencil</a>
-                                </li>
+                                <a class="dropdown-item"
+                                    href="{{ route('categories.show', ['category' => 13]) }}">Mascara</a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item"
+                                    href="{{ route('categories.show', ['category' => 14]) }}">Eyebrow Pencil</a>
+                            </li>
                         </ul>
                     </li>
                 </ul>
@@ -128,6 +142,24 @@
                             placeholder="Search" aria-label="Search" autocomplete="off">
                         <button class="btn btn-outline-success" type="submit">Search</button>
                     </form>
+
+                    <div class="me-3">
+                        @php
+                            $cart = session('cart', []);
+                            $cartCount = array_sum(array_column($cart, 'quantity'));
+                        @endphp
+
+                        <a href="{{ route('profile') }}#tab-cart" class="nav-link position-relative ms-3">
+                            <i class="fa-solid fa-cart-shopping"></i>
+                            @if ($cartCount > 0)
+                                <span
+                                    class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                                    {{ $cartCount }}
+                                    <span class="visually-hidden">termék a kosárban</span>
+                                </span>
+                            @endif
+                        </a>
+                    </div>
 
                     <ul class="navbar-nav">
                         <!-- Authentication Links -->
@@ -149,11 +181,10 @@
                                     {{ Auth::user()->name }}
                                 </a>
                                 <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                    <li><a class="dropdown-item" href="{{ route('profile') }}">Profile</a></li>
+                                    <li><a class="dropdown-item" href="{{ route('profile') }}#tab-profile">Profile</a>
+                                    </li>
                                     <li><a class="dropdown-item" href="{{ route('profile') }}#tab-orders">Rendeléseim</a>
                                     </li>
-                                    <li><a class="dropdown-item" href="{{ route('profile') }}#tab-cart">Kosár</a></li>
-                                    <li>
                                         <hr class="dropdown-divider">
                                     </li>
                                     <li>
@@ -263,6 +294,17 @@
                     searchResults.style.display = 'none';
                 }
             });
+        });
+
+        document.addEventListener('DOMContentLoaded', function() {
+            var hash = window.location.hash;
+            if (hash) {
+                var tabTrigger = document.querySelector('a[href="' + hash + '"]');
+                if (tabTrigger) {
+                    var tab = new bootstrap.Tab(tabTrigger);
+                    tab.show();
+                }
+            }
         });
     </script>
 

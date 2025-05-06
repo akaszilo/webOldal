@@ -33,6 +33,10 @@
         <div class="row">
             <div class="col-md-3">
                 <div class="list-group" id="profile-tabs" role="tablist">
+                    <a class="list-group-item list-group-item-action" id="profile-tab" data-bs-toggle="list"
+                        href="#tab-profile" role="tab" aria-controls="profile">
+                        Profil
+                    </a>
                     <a class="list-group-item list-group-item-action active" id="orders-tab" data-bs-toggle="list"
                         href="#tab-orders" role="tab" aria-controls="orders">
                         Rendeléseim
@@ -54,6 +58,32 @@
             <div class="col-md-9">
                 <h1 class="mt-3 mb-3">Hello, {{ $user->name }}!</h1>
                 <div class="tab-content" id="nav-tabContent">
+                    <!-- PROFIL -->
+                    <div class="tab-pane fade" id="tab-profile" role="tabpanel" aria-labelledby="profile-tab">
+                        <h2>Profil adatok módosítása</h2>
+                        <form method="POST" action="{{ route('profile.update') }}">
+                            @csrf
+                            @method('PUT')
+                            <div class="mb-3">
+                                <label for="name" class="form-label">Név</label>
+                                <input type="text" class="form-control" id="name" name="name"
+                                    value="{{ $user->name }}" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="email" class="form-label">Email cím</label>
+                                <input type="email" class="form-control" id="email" name="email"
+                                    value="{{ $user->email }}" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="password" class="form-label">Új jelszó</label>
+                                <input type="password" class="form-control" id="password" name="password"
+                                    autocomplete="new-password">
+                                <small class="form-text text-muted">Hagyd üresen, ha nem szeretnéd módosítani.</small>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Mentés</button>
+                        </form>
+                    </div>
+
                     <!-- RENDELÉSEK -->
                     <div class="tab-pane fade show active" id="tab-orders" role="tabpanel" aria-labelledby="orders-tab">
                         <h2>Rendeléseim</h2>
@@ -104,7 +134,8 @@
                                                         onsubmit="return confirm('Biztosan törlöd a rendelést?');">
                                                         @csrf
                                                         @method('DELETE')
-                                                        <button type="submit" class="btn btn-sm btn-danger">Törlés</button>
+                                                        <button type="submit"
+                                                            class="btn btn-sm btn-danger">Törlés</button>
                                                     </form>
                                                 @endif
                                             </td>
@@ -204,71 +235,83 @@
                     </div>
 
                     <!-- KOSÁR -->
-                    <div class="tab-pane fade" id="tab-cart" role="tabpanel" aria-labelledby="cart-tab">
-                        <h2>Kosár</h2>
-                        <form action="{{ route('order.checkout') }}" method="POST">
-                            @csrf
-                            <table class="table" id="cart-table">
-                                <thead>
-                                    <tr>
-                                        <th></th>
-                                        <th>Termék</th>
-                                        <th>Kép</th>
-                                        <th>Ár</th>
-                                        <th>Mennyiség</th>
-                                        <th>Részösszeg</th>
-                                        <th>Művelet</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @foreach ($cart as $productId => $product)
-                                        @php
-                                            $subtotal = $product['price'] * $product['quantity'];
-                                        @endphp
-                                        <tr>
-                                            <td>
-                                                <input type="checkbox" class="cart-checkbox" name="selected_products[]"
-                                                    value="{{ $productId }}" checked
-                                                    data-subtotal="{{ $subtotal }}">
-                                            </td>
-                                            <td>{{ $product['name'] }}</td>
-                                            <td><img src="{{ $product['image'] }}" width="50"
-                                                    alt="{{ $product['name'] }}"></td>
-                                            <td>${{ number_format($product['price'], 2) }}</td>
-                                            <td>
-                                                <form action="{{ route('cart.update', $productId) }}" method="POST"
-                                                    class="quantity-form me-2">
-                                                    @csrf
-                                                    <input type="number" name="quantity"
-                                                        value="{{ $product['quantity'] }}" min="1"
-                                                        class="form-control form-control-sm quantity-input">
-                                                    <button type="submit"
-                                                        class="btn btn-primary btn-sm">Frissítés</button>
-                                                </form>
-                                            </td>
-                                            <td class="subtotal-cell">${{ number_format($subtotal, 2) }}</td>
-                                            <td>
-                                                <form action="{{ route('cart.destroy', $productId) }}" method="POST"
-                                                    class="d-inline">
-                                                    @csrf
-                                                    <button type="submit" class="btn btn-danger btn-sm">Törlés</button>
-                                                </form>
-                                            </td>
-                                        </tr>
-                                    @endforeach
-                                </tbody>
-                                <tfoot>
-                                    <tr>
-                                        <td colspan="5" class="text-end"><strong>Végösszeg:</strong></td>
-                                        <td id="cart-total"><strong>${{ number_format($total, 2) }}</strong></td>
-                                        <td></td>
-                                    </tr>
-                                </tfoot>
-                            </table>
+<div class="tab-pane fade" id="tab-cart" role="tabpanel" aria-labelledby="cart-tab">
+    <h2>Kosár</h2>
+    @if ($cart && count($cart) > 0)
+        <table class="table" id="cart-table">
+            <thead>
+                <tr>
+                    <th></th>
+                    <th>Termék</th>
+                    <th>Kép</th>
+                    <th>Ár</th>
+                    <th>Mennyiség</th>
+                    <th>Részösszeg</th>
+                    <th>Művelet</th>
+                </tr>
+            </thead>
+            <tbody>
+                @php $total = 0; @endphp
+                @foreach ($cart as $productId => $product)
+                    @php
+                        $subtotal = $product['price'] * $product['quantity'];
+                        $total += $subtotal;
+                    @endphp
+                    <tr>
+                        <td>
+                            <!-- Ez a checkbox a checkout formba is kell majd! -->
+                            <input type="checkbox" class="cart-checkbox"
+                                name="selected_products[]" value="{{ $productId }}" checked
+                                data-subtotal="{{ $subtotal }}" form="checkout-form">
+                        </td>
+                        <td>{{ $product['name'] }}</td>
+                        <td><img src="{{ $product['image'] }}" width="50" alt="{{ $product['name'] }}"></td>
+                        <td>${{ number_format($product['price'], 2) }}</td>
+                        <td>
+                            <!-- MENNYISÉG FRISSÍTÉSE: külön form! -->
+                            <form action="{{ route('cart.update', $productId) }}" method="POST" class="d-inline">
+                                @csrf
+                                <input type="number" name="quantity"
+                                    value="{{ $product['quantity'] }}" min="1"
+                                    class="form-control form-control-sm quantity-input"
+                                    style="width: 80px; display: inline-block;">
+                                <button type="submit" class="btn btn-primary btn-sm">Frissítés</button>
+                            </form>
+                        </td>
+                        <td class="subtotal-cell">${{ number_format($subtotal, 2) }}</td>
+                        <td>
+                            <form action="{{ route('cart.destroy', $productId) }}" method="POST" class="d-inline">
+                                @csrf
+                                <button type="submit" class="btn btn-danger btn-sm">Törlés</button>
+                            </form>
+                        </td>
+                    </tr>
+                @endforeach
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td colspan="5" class="text-end"><strong>Végösszeg:</strong></td>
+                    <td id="cart-total"><strong>${{ number_format($total, 2) }}</strong></td>
+                    <td></td>
+                </tr>
+            </tfoot>
+        </table>
 
-                            <button type="submit" class="btn btn-success btn-lg">Checkout</button>
-                        </form>
-                    </div>
+        <!-- CHECKOUT FORM: csak a gomb és a checkboxok! -->
+        <form action="{{ route('order.checkout') }}" method="POST" id="checkout-form" class="mt-3">
+            @csrf
+            @foreach ($cart as $productId => $product)
+                <!-- A checkboxokat a checkout formban is el kell helyezni, vagy a fenti inputoknak legyen form="checkout-form" attribútuma! -->
+                <!-- <input type="checkbox" name="selected_products[]" value="{{ $productId }}" checked style="display:none;"> -->
+            @endforeach
+            <button type="submit" class="btn btn-success btn-lg">Checkout</button>
+        </form>
+    @else
+        <p>A kosarad üres.</p>
+    @endif
+</div>
+
+
                 </div>
             </div>
         </div>

@@ -29,16 +29,34 @@ class ProfileController extends Controller
         $creditCards = $user->creditCards;
         $addresses = $user->addresses;
         $cart = session('cart', []);
-    
+
         $total = 0;
         foreach ($cart as $product) {
             $total += $product['price'] * $product['quantity'];
         }
-    
+
         return view('user_pages.profile', compact('user', 'orders', 'creditCards', 'addresses', 'cart', 'total'));
     }
-    
-    
+
+    public function updateProfile(Request $request)
+    {
+        $user = Auth::user();
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|email|unique:users,email,' . $user->id,
+            'password' => 'nullable|string|min:8',
+        ]);
+
+        $user->name = $request->name;
+        $user->email = $request->email;
+        if ($request->filled('password')) {
+            $user->password = bcrypt($request->password);
+        }
+        $user->save();
+
+        return redirect()->route('profile', ['#tab-profile'])->with('success', 'Profil frissítve!');
+    }
+
     public function showOrderDetails(Order $order)
     {
         // Eager load the items relationship to prevent N+1 queries

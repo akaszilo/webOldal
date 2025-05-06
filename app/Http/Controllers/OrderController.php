@@ -123,8 +123,14 @@ class OrderController extends Controller
             ]
         ]);
 
-        return view('checkout.cvv_verification');
+        return view('order.cvv_verification');
     }
+    public function showCvvForm()
+    {
+        return view('order.cvv_verification');
+    }
+
+
     public function place_order(Request $request)
     {
         $cart = session('cart', []);

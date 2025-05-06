@@ -64,8 +64,9 @@ Route::post('/cart/destroy/{id}', [CartController::class, 'destroy'])->name('car
 Route::post('/cart/clear', [CartController::class, 'clear'])->name('cart.clear');
 Route::post('/cart/place-order', [CartController::class, 'placeOrder'])->name('cart.placeOrder');
 Route::post('/cart/update/{id}', [CartController::class, 'update'])->name('cart.update');
+Route::post('/cart/confirm-order', [CartController::class, 'confirmOrder'])->name('cart.confirmOrder');
 // Route::delete('/cart/destroy/{id}', [CartController::class, 'destroy'])->name('cart.destroy');
- 
+
 // Rendelés leadás
 Route::post('/cart/process_order', [CartController::class, 'processOrder'])->name('cart.process_order');
 
@@ -84,16 +85,17 @@ Route::resource('credit_cards', CreditCardController::class)->except(['show']);
 /* Rendelés (Order) kezelése */
 Route::post('/order/checkout', [OrderController::class, 'checkout'])->name('order.checkout');
 Route::post('/order/process_order', [OrderController::class, 'process_order'])->name('order.process_order');
-Route::post('/order/confirm_order', [OrderController::class, 'confirm_order'])->name('order.confirm_order');
 Route::get('/order/success', [OrderController::class, 'orderSuccess'])->name('order.success');
 Route::get('/order/{order}/details', [ProfileController::class, 'showOrderDetails'])->name('order.details');
 Route::get('/order/select_payment', [OrderController::class, 'select_payment'])->name('order.select_payment');
 Route::post('/order/process_payment', [OrderController::class, 'processPayment'])->name('order.process_payment');
 Route::post('/order/place_order', [OrderController::class, 'place_order'])->name('order.place_order');
 Route::delete('/order/{order}', [OrderController::class, 'destroy'])->name('order.destroy');
+Route::get('/order/confirm_order', [OrderController::class, 'showCvvForm'])->name('order.confirm_order');
 
 
 
 Route::get('/profile', [ProfileController::class, 'index'])
     ->name('profile')
     ->middleware('auth', App\Http\Middleware\OrderStatus::class);
+Route::put('/profile/update', [ProfileController::class, 'updateProfile'])->name('profile.update');

@@ -145,8 +145,9 @@ class CartController extends Controller
         }
         $creditCard = CreditCard::find($creditCardId);
         if (!$creditCard || $creditCard->cvv !== $request->input('cvv')) {
-            return redirect()->back()->with('error', 'Hibás CVV kód.');
+            return redirect()->route('order.confirm_order')->with('error', 'Hibás CVV kód.');
         }
+        
         $totalPrice = 0;
         foreach ($cart as $item) {
             $product = Product::find($item['id']);
@@ -158,7 +159,7 @@ class CartController extends Controller
         }
         $order = new Order();
         $order->user_id = $user->id;
-        $order->price = $price;
+        $order->total = $totalPrice;
         $order->status = 'pending';
         $order->save();
         foreach ($cart as $item) {

@@ -82,16 +82,10 @@
             <div class="row">
                 @foreach ($featuredBrands as $brand)
                     <div class="col-md-3 mb-4">
-<<<<<<< HEAD
-                        <a href="{{ route('brand.show', $brand->id) }}">
-                            <button>{{ $brand->name }}</button>
-                        </a>
-=======
                         <a href="{{ route('brands.show', $brand->id) }}">
                             <button class="bg-gradient-to-r from-pink-500 to-red-500 text-black text-lg font-semibold py-3 px-6 rounded-full">{{$brand->name}}</button>
                         </a>
                         
->>>>>>> web
                     </div>
                 @endforeach
             </div>
