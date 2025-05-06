@@ -5,10 +5,8 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-    <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>Makeup webpage</title>
-    <!-- Scripts -->
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-SgOJa3DmI69IUzQ2PVdRZhwQ+dy64/BUtbMJw1MZ8t5HZApcHrRKUc4W0kG879m7" crossorigin="anonymous">
@@ -29,7 +27,6 @@
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <!-- Left Side Of Navbar -->
                 <ul class="navbar-nav me-auto ">
                     <a class="nav-link" href="{{ route('all') }}" role="button">
                         All products
@@ -135,7 +132,6 @@
                         </ul>
                     </li>
                 </ul>
-                <!-- Right Side Of Navbar -->
                 <div class="d-flex ms-auto align-items-center">
                     <form class="d-flex me-2" role="search" action="{{ route('search') }}" method="GET">
                         <input class="form-control me-2" type="search" id="search" name="search"
@@ -155,14 +151,13 @@
                                 <span
                                     class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
                                     {{ $cartCount }}
-                                    <span class="visually-hidden">termék a kosárban</span>
+                                    <span class="visually-hidden">Items in cart</span>
                                 </span>
                             @endif
                         </a>
                     </div>
 
                     <ul class="navbar-nav">
-                        <!-- Authentication Links -->
                         @guest
                             @if (Route::has('login'))
                                 <li class="nav-item">
@@ -185,6 +180,7 @@
                                     </li>
                                     <li><a class="dropdown-item" href="{{ route('profile') }}#tab-orders">Rendeléseim</a>
                                     </li>
+                                    <li>
                                         <hr class="dropdown-divider">
                                     </li>
                                     <li>

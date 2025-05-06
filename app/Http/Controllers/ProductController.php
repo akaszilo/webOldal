@@ -56,6 +56,7 @@ class ProductController extends Controller
 
     public function index(): View
     {
+        $user = Auth::user();
         
         $userName = Auth::check() ? Auth::user()->name : 'Vendég';
 
@@ -67,7 +68,8 @@ class ProductController extends Controller
             'bestsellers' => $bestsellers,
             'latestProducts' => $latestProducts,
             'featuredBrands' => $featuredBrands,
-            'userName' => $userName
+            'userName' => $userName,
+            'user' => $user,
         ]);
     }
 
@@ -107,18 +109,18 @@ class ProductController extends Controller
 
     public function show(Product $product)
     {
-        $brand = $product->brand;  // A Product modelben definiált kapcsolatot használjuk
+        $user = Auth::user();
+        $brand = $product->brand;  
         $products = $brand->products()->with('brand')->get();
 
         return view('product.show', compact('product', 'brand'));
 
         if (!$product) {
-            abort(404); // Ha nincs ilyen termék, 404-es hibát adunk vissza
+            abort(404); 
         }
-
-        return view('product.show', compact('product'));
-
         $randomProducts = Product::inRandomOrder()->limit(4)->get();
+
+        
         return view('product.show', compact('product', 'randomProducts'));
     }
 

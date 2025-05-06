@@ -39,7 +39,6 @@ class OrderController extends Controller
     {
         //
     }
-
     /**
      * Display the specified resource.
      */
@@ -85,12 +84,12 @@ class OrderController extends Controller
         $selected = $request->input('selected_products', []);
 
         if (empty($selected)) {
-            return redirect()->back()->with('error', 'Nem választottál terméket!');
+            return redirect()->back()->with('error', 'You haven\'t selected any products!');
         }
 
-        // Csak a kiválasztott termékek
         $cartItems = [];
         $total = 0;
+
         foreach ($selected as $productId) {
             if (isset($cart[$productId])) {
                 $item = $cart[$productId];
@@ -99,11 +98,17 @@ class OrderController extends Controller
             }
         }
 
-        // Ezt a kiválasztást eltároljuk a sessionben a következő lépéshez
-        session(['checkout_selected_products' => $selected]);
+        $discountMultiplier = session('discount', 1);
+        $discountedTotal = $total * $discountMultiplier;
 
-        // Megjelenítjük a kosár összegző oldalát
-        return view('order.checkout', compact('cartItems', 'total'));
+        session([
+            'checkout_cart_items' => $cartItems,
+            'checkout_total' => $total,
+            'checkout_discounted_total' => $discountedTotal,
+            'has_discount' => $discountMultiplier < 1,
+        ]);
+
+        return view('order.checkout')->with('success', 'You can review your order!');
     }
 
     public function process_order(Request $request)

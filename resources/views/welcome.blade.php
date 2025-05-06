@@ -27,10 +27,11 @@
     @endif
 
     <main class="container mt-4">
-
-        <!-- Bestsellerek -->
+        <h1>Hello, {{ $user->name }}! :)</h1>
+        <!-- Bestsellers -->
+        <br>
         <section class="bestsellers mb-5">
-            <h2 class="mb-4">Legnépszerűbb termékek</h2>
+            <h1 class="mb-4">Legnépszerűbb termékek</h1>
             <div class="row">
                 @foreach ($bestsellers as $product)
                     <div class="col-md-3 mb-4">
