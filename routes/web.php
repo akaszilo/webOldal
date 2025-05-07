@@ -41,7 +41,7 @@ Route::get('/categories/{category}', [CategoryController::class, 'show'])->name(
 Route::get('/eyes', [CategoryController::class, 'showeyes'])->name('eyes');
 Route::get('/lips', [CategoryController::class, 'showlips'])->name('lips');
 Route::get('/face', [CategoryController::class, 'showface'])->name('face');
-Route::get('/all', [CategoryController::class, 'index'])->name('all');
+Route::get('/all', [CategoryController::class, 'allProducts'])->name('all');
 
 
 
@@ -66,9 +66,8 @@ Route::get('/profile', [ProfileController::class, 'index'])->name('profile');
 
 
 /* Cart routes */
-Route::get('/cart', function () {
-    return redirect()->route('profile');
-})->name('cart.index');
+Route::get('/user_pages/cart', [CartController::class, 'showUserCart'])->name('user.cart');
+Route::get('/subcategory/{id}', [CategoryController::class, 'showSubcategory'])->name('subcategory.show');
 Route::post('/cart/add/{id}', [CartController::class, 'add'])->name('cart.add');
 Route::post('/cart/destroy/{id}', [CartController::class, 'destroy'])->name('cart.destroy');
 Route::post('/cart/clear', [CartController::class, 'clear'])->name('cart.clear');

@@ -145,7 +145,7 @@
                             $cartCount = array_sum(array_column($cart, 'quantity'));
                         @endphp
 
-                        <a href="{{ route('profile') }}#tab-cart" class="nav-link position-relative ms-3">
+                        <a href="{{ route('user.cart') }}" class="nav-link position-relative ms-3">
                             <i class="fa-solid fa-cart-shopping"></i>
                             @if ($cartCount > 0)
                                 <span

@@ -56,7 +56,7 @@
                 <input type="text" name="cvv" class="form-control" required>
             </div>            
             <button class="btn btn-success" type="submit">Mentés</button>
-            <a href="{{ route('profile') }}" class="btn btn-secondary">Mégsem</a>
+            <a href="{{ route('profile') }}#tab-cards" class="btn btn-secondary">Mégsem</a>
         </form>
     </div>
 @endsection

@@ -3,9 +3,21 @@
 @section('content')
     <div class="container py-4">
         <h1 class="mb-4">Smink kategória: {{ $category->name }}</h1>
+        <form method="GET" action="{{ url()->current() }}">
+            <label for="sort">Sort:</label>
+            <select name="sort" id="sort" onchange="this.form.submit()" class="form-select w-auto d-inline-block">
+                <option value="newest" {{ $sort == 'newest' ? 'selected' : '' }}>Newest first</option>
+                <option value="oldest" {{ $sort == 'oldest' ? 'selected' : '' }}>Oldest first</option>
+                <option value="cheapest" {{ $sort == 'cheapest' ? 'selected' : '' }}>Least expensive first</option>
+                <option value="most_expensive" {{ $sort == 'most_expensive' ? 'selected' : '' }}>Most expensive first</option>
+                <option value="popular" {{ $sort == 'popular' ? 'selected' : '' }}>Most popular first</option>
+                <option value="abc" {{ $sort == 'abc' ? 'selected' : '' }}>ABC</option>
+            </select>
+        </form>
+        
         <div class="row">
-            @foreach ($category->products as $product)
-                <div class="col-md-3 mb-4">
+            @foreach ($products as $product)
+            <div class="col-md-3 mb-4">
                     <a href="{{ route('product.show', $product->id) }}" class="card-link">
                         <div class="card product-card h-100">
                             <img src="{{ asset($product->image_link) }}" class="card-img-top img-fluid" alt="{{ $product->name }}">

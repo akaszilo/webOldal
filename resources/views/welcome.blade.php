@@ -90,13 +90,5 @@
                 @endforeach
             </div>
         </section>
-
-        <!-- Elégedettségi kérdőív -->
-        <section class="survey">
-            <h2>Elégedettségi kérdőív</h2>
-            <button>😊</button>
-            <button>😐</button>
-            <button>☹️</button>
-        </section>
     </main>
 @endsection

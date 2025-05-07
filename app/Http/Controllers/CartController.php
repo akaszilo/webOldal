@@ -80,18 +80,20 @@ class CartController extends Controller
         $request->validate([
             'quantity' => 'required|integer|min:1',
         ]);
-
         $cart = session('cart', []);
-
         if (isset($cart[$productId])) {
             $cart[$productId]['quantity'] = $request->quantity;
             session(['cart' => $cart]);
         }
-
-        // Maradjon a profil oldal Kosár tabján, és írjon ki sikeres üzenetet
-        return redirect()->to(route('profile') . '#tab-cart')->with('success', 'Termék mennyisége sikeresen frissítve!');
+        return redirect()->route('user.cart')->with('success', 'Termék mennyisége sikeresen frissítve!');
     }
-
+    
+    public function showUserCart()
+    {
+        $cart = session('cart', []);
+        return view('user_pages.cart', compact('cart'));
+    }
+    
     public function destroy(Request $request, $productId)
     {
         $cart = session('cart', []);
@@ -100,7 +102,7 @@ class CartController extends Controller
             unset($cart[$productId]);
             session(['cart' => $cart]);
         }
-        return redirect()->to(route('profile') . '#tab-cart')->with('success', 'Termék sikeresen törölve a kosárból!');
+        return redirect()->route('user.cart')->with('success', 'Termék sikeresen törölve a kosárból!');
     }
 
     public function processOrder(Request $request)
@@ -191,50 +193,40 @@ class CartController extends Controller
     }
 
     public function placeOrder(Request $request)
-    {
-        $cart = session('cart', []);
-        $selectedProductIds = $request->input('selected_products', []);
-        if (empty($selectedProductIds)) {
-            return redirect()->back()->with('error', 'Nem választottál terméket a rendeléshez.');
-        }
-        $user = Auth::user();
-        $order = new Order();
-        $order->user_id = $user->id;
-        $order->total = 0;
-        $order->status = 'pending';
-        $order->save();
-
-        $totalPrice = 0;
-        foreach ($selectedProductIds as $productId) {
-            if (!isset($cart[$productId])) {
-                continue;
-            }
-            $item = $cart[$productId];
-
-            // Lekérjük a terméket az adatbázisból
-            $product = Product::find($item['id']);
-            if ($product) {
-                // Csökkentjük az instock értékét, de nem engedjük negatívra menni
-                $product->instock = max(0, $product->instock - $item['quantity']);
-                $product->save();
-            }
-
-            $order->items()->create([
-                'product_id' => $item['id'],
-                'quantity' => $item['quantity'],
-                'price' => $item['price'],
-            ]);
-            $totalPrice += $item['price'] * $item['quantity'];
-            unset($cart[$productId]);
-        }
-
-
-        $order->total = $totalPrice;
-        $order->save();
-
-        session(['cart' => $cart]);
-        return redirect()->route('order.success')->with('success', 'Sikeres rendelés!');
+{
+    $cart = session('cart', []);
+    $selectedProductIds = $request->input('selected_products', []);
+    if (empty($selectedProductIds)) {
+        return redirect()->back()->with('error', 'Nem választottál terméket a rendeléshez.');
     }
+    $user = Auth::user();
+    $order = new Order();
+    $order->user_id = $user->id;
+    $order->total = 0;
+    $order->status = 'pending';
+    $order->save();
+
+    $totalPrice = 0;
+    foreach ($selectedProductIds as $productId) {
+        if (!isset($cart[$productId])) {
+            continue;
+        }
+        $item = $cart[$productId];
+        $order->items()->create([
+            'product_id' => $item['id'],
+            'quantity' => $item['quantity'],
+            'price' => $item['price'],
+        ]);
+        $totalPrice += $item['price'] * $item['quantity'];
+        unset($cart[$productId]); // csak a megrendelt törlődik!
+    }
+    $order->total = $totalPrice;
+    $order->save();
+
+    session(['cart' => $cart]); // a többi bent marad!
+    return redirect()->route('order.success')->with('success', 'Sikeres rendelés!');
+}
+
 
 
 }

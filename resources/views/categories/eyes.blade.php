@@ -3,6 +3,19 @@
 @section('content')
 <div class="container">
     <h1>Eye products</h1>
+    <form method="GET" action="{{ url()->current() }}">
+        <label for="sort">Sort:</label>
+        <select name="sort" id="sort" onchange="this.form.submit()" class="form-select w-auto d-inline-block">
+            <option value="newest" {{ (request('sort', $sort ?? 'newest') == 'newest') ? 'selected' : '' }}>Newest first</option>
+            <option value="oldest" {{ (request('sort', $sort ?? '') == 'oldest') ? 'selected' : '' }}>Oldest first</option>
+            <option value="cheapest" {{ (request('sort', $sort ?? '') == 'cheapest') ? 'selected' : '' }}>Least expensive first</option>
+            <option value="most_expensive" {{ (request('sort', $sort ?? '') == 'most_expensive') ? 'selected' : '' }}>Most expensive first</option>
+            <option value="popular" {{ (request('sort', $sort ?? '') == 'popular') ? 'selected' : '' }}>Most popular first</option>
+            <option value="abc" {{ (request('sort', $sort ?? '') == 'abc') ? 'selected' : '' }}>ABC</option>
+        </select>
+    </form>
+    
+    
     <div class="row">
         @foreach($products as $product)
         <div class="col-md-3 mb-4">
