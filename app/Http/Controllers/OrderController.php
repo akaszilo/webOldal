@@ -106,9 +106,10 @@ class OrderController extends Controller
             'checkout_total' => $total,
             'checkout_discounted_total' => $discountedTotal,
             'has_discount' => $discountMultiplier < 1,
+            'checkout_selected_products' => $selected
         ]);
 
-        return view('order.checkout')->with('success', 'You can review your order!');
+        return view('order.checkout', compact('cartItems', 'total'));
     }
 
     public function process_order(Request $request)

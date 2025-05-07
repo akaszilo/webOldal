@@ -43,6 +43,6 @@
     @else
         <p>Nincsenek termékek a rendelésben.</p>
     @endif
-    <a href="{{ route('profile') }}" class="btn btn-primary">Vissza a profilhoz</a>
+    <a href="{{ route('profile') }}#tab-orders" class="btn btn-primary">Go back to your profile</a>
 </div>
 @endsection

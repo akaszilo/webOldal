@@ -27,7 +27,6 @@
     @endif
 
     <main class="container mt-4">
-        <h1>Hello, {{ $user->name }}! :)</h1>
         <!-- Bestsellers -->
         <br>
         <section class="bestsellers mb-5">
