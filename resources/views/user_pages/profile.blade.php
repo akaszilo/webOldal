@@ -98,15 +98,19 @@
                         <h2>My Orders</h2>
 
                         <!-- Rendelés státusz szűrő linkek -->
+                        @php $currentStatus = $status ?? 'all'; @endphp
                         <div class="mb-3">
-                            <a href="{{ route('profile') }}?orders=all" class="btn btn-outline-primary btn-sm">All</a>
-                            <a href="{{ route('profile') }}?orders=pending"
-                                class="btn btn-outline-primary btn-sm">Pending</a>
-                            <a href="{{ route('profile') }}?orders=shipped"
-                                class="btn btn-outline-primary btn-sm">Shipped</a>
-                            <a href="{{ route('profile') }}?orders=delivered"
-                                class="btn btn-outline-primary btn-sm">Delivered</a>
+                            <a href="{{ route('profile', ['orders' => 'all']) }}#tab-orders"
+                               class="btn btn-sm {{ $currentStatus == 'all' ? 'btn-primary' : 'btn-outline-primary' }}">Összes</a>
+                            <a href="{{ route('profile', ['orders' => 'pending']) }}#tab-orders"
+                               class="btn btn-sm {{ $currentStatus == 'pending' ? 'btn-primary' : 'btn-outline-primary' }}">Függőben</a>
+                            <a href="{{ route('profile', ['orders' => 'shipped']) }}#tab-orders"
+                               class="btn btn-sm {{ $currentStatus == 'shipped' ? 'btn-primary' : 'btn-outline-primary' }}">Szállítva</a>
+                            <a href="{{ route('profile', ['orders' => 'delivered']) }}#tab-orders"
+                               class="btn btn-sm {{ $currentStatus == 'delivered' ? 'btn-primary' : 'btn-outline-primary' }}">Kézbesítve</a>
                         </div>
+                        
+                        
 
                         @if (count($orders) > 0)
                             <table class="table">

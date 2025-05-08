@@ -56,7 +56,7 @@ class CreditCardController extends Controller
     {
         $this->authorize('update', $creditCard);
         $creditCard->update($request->validated());
-        return redirect()->to(route('profile') . '#tab-cards')->with('success', 'Card updates sucessfully');
+        return redirect()->to(route('profile') . '#tab-cards')->with('success', 'Card updated sucessfully');
     }
 
     /**

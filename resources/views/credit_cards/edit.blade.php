@@ -57,7 +57,7 @@
         </div>
         <div class="mb-3">
             <label for="cvv">CVV kód</label>
-            <input type="text" name="cvv" class="form-control" value="{{ $creditCard->cvv }}" required>
+            <input type="password" name="cvv" class="form-control" value="{{ $creditCard->cvv }}" required>
         </div>            
         <button class="btn btn-success" type="submit">Mentés</button>
         <a href="{{ route('profile') }}#tab-cards" class="btn btn-secondary">Mégsem</a>

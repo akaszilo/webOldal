@@ -18,14 +18,16 @@ class ProfileController extends Controller
     public function index(Request $request)
     {
         $user = Auth::user();
+
+        // Rendelések státusz szerinti szűrése
+        $status = $request->query('orders', 'all');
         $ordersQuery = $user->orders()->latest();
-        if ($request->has('orders')) {
-            $status = $request->input('orders');
-            if ($status !== 'all') {
-                $ordersQuery->where('status', $status);
-            }
+        if ($status !== 'all') {
+            $ordersQuery->where('status', $status);
         }
         $orders = $ordersQuery->get();
+
+        // Bankkártyák, címek, kosár
         $creditCards = $user->creditCards;
         $addresses = $user->addresses;
         $cart = session('cart', []);
@@ -35,7 +37,15 @@ class ProfileController extends Controller
             $total += $product['price'] * $product['quantity'];
         }
 
-        return view('user_pages.profile', compact('user', 'orders', 'creditCards', 'addresses', 'cart', 'total'));
+        return view('user_pages.profile', compact(
+            'user',
+            'orders',
+            'creditCards',
+            'addresses',
+            'cart',
+            'total',
+            'status' // ezt is add át, hogy a Blade-ben kiemelhesd az aktív szűrőt
+        ));
     }
 
     public function updateProfile(Request $request)
@@ -54,14 +64,11 @@ class ProfileController extends Controller
         }
         $user->save();
 
-        return redirect()->route('profile', ['#tab-profile'])->with('success', 'Profile updated sucessfully!');
+        return redirect()->route('profile', ['#tab-profile'])->with('success', 'Profile updated successfully!');
     }
-
     public function showOrderDetails(Order $order)
     {
-        // Eager load the items relationship to prevent N+1 queries
         $order->load('items.product');
-
         return view('user_pages.order_details', compact('order'));
     }
 
