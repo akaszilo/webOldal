@@ -81,36 +81,21 @@ class OrderController extends Controller
     public function checkout(Request $request)
     {
         $cart = session('cart', []);
-        $selected = $request->input('selected_products', []);
-
-        if (empty($selected)) {
-            return redirect()->back()->with('error', 'You haven\'t selected any products!');
+        if (empty($cart)) {
+            return redirect()->back()->with('error', 'A kosarad üres!');
         }
 
         $cartItems = [];
         $total = 0;
-
-        foreach ($selected as $productId) {
-            if (isset($cart[$productId])) {
-                $item = $cart[$productId];
-                $cartItems[] = (object) $item;
-                $total += $item['price'] * $item['quantity'];
-            }
+        foreach ($cart as $item) {
+            $cartItems[] = (object) $item;
+            $total += $item['price'] * $item['quantity'];
         }
-
-        $discountMultiplier = session('discount', 1);
-        $discountedTotal = $total * $discountMultiplier;
-
-        session([
-            'checkout_cart_items' => $cartItems,
-            'checkout_total' => $total,
-            'checkout_discounted_total' => $discountedTotal,
-            'has_discount' => $discountMultiplier < 1,
-            'checkout_selected_products' => $selected
-        ]);
 
         return view('order.checkout', compact('cartItems', 'total'));
     }
+
+
 
     public function process_order(Request $request)
     {

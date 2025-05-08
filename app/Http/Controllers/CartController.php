@@ -85,8 +85,11 @@ class CartController extends Controller
             $cart[$productId]['quantity'] = $request->quantity;
             session(['cart' => $cart]);
         }
-        return redirect()->route('user.cart')->with('success', 'Termék mennyisége sikeresen frissítve!');
+        // Maradj a kosár oldalon vagy a profil Kosár tabján!
+        return redirect()->back()->with('success', 'Termék mennyisége sikeresen frissítve!');
     }
+    
+    
 
     public function showUserCart()
     {

@@ -116,7 +116,7 @@ Route::post('/cart/process_order', [CartController::class, 'processOrder'])->nam
 
 
 /* Manage order */
-Route::post('/order/checkout', [OrderController::class, 'checkout'])->name('order.checkout');
+Route::get('/order/checkout', [OrderController::class, 'checkout'])->name('order.checkout');
 Route::post('/order/process_order', [OrderController::class, 'process_order'])->name('order.process_order');
 Route::get('/order/success', [OrderController::class, 'orderSuccess'])->name('order.success');
 Route::get('/order/{order}/details', [ProfileController::class, 'showOrderDetails'])->name('order.details');
