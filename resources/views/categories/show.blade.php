@@ -25,8 +25,8 @@
                                 <h3 class="card-title">{{ $product->name }}</h3>
                                 <h5>{{ $product->brand->name }}</h5>
                                 <p class="card-text">Price: {{ $product->price }} $</p>
-                                <p class="card-text">Sold: {{ $product->sold_quantity }} db</p>
-                                <p class="card-text">In stock: {{ $product->instock }} db</p>
+                                <p class="card-text">Sold: {{ $product->sold_quantity }}</p>
+                                <p class="card-text">In stock: {{ $product->instock }}</p>
                             </div>
                         </div>
                     </a>

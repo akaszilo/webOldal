@@ -21,6 +21,20 @@ body {
     transition: background-color var(--transition-duration), color var(--transition-duration);
 }
 
+.popup {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background-color: #5cb85c;
+    color: white;
+    padding: 15px 20px;
+    border-radius: 5px;
+    z-index: 1000;
+    display: none;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+    font-weight: bold;
+}
+
 /* Buttons */
 .button {
     display: inline-block;
