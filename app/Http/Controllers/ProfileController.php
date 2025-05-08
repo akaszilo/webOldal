@@ -2,41 +2,32 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Http\Request;
+
 use App\Models\Order;
 use App\Models\Profile;
 use App\Http\Requests\StoreProfileRequest;
 use App\Http\Requests\UpdateProfileRequest;
-use Illuminate\Support\Facades\Auth;
-use App\Models\Address;
-use Illuminate\Http\Request;
 
 class ProfileController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index(Request $request)
     {
         $user = Auth::user();
-
-        // Rendelések státusz szerinti szűrése
         $status = $request->query('orders', 'all');
         $ordersQuery = $user->orders()->latest();
         if ($status !== 'all') {
             $ordersQuery->where('status', $status);
         }
         $orders = $ordersQuery->get();
-
-        // Bankkártyák, címek, kosár
         $creditCards = $user->creditCards;
         $addresses = $user->addresses;
         $cart = session('cart', []);
-
         $total = 0;
         foreach ($cart as $product) {
             $total += $product['price'] * $product['quantity'];
         }
-
         return view('user_pages.profile', compact(
             'user',
             'orders',
@@ -44,11 +35,11 @@ class ProfileController extends Controller
             'addresses',
             'cart',
             'total',
-            'status' // ezt is add át, hogy a Blade-ben kiemelhesd az aktív szűrőt
+            'status' 
         ));
     }
 
-    public function updateProfile(Request $request)
+    public function update_profile(Request $request)
     {
         $user = Auth::user();
         $request->validate([
@@ -56,66 +47,18 @@ class ProfileController extends Controller
             'email' => 'required|email|unique:users,email,' . $user->id,
             'password' => 'nullable|string|min:8',
         ]);
-
         $user->name = $request->name;
         $user->email = $request->email;
         if ($request->filled('password')) {
             $user->password = bcrypt($request->password);
         }
         $user->save();
-
         return redirect()->route('profile', ['#tab-profile'])->with('success', 'Profile updated successfully!');
     }
-    public function showOrderDetails(Order $order)
+
+    public function show_order_details(Order $order)
     {
         $order->load('items.product');
         return view('user_pages.order_details', compact('order'));
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(StoreProfileRequest $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(Profile $profile)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Profile $profile)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(UpdateProfileRequest $request, Profile $profile)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Profile $profile)
-    {
-        //
     }
 }

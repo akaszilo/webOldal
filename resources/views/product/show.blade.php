@@ -85,7 +85,7 @@
                 popup.style.display = 'block';
                 setTimeout(function() {
                     popup.style.display = 'none';
-                }, 10000); // 10 másodperc
+                }, 10000); 
             }
         };
     </script>
