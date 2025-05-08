@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
 use Illuminate\Http\Request;
 
+
 class ProductController extends Controller
 {
 
@@ -57,22 +58,33 @@ class ProductController extends Controller
     public function index(): View
     {
         $user = Auth::user();
-
         $userName = Auth::check() ? Auth::user()->name : 'Vendég';
-
+    
         $bestsellers = Product::orderBy('sold_quantity', 'desc')->take(15)->get();
         $latestProducts = Product::orderBy('created_at', 'desc')->take(10)->get();
-        $featuredBrands = Brand::take(5)->get();
-
+    
+        // TOP 5 legtöbbet eladott márka
+        $topBrandIds = Product::selectRaw('brand_id, SUM(sold_quantity) as total_sold')
+            ->groupBy('brand_id')
+            ->orderByDesc('total_sold')
+            ->take(5)
+            ->pluck('brand_id');
+    
+        $brands = Brand::whereIn('id', $topBrandIds)->get()
+            ->sortBy(function($brand) use ($topBrandIds) {
+                return array_search($brand->id, $topBrandIds->toArray());
+            });
+    
         return view('welcome', [
             'bestsellers' => $bestsellers,
             'latestProducts' => $latestProducts,
-            'featuredBrands' => $featuredBrands,
+            'brands' => $brands, // Ezt add át a view-nak!
             'userName' => $userName,
             'user' => $user,
         ]);
     }
-
+    
+    
     /**
      * Show the form for creating a new resource.
      */

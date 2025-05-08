@@ -41,7 +41,22 @@
             @endforeach
             </div>
         </section>
-
+        <!-- Kiemelt márkák közvetlenül utána -->
+        <section class="brands mb-5">
+            <h1>TOP 5 legtöbbet eladott márka</h1>
+            <div class="row">
+                @foreach ($brands as $brand)
+                    <div class="col-md-3 mb-4">
+                        <a href="{{ route('brands.show', $brand->id) }}">
+                            <button class="btn btn-lg btn-outline-primary w-100">
+                                {{ $brand->name }}
+                            </button>
+                        </a>
+                    </div>
+                @endforeach
+            </div>
+        </section>
+        
         <!-- Legfrissebb termékek -->
         <section class="latest-products">
             <h2>Newest products</h2>
@@ -66,19 +81,5 @@
             </div>
         </section>
 
-        <!-- Kiemelt márkák -->
-        <section class="brands">
-            <h2>Highlighted brands</h2>
-            <div class="row">
-                @foreach ($featuredBrands as $brand)
-                    <div class="col-md-3 mb-4">
-                        <a href="{{ route('brands.show', $brand->id) }}">
-                            <button
-                                class="bg-gradient-to-r from-pink-500 to-red-500 text-black text-lg font-semibold py-3 px-6 rounded-full">{{ $brand->name }}</button>
-                        </a>
-                    </div>
-                @endforeach
-            </div>
-        </section>
     </main>
 @endsection
