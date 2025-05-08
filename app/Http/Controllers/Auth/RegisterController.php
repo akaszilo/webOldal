@@ -8,6 +8,8 @@ use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Http\Request;
+
 
 class RegisterController extends Controller
 {
@@ -69,13 +71,14 @@ class RegisterController extends Controller
         ]);
     }
 
-    public function register(\Illuminate\Http\Request $request)
+    public function register(Request $request)
     {
         $this->validator($request->all())->validate();
-        \event(new \Illuminate\Auth\Events\Registered($user = $this->create($request->all())));
+        event(new \Illuminate\Auth\Events\Registered($user = $this->create($request->all())));
         $this->guard()->login($user);
-        Session::flash('success', 'Sikeres regisztráció!');
-        return $this->registered($request, $user)
-            ?: redirect($this->redirectPath());
+    
+        // Sikeres regisztráció után vissza a főoldalra
+        return redirect()->route('home')->with('success', 'Successful  registration!');
     }
+    
 }

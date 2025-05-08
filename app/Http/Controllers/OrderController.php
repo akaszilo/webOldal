@@ -70,19 +70,19 @@ class OrderController extends Controller
     {
         // Ellenőrzés: csak a pending státuszú rendelés törölhető
         if ($order->status !== 'pending') {
-            return redirect()->back()->with('error', 'Csak függőben lévő rendelést törölhetsz.');
+            return redirect()->back()->with('error', 'You can only delete order with padding');
         }
 
         $order->delete();
 
-        return redirect()->route('profile', ['#tab-orders'])->with('success', 'A rendelés sikeresen törölve lett.');
+        return redirect()->route('profile', ['#tab-orders'])->with('success', 'Order deleted successfully!');
     }
 
     public function checkout(Request $request)
     {
         $cart = session('cart', []);
         if (empty($cart)) {
-            return redirect()->back()->with('error', 'A kosarad üres!');
+            return redirect()->back()->with('error', 'Your cart is empty!');
         }
 
         $cartItems = [];
@@ -163,7 +163,7 @@ class OrderController extends Controller
         session(['cart' => $cart]);
         session()->forget('checkout_selected_products');
 
-        return redirect()->route('order.success')->with('success', 'Sikeres rendelés!');
+        return redirect()->route('order.success')->with('success', 'Successfull order');
     }
 
 
@@ -179,7 +179,7 @@ class OrderController extends Controller
         $selected = $request->input('selected_products', []);
 
         if (empty($selected)) {
-            return redirect()->back()->with('error', 'Nem választottál terméket!');
+            return redirect()->back()->with('error', 'You didn\'t choose any product!');
         }
 
         $order = new Order();
@@ -211,7 +211,7 @@ class OrderController extends Controller
         // Frissítsük a kosarat a session-ben
         session(['cart' => $cart]);
 
-        return redirect()->route('order.success')->with('success', 'Sikeres rendelés!');
+        return redirect()->route('order.success')->with('success', 'Successfull order');
     }
     public function select_payment()
     {

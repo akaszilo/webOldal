@@ -57,7 +57,7 @@ class ProductController extends Controller
     public function index(): View
     {
         $user = Auth::user();
-        
+
         $userName = Auth::check() ? Auth::user()->name : 'Vendég';
 
         $bestsellers = Product::orderBy('sold_quantity', 'desc')->take(15)->get();
@@ -112,11 +112,11 @@ class ProductController extends Controller
         $product = Product::with('brand')->findOrFail($product->id);
         $brand = $product->brand;
         $randomProducts = Product::inRandomOrder()->limit(4)->get();
-    
+
         return view('product.show', compact('product', 'brand', 'randomProducts'));
     }
-    
-    
+
+
 
     /**
      * Show the form for editing the specified resource.

@@ -31,7 +31,7 @@ class AddressController extends Controller
 
         Auth::user()->addresses()->create($request->all());
 
-        return redirect()->route('profile', ['#tab-addresses'])->with('success', 'Cím sikeresen mentve!');
+        return redirect()->route('profile', ['#tab-addresses'])->with('success', 'Address saved successfully!');
     }
 
     /**
@@ -60,7 +60,7 @@ class AddressController extends Controller
     
         $address->update($validated);
     
-        return redirect()->to(route('profile') . '#tab-addresses')->with('success', 'Cím sikeresen frissítve!');
+        return redirect()->to(route('profile') . '#tab-addresses')->with('success', 'Address updated successfully!');
     }
     
 
@@ -73,6 +73,6 @@ class AddressController extends Controller
 
         $address->delete();
 
-        return redirect()->to(route('profile') . '#tab-addresses')->with('success', 'Cím sikeresen törölve!');
+        return redirect()->to(route('profile') . '#tab-addresses')->with('success', 'Address deleted successfully!');
     }
 }

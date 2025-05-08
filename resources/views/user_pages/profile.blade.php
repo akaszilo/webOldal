@@ -14,13 +14,6 @@
         });
     </script>
 
-
-
-
-
-
-
-
     @if (session('success'))
         <div class="alert alert-success alert-dismissible fade show position-fixed top-0 start-50 translate-middle-x mt-3"
             role="alert" style="z-index:9999; min-width:300px;">

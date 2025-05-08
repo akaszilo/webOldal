@@ -1,30 +1,20 @@
 @extends('app')
 @vite('resources/css/app.css')
 @section('content')
+@if (session('success'))
+    <div class="alert alert-success alert-dismissible fade show position-fixed top-0 start-50 translate-middle-x mt-3"
+        role="alert" style="z-index:9999; min-width:300px;">
+        {{ session('success') }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+    <script>
+        setTimeout(function() {
+            var alert = document.querySelector('.alert');
+            if (alert) alert.classList.remove('show');
+        }, 2500);
+    </script>
+@endif
 
-    @if(session('success'))
-        <div class="toast-container position-fixed top-0 end-0 p-3" style="z-index: 1055;">
-            <div id="successToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true" data-bs-delay="10000">
-                <div class="toast-header">
-                    <strong class="me-auto">Siker!</strong>
-                    <small class="text-muted">most</small>
-                    <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
-                </div>
-                <div class="toast-body">
-                    {{ session('success') }}
-                </div>
-            </div>
-        </div>
-        <script>
-            window.addEventListener('DOMContentLoaded', function() {
-                var toastEl = document.getElementById('successToast');
-                if (toastEl) {
-                    var toast = new bootstrap.Toast(toastEl);
-                    toast.show();
-                }
-            });
-        </script>
-    @endif
 
     <main class="container mt-4">
         <!-- Bestsellers -->
@@ -40,15 +30,15 @@
                                     alt="{{ $product->name }}">
                                 <div class="card-body">
                                     <h3 class="card-title">{{ $product->name }}</h3>
-                                </a>
-                                    <h5>{{ $product->brand->name }}</h5>
-                                    <p class="card-text">Price: {{ $product->price }} $</p>
-                                    <p class="card-text">Sold: {{ $product->sold_quantity }} db</p>
-                                    <p class="card-text">In stock: {{ $product->instock }} db</p>
-                                </div>
-                            </div>
+                        </a>
+                        <h5>{{ $product->brand->name }}</h5>
+                        <p class="card-text">Price: {{ $product->price }} $</p>
+                        <p class="card-text">Sold: {{ $product->sold_quantity }} db</p>
+                        <p class="card-text">In stock: {{ $product->instock }} db</p>
                     </div>
-                @endforeach
+            </div>
+            </div>
+            @endforeach
             </div>
         </section>
 
@@ -64,15 +54,15 @@
                                     alt="{{ $product->name }}">
                                 <div class="card-body">
                                     <h3 class="card-title">{{ $product->name }}</h3>
-                                </a>
-                                    <h5>{{ $product->brand->name }}</h5>
-                                    <p class="card-text">Price: {{ $product->price }} $</p>
-                                    <p class="card-text">Sold: {{ $product->sold_quantity }} db</p>
-                                    <p class="card-text">In stock: {{ $product->instock }} db</p>
-                                </div>
-                            </div>
+                        </a>
+                        <h5>{{ $product->brand->name }}</h5>
+                        <p class="card-text">Price: {{ $product->price }} $</p>
+                        <p class="card-text">Sold: {{ $product->sold_quantity }} db</p>
+                        <p class="card-text">In stock: {{ $product->instock }} db</p>
                     </div>
-                @endforeach
+            </div>
+            </div>
+            @endforeach
             </div>
         </section>
 
@@ -83,9 +73,10 @@
                 @foreach ($featuredBrands as $brand)
                     <div class="col-md-3 mb-4">
                         <a href="{{ route('brands.show', $brand->id) }}">
-                            <button class="bg-gradient-to-r from-pink-500 to-red-500 text-black text-lg font-semibold py-3 px-6 rounded-full">{{$brand->name}}</button>
+                            <button
+                                class="bg-gradient-to-r from-pink-500 to-red-500 text-black text-lg font-semibold py-3 px-6 rounded-full">{{ $brand->name }}</button>
                         </a>
-                        
+
                     </div>
                 @endforeach
             </div>

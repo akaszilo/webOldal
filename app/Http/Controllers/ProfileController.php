@@ -54,7 +54,7 @@ class ProfileController extends Controller
         }
         $user->save();
 
-        return redirect()->route('profile', ['#tab-profile'])->with('success', 'Profil frissítve!');
+        return redirect()->route('profile', ['#tab-profile'])->with('success', 'Profile updated sucessfully!');
     }
 
     public function showOrderDetails(Order $order)

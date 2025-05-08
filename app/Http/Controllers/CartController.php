@@ -86,7 +86,7 @@ class CartController extends Controller
             session(['cart' => $cart]);
         }
         // Maradj a kosár oldalon vagy a profil Kosár tabján!
-        return redirect()->back()->with('success', 'Termék mennyisége sikeresen frissítve!');
+        return redirect()->back()->with('success', 'Product quantity updated successfully!');
     }
     
     
@@ -105,14 +105,14 @@ class CartController extends Controller
             unset($cart[$productId]);
             session(['cart' => $cart]);
         }
-        return redirect()->route('user.cart')->with('success', 'Termék sikeresen törölve a kosárból!');
+        return redirect()->route('user.cart')->with('success', 'Product deleted successfully from the cart!');
     }
 
     public function processOrder(Request $request)
     {
         $cart = session('cart', []);
         if (empty($cart)) {
-            return redirect()->route('cart.index')->with('error', 'A kosár üres.');
+            return redirect()->route('cart.index')->with('error', 'The cart is empty!');
         }
         $user = Auth::user();
         $cartItems = [];
@@ -141,16 +141,16 @@ class CartController extends Controller
         ]);
         $cart = session('cart', []);
         if (empty($cart)) {
-            return redirect()->route('cart.index')->with('error', 'A kosár üres.');
+            return redirect()->route('cart.index')->with('error', 'The cart is empty!');
         }
         $user = Auth::user();
         $creditCardId = session('checkout_data.credit_card_id') ?? null;
         if (!$creditCardId) {
-            return redirect()->route('cart.index')->with('error', 'Hiányzó fizetési adatok.');
+            return redirect()->route('cart.index')->with('error', 'Missing paying datas!');
         }
         $creditCard = CreditCard::find($creditCardId);
         if (!$creditCard || $creditCard->cvv !== $request->input('cvv')) {
-            return redirect()->route('order.confirm_order')->with('error', 'Hibás CVV kód.');
+            return redirect()->route('order.confirm_order')->with('error', 'Wrong cvv code');
         }
 
         $totalPrice = 0;
@@ -182,16 +182,15 @@ class CartController extends Controller
         $order->save();
         session()->forget('cart');
         session()->forget('checkout_data');
-        return redirect()->route('order.success')->with('success', 'Sikeres rendelés!');
+        return redirect()->route('order.success')->with('success', 'Successful order!');
     }
 
 
     public function placeOrder(Request $request)
     {
         $cart = session('cart', []);
-        $selectedProductIds = $request->input('selected_products', []);
-        if (empty($selectedProductIds)) {
-            return redirect()->back()->with('error', 'Nem választottál terméket a rendeléshez.');
+        if (empty($cart)) {
+            return redirect()->back()->with('error', 'The cart is empty!');
         }
         $user = Auth::user();
         $order = new Order();
@@ -199,35 +198,32 @@ class CartController extends Controller
         $order->total = 0;
         $order->status = 'pending';
         $order->save();
-
+    
         $totalPrice = 0;
-        foreach ($selectedProductIds as $productId) {
-            if (!isset($cart[$productId])) {
-                continue;
-            }
-            $item = $cart[$productId];
-
+        foreach ($cart as $item) {
             // Lekérjük a terméket az adatbázisból
             $product = Product::find($item['id']);
             if ($product) {
+                // Készlet és eladott mennyiség frissítése
                 $product->instock = max(0, $product->instock - $item['quantity']);
                 $product->sold_quantity += $item['quantity'];
                 $product->save();
             }
-
-
+    
             $order->items()->create([
                 'product_id' => $item['id'],
                 'quantity' => $item['quantity'],
                 'price' => $item['price'],
             ]);
             $totalPrice += $item['price'] * $item['quantity'];
-            unset($cart[$productId]);
         }
         $order->total = $totalPrice;
         $order->save();
-
-        session(['cart' => $cart]); // a többi bent marad!
-        return redirect()->route('order.success')->with('success', 'Sikeres rendelés!');
+    
+        // Kosár teljes kiürítése
+        session()->forget('cart');
+    
+        return redirect()->route('order.success')->with('success', 'Successful order!');
     }
+    
 }
