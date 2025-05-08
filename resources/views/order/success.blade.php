@@ -2,8 +2,8 @@
 
 @section('content')
     <div class="container">
-        <h1>Sikeres vásárlás!</h1>
+        <h1>Successful shopping!</h1>
         <p>Köszönjük a rendelést!</p>
-        <a href="{{ route('home') }}" class="btn btn-primary">Vissza a weboldalra</a>
+        <a href="{{ route('home') }}" class="btn btn-primary">Back to the website</a>
     </div>
 @endsection

@@ -240,18 +240,17 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-6">
-                    <h5>Kapcsolat</h5>
-                    <p>Telefonszám: +36 1 234 5678</p>
-                    <p>Email: info@webmakeupstore.hu</p>
+                    <h5>Contact</h5>
+                    <p>Phone number: +36 1 234 5678</p>
+                    <p>Email: projectmakeupstore2025@gmail.com</p>
                 </div>
                 <div class="col-md-6">
                     <nav class="footer-nav">
-                        <a href="#" class="text-white d-block">Térkép</a>
-                        <a href="#" class="text-white d-block">Vezetőség</a>
-                        <a href="#" class="text-white d-block">Rólunk</a>
-                        <a href="#" class="text-white d-block">Kövess be minket</a>
-                        <a href="#" class="text-white d-block">Töltsd le alkalmazásunkat</a>
-                        <a href="#" class="text-white d-block">Csatlakozz hozzánk</a>
+                        <a href="#" class="text-white d-block">Map</a>
+                        <a href="#" class="text-white d-block">Management</a>
+                        <a href="#" class="text-white d-block">About us</a>
+                        <a href="#" class="text-white d-block">Follow us</a>
+                        {{-- <a href="#" class="text-white d-block">Csatlakozz hozzánk</a> --}}
                     </nav>
                 </div>
             </div>

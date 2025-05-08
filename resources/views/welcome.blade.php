@@ -20,7 +20,7 @@
         <!-- Bestsellers -->
         <br>
         <section class="bestsellers mb-5">
-            <h1 class="mb-4">Legnépszerűbb termékek</h1>
+            <h1 class="mb-4">Bestsellers</h1>
             <div class="row">
                 @foreach ($bestsellers as $product)
                     <div class="col-md-3 mb-4">
@@ -32,8 +32,8 @@
                                     <h3 class="card-title">{{ $product->name }}</h3>
                                     <h5>{{ $product->brand->name }}</h5>
                                     <p class="card-text">Price: {{ $product->price }} $</p>
-                                    <p class="card-text">Sold: {{ $product->sold_quantity }} db</p>
-                                    <p class="card-text">In stock: {{ $product->instock }} db</p>
+                                    <p class="card-text">Sold: {{ $product->sold_quantity }}</p>
+                                    <p class="card-text">In stock: {{ $product->instock }}</p>
                                 </div>
                         </a>
                     </div>
@@ -43,7 +43,7 @@
         </section>
         <!-- Kiemelt márkák közvetlenül utána -->
         <section class="brands mb-5">
-            <h1>TOP 5 legtöbbet eladott márka</h1>
+            <h1>TOP 5 sold brand</h1>
             <div class="row">
                 @foreach ($brands as $brand)
                     <div class="col-md-3 mb-4">
@@ -71,8 +71,8 @@
                                     <h3 class="card-title">{{ $product->name }}</h3>
                                     <h5>{{ $product->brand->name }}</h5>
                                     <p class="card-text">Price: {{ $product->price }} $</p>
-                                    <p class="card-text">Sold: {{ $product->sold_quantity }} db</p>
-                                    <p class="card-text">In stock: {{ $product->instock }} db</p>
+                                    <p class="card-text">Sold: {{ $product->sold_quantity }}</p>
+                                    <p class="card-text">In stock: {{ $product->instock }}</p>
                         </a>
                     </div>
             </div>

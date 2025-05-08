@@ -37,7 +37,7 @@
             <button type="submit" class="btn btn-primary">Apply</button>
         </form> --}}
             <form action="{{ route('order.select_payment') }}" method="GET">
-                <button type="submit" class="btn btn-primary">Tovább a fizetéshez</button>
+                <button type="submit" class="btn btn-primary">Go to pay</button>
             </form>
         @endif
     </div>

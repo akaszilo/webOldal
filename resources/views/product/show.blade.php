@@ -58,7 +58,7 @@
     </form>
     <div class="row mt-4">
         <div class="col-md-12">
-            <h3>Ez is tetszet</h3>
+            <h3>Recommended</h3>
         </div>
         @foreach ($randomProducts as $randomProduct)
             <div class="col-md-3 mb-4">

@@ -13,7 +13,6 @@
             }
         });
     </script>
-
     @if (session('success'))
         <div class="alert alert-success alert-dismissible fade show position-fixed top-0 start-50 translate-middle-x mt-3"
             role="alert" style="z-index:9999; min-width:300px;">
@@ -89,7 +88,7 @@
                                 <small class="form-text text-muted">You can leave it empty if you don't want to change
                                     it</small>
                             </div>
-                            <button type="submit" class="btn btn-primary">Mentés</button>
+                            <button type="submit" class="btn btn-primary">Save</button>
                         </form>
                     </div>
 
@@ -101,16 +100,14 @@
                         @php $currentStatus = $status ?? 'all'; @endphp
                         <div class="mb-3">
                             <a href="{{ route('profile', ['orders' => 'all']) }}#tab-orders"
-                               class="btn btn-sm {{ $currentStatus == 'all' ? 'btn-primary' : 'btn-outline-primary' }}">Összes</a>
+                               class="btn btn-sm {{ $currentStatus == 'all' ? 'btn-primary' : 'btn-outline-primary' }}">All</a>
                             <a href="{{ route('profile', ['orders' => 'pending']) }}#tab-orders"
-                               class="btn btn-sm {{ $currentStatus == 'pending' ? 'btn-primary' : 'btn-outline-primary' }}">Függőben</a>
+                               class="btn btn-sm {{ $currentStatus == 'pending' ? 'btn-primary' : 'btn-outline-primary' }}">Pending</a>
                             <a href="{{ route('profile', ['orders' => 'shipped']) }}#tab-orders"
-                               class="btn btn-sm {{ $currentStatus == 'shipped' ? 'btn-primary' : 'btn-outline-primary' }}">Szállítva</a>
+                               class="btn btn-sm {{ $currentStatus == 'shipped' ? 'btn-primary' : 'btn-outline-primary' }}">Shipped</a>
                             <a href="{{ route('profile', ['orders' => 'delivered']) }}#tab-orders"
-                               class="btn btn-sm {{ $currentStatus == 'delivered' ? 'btn-primary' : 'btn-outline-primary' }}">Kézbesítve</a>
+                               class="btn btn-sm {{ $currentStatus == 'delivered' ? 'btn-primary' : 'btn-outline-primary' }}">Delivered</a>
                         </div>
-                        
-                        
 
                         @if (count($orders) > 0)
                             <table class="table">

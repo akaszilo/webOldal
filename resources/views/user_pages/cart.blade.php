@@ -40,7 +40,7 @@
                                     @csrf
                                     <input type="number" name="quantity" value="{{ $product['quantity'] }}" min="1"
                                         class="form-control form-control-sm quantity-input" style="width: 80px; display: inline-block;">
-                                    <button type="submit" class="btn btn-primary btn-sm">Frissítés</button>
+                                    <button type="submit" class="btn btn-primary btn-sm">Refresh</button>
                                 </form>
                             </td>
                             <td>${{ number_format($subtotal, 2) }}</td>
@@ -61,7 +61,6 @@
                     </tr>
                 </tfoot>
             </table>
-            <!-- CHECKOUT GOMB: sima link, mindig működik -->
             <a href="{{ route('order.checkout') }}" class="btn btn-success btn-lg">Checkout</a>
         @else
             <p>Your cart is empty.</p>

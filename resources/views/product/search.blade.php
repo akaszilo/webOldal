@@ -23,7 +23,7 @@
                     </div>
                 @endforeach
             @else
-                <p>Nincs találat.</p>
+                <p>No hits.</p>
             @endif
         </div>
     </div>
