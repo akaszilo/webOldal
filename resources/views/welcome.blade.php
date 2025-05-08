@@ -1,19 +1,19 @@
 @extends('app')
 @vite('resources/css/app.css')
 @section('content')
-@if (session('success'))
-    <div class="alert alert-success alert-dismissible fade show position-fixed top-0 start-50 translate-middle-x mt-3"
-        role="alert" style="z-index:9999; min-width:300px;">
-        {{ session('success') }}
-        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-    </div>
-    <script>
-        setTimeout(function() {
-            var alert = document.querySelector('.alert');
-            if (alert) alert.classList.remove('show');
-        }, 2500);
-    </script>
-@endif
+    @if (session('success'))
+        <div class="alert alert-success alert-dismissible fade show position-fixed top-0 start-50 translate-middle-x mt-3"
+            role="alert" style="z-index:9999; min-width:300px;">
+            {{ session('success') }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+        <script>
+            setTimeout(function() {
+                var alert = document.querySelector('.alert');
+                if (alert) alert.classList.remove('show');
+            }, 2500);
+        </script>
+    @endif
 
 
     <main class="container mt-4">
@@ -30,13 +30,13 @@
                                     alt="{{ $product->name }}">
                                 <div class="card-body">
                                     <h3 class="card-title">{{ $product->name }}</h3>
+                                    <h5>{{ $product->brand->name }}</h5>
+                                    <p class="card-text">Price: {{ $product->price }} $</p>
+                                    <p class="card-text">Sold: {{ $product->sold_quantity }} db</p>
+                                    <p class="card-text">In stock: {{ $product->instock }} db</p>
+                                </div>
                         </a>
-                        <h5>{{ $product->brand->name }}</h5>
-                        <p class="card-text">Price: {{ $product->price }} $</p>
-                        <p class="card-text">Sold: {{ $product->sold_quantity }} db</p>
-                        <p class="card-text">In stock: {{ $product->instock }} db</p>
                     </div>
-            </div>
             </div>
             @endforeach
             </div>
@@ -54,11 +54,11 @@
                                     alt="{{ $product->name }}">
                                 <div class="card-body">
                                     <h3 class="card-title">{{ $product->name }}</h3>
+                                    <h5>{{ $product->brand->name }}</h5>
+                                    <p class="card-text">Price: {{ $product->price }} $</p>
+                                    <p class="card-text">Sold: {{ $product->sold_quantity }} db</p>
+                                    <p class="card-text">In stock: {{ $product->instock }} db</p>
                         </a>
-                        <h5>{{ $product->brand->name }}</h5>
-                        <p class="card-text">Price: {{ $product->price }} $</p>
-                        <p class="card-text">Sold: {{ $product->sold_quantity }} db</p>
-                        <p class="card-text">In stock: {{ $product->instock }} db</p>
                     </div>
             </div>
             </div>
@@ -76,7 +76,6 @@
                             <button
                                 class="bg-gradient-to-r from-pink-500 to-red-500 text-black text-lg font-semibold py-3 px-6 rounded-full">{{ $brand->name }}</button>
                         </a>
-
                     </div>
                 @endforeach
             </div>
