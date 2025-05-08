@@ -155,12 +155,9 @@ class OrderController extends Controller
             if (isset($cart[$productId])) {
                 $item = $cart[$productId];
 
-                // --- KÉSZLET ÉS ELADOTT MENNYISÉG FRISSÍTÉSE ---
                 $product = Product::find($item['id']);
                 if ($product) {
-                    // Csökkentsd a készletet, de ne menjen 0 alá
                     $product->instock = max(0, $product->instock - $item['quantity']);
-                    // Növeld az eladott mennyiséget
                     $product->sold_quantity += $item['quantity'];
                     $product->save();
                 }
@@ -178,12 +175,12 @@ class OrderController extends Controller
         $order->total = $total;
         $order->save();
 
-        // Frissítsd a kosarat a session-ben (csak a nem kiválasztottak maradnak)
         session(['cart' => $cart]);
         session()->forget('checkout_selected_products');
 
         return redirect()->route('order.success')->with('success', 'Sikeres rendelés!');
     }
+
 
 
     public function orderSuccess()

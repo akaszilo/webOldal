@@ -151,46 +151,37 @@ class CartController extends Controller
         }
 
         $totalPrice = 0;
+        $order = new Order();
+        $order->user_id = $user->id;
+        $order->total = 0;
+        $order->status = 'pending';
+        $order->save();
+
         foreach ($cart as $item) {
             $product = Product::find($item['id']);
             if (!$product)
                 continue;
-            $quantity = $item['quantity'];
-            $price = $product->price;
-            $totalPrice += $price * $quantity;
-        }
-        $order = new Order();
-        $order->user_id = $user->id;
-        $order->total = $totalPrice;
-        $order->status = 'pending';
-        $order->save();
-        foreach ($cart as $item) {
+
+            // Készlet és eladott mennyiség frissítése!
+            $product->instock = max(0, $product->instock - $item['quantity']);
+            $product->sold_quantity += $item['quantity'];
+            $product->save();
+
             $order->items()->create([
                 'product_id' => $item['id'],
                 'quantity' => $item['quantity'],
                 'price' => $item['price'],
             ]);
+            $totalPrice += $item['price'] * $item['quantity'];
         }
-        $totalPrice = 0;
-        foreach ($cart as $item) {
-            $product = Product::find($item['id']);
-            if (!$product)
-                continue;
-            $quantity = $item['quantity'];
-            $price = $product->price;
-            $order->items()->create([
-                'product_id' => $product->id,
-                'quantity' => $quantity,
-                'price' => $price,
-            ]);
-            $totalPrice += $price * $quantity;
-        }
+
         $order->total = $totalPrice;
         $order->save();
         session()->forget('cart');
         session()->forget('checkout_data');
         return redirect()->route('order.success')->with('success', 'Sikeres rendelés!');
     }
+
 
     public function placeOrder(Request $request)
     {
@@ -216,10 +207,11 @@ class CartController extends Controller
             // Lekérjük a terméket az adatbázisból
             $product = Product::find($item['id']);
             if ($product) {
-                // Csökkentjük az instock értékét, de nem engedjük negatívra menni
                 $product->instock = max(0, $product->instock - $item['quantity']);
+                $product->sold_quantity += $item['quantity'];
                 $product->save();
             }
+
 
             $order->items()->create([
                 'product_id' => $item['id'],
@@ -235,7 +227,4 @@ class CartController extends Controller
         session(['cart' => $cart]); // a többi bent marad!
         return redirect()->route('order.success')->with('success', 'Sikeres rendelés!');
     }
-
-
-
 }

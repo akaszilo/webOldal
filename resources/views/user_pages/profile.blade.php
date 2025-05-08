@@ -47,12 +47,6 @@
                         </button>
                     </li>
                     <li class="nav-item" role="presentation">
-                        <button class="nav-link" id="cart-tab" data-bs-toggle="tab" data-bs-target="#tab-cart"
-                            type="button" role="tab" aria-controls="cart" aria-selected="true">
-                            Cart
-                        </button>
-                    </li>
-                    <li class="nav-item" role="presentation">
                         <button class="nav-link" id="orders-tab" data-bs-toggle="tab" data-bs-target="#tab-orders"
                             type="button" role="tab" aria-controls="orders" aria-selected="false">
                             My Orders

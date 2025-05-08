@@ -109,20 +109,14 @@ class ProductController extends Controller
 
     public function show(Product $product)
     {
-        $user = Auth::user();
-        $brand = $product->brand;  
-        $products = $brand->products()->with('brand')->get();
-
-        return view('product.show', compact('product', 'brand'));
-
-        if (!$product) {
-            abort(404); 
-        }
+        $product = Product::with('brand')->findOrFail($product->id);
+        $brand = $product->brand;
         $randomProducts = Product::inRandomOrder()->limit(4)->get();
-
-        
-        return view('product.show', compact('product', 'randomProducts'));
+    
+        return view('product.show', compact('product', 'brand', 'randomProducts'));
     }
+    
+    
 
     /**
      * Show the form for editing the specified resource.
