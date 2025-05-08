@@ -131,7 +131,33 @@
                             </li>
                         </ul>
                     </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button"
+                            data-bs-toggle="dropdown" aria-expanded="false">
+                            Brands
+                        </a>
+                        <ul class="dropdown-menu p-3" style="min-width: 700px; max-width: 1000px;">
+                            <div class="row">
+                                @php
+                                    $columns = 3;
+                                    $brandsPerCol = ceil($allBrands->count() / $columns);
+                                @endphp
+                                @foreach ($allBrands->chunk($brandsPerCol) as $brandChunk)
+                                    <div class="col-4">
+                                        @foreach ($brandChunk as $brand)
+                                            <li>
+                                                <a class="dropdown-item" href="{{ route('brands.show', $brand->id) }}">{{ $brand->name }}</a>
+                                            </li>
+                                        @endforeach
+                                    </div>
+                                @endforeach
+                            </div>
+                        </ul>
+                    </li>
+                    
                 </ul>
+                
+                
                 <div class="d-flex ms-auto align-items-center">
                     <form class="d-flex me-2" role="search" action="{{ route('search') }}" method="GET">
                         <input class="form-control me-2" type="search" id="search" name="search"

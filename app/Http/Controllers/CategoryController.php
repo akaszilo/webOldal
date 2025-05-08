@@ -85,7 +85,6 @@ class CategoryController extends Controller
     
         return view('categories.all', compact('products', 'sort'));
     }
-    
 
     /**
      * Show the form for creating a new resource.

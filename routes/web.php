@@ -38,10 +38,13 @@ Route::post('/email/verification-notification', [VerificationController::class, 
 
 /* Category routes */
 Route::get('/categories/{category}', [CategoryController::class, 'show'])->name('categories.show');
+Route::get('/brands/{brand}', [BrandController::class, 'show'])->name('brands.show');
 Route::get('/eyes', [CategoryController::class, 'showeyes'])->name('eyes');
 Route::get('/lips', [CategoryController::class, 'showlips'])->name('lips');
 Route::get('/face', [CategoryController::class, 'showface'])->name('face');
 Route::get('/all', [CategoryController::class, 'allProducts'])->name('all');
+
+
 
 
 
