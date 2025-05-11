@@ -1,11 +1,12 @@
 @extends('app')
 
 @section('content')
+    {{-- message handler start --}}
     @if (session('success'))
         <div class="alert alert-success alert-dismissible fade show position-fixed top-0 start-50 translate-middle-x mt-3"
             role="alert" style="z-index:9999; min-width:300px;">
             {{ session('success') }}
-            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Bezár"></button>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
         <script>
             setTimeout(function() {
@@ -14,6 +15,9 @@
             }, 2500);
         </script>
     @endif
+    {{-- message handler end --}}
+
+    {{-- edit address form start --}}
     <div class="container">
         <h2>Edit address</h2>
         <form action="{{ route('addresses.update', $address->id) }}" method="POST">
@@ -47,4 +51,5 @@
             <a href="{{ route('profile') }}#tab-addresses" class="btn btn-secondary">Cancel</a>
         </form>
     </div>
+    {{-- edit address form end --}}
 @endsection

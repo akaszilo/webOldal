@@ -241,7 +241,7 @@
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                                 <li><a class="dropdown-item" href="{{ route('profile') }}#tab-profile">Profile</a>
                                 </li>
-                                <li><a class="dropdown-item" href="{{ route('profile') }}#tab-orders">Rendeléseim</a>
+                                <li><a class="dropdown-item" href="{{ route('profile') }}#tab-orders">Orders</a>
                                 </li>
                                 <li>
                                     <hr class="dropdown-divider">

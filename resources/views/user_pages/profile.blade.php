@@ -1,18 +1,7 @@
 @extends('app')
 
 @section('content')
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            var hash = window.location.hash;
-            if (hash) {
-                var tabTrigger = document.querySelector('button[data-bs-target="' + hash + '"]');
-                if (tabTrigger) {
-                    var tab = new bootstrap.Tab(tabTrigger);
-                    tab.show();
-                }
-            }
-        });
-    </script>
+    {{-- message handler start --}}
     @if (session('success'))
         <div class="alert alert-success alert-dismissible fade show position-fixed top-0 start-50 translate-middle-x mt-3"
             role="alert" style="z-index:9999; min-width:300px;">
@@ -26,10 +15,11 @@
             }, 2500);
         </script>
     @endif
+    {{-- message handler end --}}
 
     <div class="container">
         <div class="row">
-            <!-- Tab navigation -->
+            {{-- tab navigation start --}}
             <div class="col-md-3">
                 <ul class="nav nav-tabs flex-column" id="profile-tabs" role="tablist">
                     <li class="nav-item" role="presentation">
@@ -59,13 +49,14 @@
 
                 </ul>
             </div>
+            {{-- tab navigation end --}}
 
-            <!-- Tab content -->
+            {{-- tab content start --}}
             <div class="col-md-9">
                 <h1 class="mt-3 mb-3">Hello, {{ $user->name }}!</h1>
 
                 <div class="tab-content" id="nav-tabContent">
-                    <!-- PROFIL -->
+                    {{-- profile data changes start --}}
                     <div class="tab-pane fade" id="tab-profile" role="tabpanel" aria-labelledby="profile-tab">
                         <h2>Change your datas</h2>
                         <form method="POST" action="{{ route('profile.update') }}">
@@ -91,24 +82,37 @@
                             <button type="submit" class="btn btn-primary">Save</button>
                         </form>
                     </div>
+                    {{-- profile data changes end --}}
 
-                    <!-- My Orders tab -->
+                    {{-- orders tab start --}}
                     <div class="tab-pane fade show" id="tab-orders" role="tabpanel" aria-labelledby="orders-tab">
                         <h2>My Orders</h2>
 
-                        <!-- Rendelés státusz szűrő linkek -->
-                        @php $currentStatus = $status ?? 'all'; @endphp
+                        {{-- sort by the order status start --}}
+                        @php
+                            $currentStatus = $status ?? 'all';
+                        @endphp
                         <div class="mb-3">
                             <a href="{{ route('profile', ['orders' => 'all']) }}#tab-orders"
-                               class="btn btn-sm {{ $currentStatus == 'all' ? 'btn-primary' : 'btn-outline-primary' }}">All</a>
+                                class="btn btn-sm {{ $currentStatus == 'all' ? 'btn-primary' : 'btn-outline-primary' }}">
+                                All
+                            </a>
                             <a href="{{ route('profile', ['orders' => 'pending']) }}#tab-orders"
-                               class="btn btn-sm {{ $currentStatus == 'pending' ? 'btn-primary' : 'btn-outline-primary' }}">Pending</a>
+                                class="btn btn-sm {{ $currentStatus == 'pending' ? 'btn-primary' : 'btn-outline-primary' }}">
+                                Pending
+                            </a>
                             <a href="{{ route('profile', ['orders' => 'shipped']) }}#tab-orders"
-                               class="btn btn-sm {{ $currentStatus == 'shipped' ? 'btn-primary' : 'btn-outline-primary' }}">Shipped</a>
+                                class="btn btn-sm {{ $currentStatus == 'shipped' ? 'btn-primary' : 'btn-outline-primary' }}">
+                                Shipped
+                            </a>
                             <a href="{{ route('profile', ['orders' => 'delivered']) }}#tab-orders"
-                               class="btn btn-sm {{ $currentStatus == 'delivered' ? 'btn-primary' : 'btn-outline-primary' }}">Delivered</a>
+                                class="btn btn-sm {{ $currentStatus == 'delivered' ? 'btn-primary' : 'btn-outline-primary' }}">
+                                Delivered
+                            </a>
                         </div>
+                        {{-- sort by the order status end --}}
 
+                        {{-- show my orders start --}}
                         @if (count($orders) > 0)
                             <table class="table">
                                 <thead>
@@ -149,9 +153,11 @@
                         @else
                             <p>You have no orders yet.</p>
                         @endif
+                        {{-- show my orders end --}}
                     </div>
+                    {{-- orders tab end --}}
 
-                    <!-- My Cards tab -->
+                    {{-- cards tab start --}}
                     <div class="tab-pane fade" id="tab-cards" role="tabpanel" aria-labelledby="cards-tab">
                         <h2>My Cards</h2>
                         @if ($creditCards->count() > 0)
@@ -165,6 +171,7 @@
                                     </tr>
                                 </thead>
                                 <tbody>
+                                    {{-- show my cards start --}}
                                     @foreach ($creditCards as $card)
                                         <tr>
                                             <td>{{ $card->card_number }}</td>
@@ -188,10 +195,12 @@
                         @else
                             <p>You have no saved credit cards.</p>
                         @endif
+                        {{-- show my cards end --}}
                         <a href="{{ route('credit_cards.create') }}" class="btn btn-primary mt-2">Add New Card</a>
                     </div>
+                    {{-- cards tab end --}}
 
-                    <!-- My Addresses tab -->
+                    {{-- addesses tab start --}}
                     <div class="tab-pane fade" id="tab-addresses" role="tabpanel" aria-labelledby="addresses-tab">
                         <h2>My Addresses</h2>
                         @if ($addresses->count() > 0)
@@ -207,6 +216,7 @@
                                     </tr>
                                 </thead>
                                 <tbody>
+                                    {{-- show my addresses start --}}
                                     @foreach ($addresses as $address)
                                         <tr>
                                             <td>{{ $address->postCode }}</td>
@@ -232,10 +242,25 @@
                         @else
                             <p>You have no saved addresses.</p>
                         @endif
+                        {{-- show my addresses end --}}
                         <a href="{{ route('addresses.create') }}" class="btn btn-primary">Add New Address</a>
                     </div>
+                    {{-- addresses tab end --}}
+                </div>
             </div>
+            {{-- tab content end --}}
         </div>
-    </div>
 
-@endsection
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                var hash = window.location.hash;
+                if (hash) {
+                    var tabTrigger = document.querySelector('button[data-bs-target="' + hash + '"]');
+                    if (tabTrigger) {
+                        var tab = new bootstrap.Tab(tabTrigger);
+                        tab.show();
+                    }
+                }
+            });
+        </script>
+    @endsection

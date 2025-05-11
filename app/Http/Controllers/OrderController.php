@@ -138,4 +138,20 @@ class OrderController extends Controller
         $creditCards = $user->creditCards;
         return view('order.select_payment', compact('addresses', 'creditCards'));
     }
+
+    public function go_to_next_step(Request $request)
+    {
+        $user = Auth::user();
+        $hasAddress = $user->addresses()->count() > 0;
+        $hasCard = $user->creditCards()->count() > 0;
+        if (!$hasAddress) {
+            return redirect()->to(route('profile') . '#tab-addresses')
+                ->with('error', 'A fizetéshez először adj meg egy címet!');
+        }
+        if (!$hasCard) {
+            return redirect()->to(route('profile') . '#tab-cards')
+                ->with('error', 'A fizetéshez először adj meg egy bankkártyát!');
+        }
+        return redirect()->route('order.select_payment');
+    }
 }

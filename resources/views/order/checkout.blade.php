@@ -1,7 +1,7 @@
 @extends('app')
 
 @section('content')
-    <div class="container">
+    <div class="container mt-2">
         <h2>Checkout</h2>
         @if (empty($cartItems))
             <p>Your cart is empty</p>
@@ -29,7 +29,7 @@
 
             <h4>Total: ${{ number_format($total, 2) }}</h4>
 
-            <form action="{{ route('order.select_payment') }}" method="GET">
+            <form action="{{ route('order.next') }}" method="GET">
                 <button type="submit" class="btn btn-primary">Go to pay</button>
             </form>
         @endif

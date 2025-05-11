@@ -1,11 +1,23 @@
 @extends('app')
 
 @section('content')
+    {{-- message handler start --}}
     @if (session('success'))
-        <div id="successPopup" class="popup">
+        <div class="alert alert-success alert-dismissible fade show position-fixed top-0 start-50 translate-middle-x mt-3"
+            role="alert" style="z-index:9999; min-width:300px;">
             {{ session('success') }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
+        <script>
+            setTimeout(function() {
+                var alert = document.querySelector('.alert');
+                if (alert) alert.classList.remove('show');
+            }, 2500);
+        </script>
     @endif
+    {{-- message handler end --}}
+
+    {{-- add credit card form start --}}
     <div class="container">
         <h2>Add credit cards</h2>
         <form method="POST" action="{{ route('credit_cards.store') }}">
@@ -45,4 +57,5 @@
             <a href="{{ route('profile') }}#tab-cards" class="btn btn-secondary">Cancel</a>
         </form>
     </div>
+    {{-- add credit card form end --}}
 @endsection

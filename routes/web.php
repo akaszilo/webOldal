@@ -115,6 +115,8 @@ Route::get('/profile', [ProfileController::class, 'index'])
     ->name('profile')
     ->middleware('auth', App\Http\Middleware\OrderStatus::class);
 Route::put('/profile/update', [ProfileController::class, 'update_profile'])->name('profile.update');
+Route::get('/order/next', [OrderController::class, 'go_to_next_step'])->name('order.next');
+
 
 
 

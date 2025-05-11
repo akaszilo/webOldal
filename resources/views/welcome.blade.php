@@ -19,10 +19,9 @@
     @endif
     {{-- message handler end --}}
 
-
     {{-- main page start --}}
     <main class="container">
-        <!-- bestsellers start -->
+        {{-- bestsellers start --}}
         <section class="bestsellers mb-5 mt-3">
             <h1 class="mb-4">Bestsellers</h1>
             <div class="row">
@@ -47,7 +46,7 @@
         </section>
         {{-- bestsellers end --}}
 
-        <!-- top brands start -->
+        {{-- top brands start --}}
         <section class="brands mb-5">
             <h1>TOP 5 sold brand</h1>
             <div class="row">
@@ -64,7 +63,7 @@
         </section>
         {{-- top brands end --}}
 
-        <!-- newest products start -->
+        {{-- newest products start --}}
         <section class="latest-products">
             <h2>Newest products</h2>
             <div class="row">
