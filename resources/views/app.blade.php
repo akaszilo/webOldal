@@ -2,22 +2,31 @@
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-    <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>Makeup webpage</title>
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+    {{-- bootstrap --}}
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-SgOJa3DmI69IUzQ2PVdRZhwQ+dy64/BUtbMJw1MZ8t5HZApcHrRKUc4W0kG879m7" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-k6d4wzSIapyDyv1kpU366/PK5hCdSbCRGRCMv+eplOQJWyd1fbcAu9OCUj5zNLiq" crossorigin="anonymous">
     </script>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+
+    <title>Makeup webpage</title>
 </head>
 
 <body class="d-flex flex-column min-vh-100">
-    <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
+
+    {{-- navbar start --}}
+    <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm h-20">
         <div class="container">
+
+            {{-- link to main page --}}
             <a class="navbar-brand" href="{{ route('home') }}">
                 Makeup store
             </a>
@@ -26,17 +35,23 @@
                 aria-label="{{ __('Toggle navigation') }}">
                 <span class="navbar-toggler-icon"></span>
             </button>
+
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav me-auto ">
+
+                {{-- categories and brands start --}}
+                <ul class="navbar-nav me-auto">
+
+                    {{-- all products --}}
                     <a class="nav-link" href="{{ route('all') }}" role="button">
                         All products
                     </a>
+
+                    {{-- faceproducts start --}}
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="{{ route('face') }}" role="button"
                             data-bs-toggle="dropdown" aria-expanded="false">
                             Face
                         </a>
-
                         <ul class="dropdown-menu">
                             <li>
                                 <a class="dropdown-item" href="{{ route('face') }}">Face</a>
@@ -70,7 +85,9 @@
                             </li>
                         </ul>
                     </li>
+                    {{-- faceproducts end --}}
 
+                    {{-- lips products start --}}
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="{{ route('lips') }}" role="button"
                             data-bs-toggle="dropdown" aria-expanded="false">
@@ -101,6 +118,9 @@
                             </li>
                         </ul>
                     </li>
+                    {{-- lips products end --}}
+
+                    {{-- eyes products start --}}
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="{{ route('eyes') }}" role="button"
                             data-bs-toggle="dropdown" aria-expanded="false">
@@ -131,9 +151,12 @@
                             </li>
                         </ul>
                     </li>
+                    {{-- eyes products end --}}
+
+                    {{-- to show brands start --}}
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" role="button"
-                            data-bs-toggle="dropdown" aria-expanded="false">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                            aria-expanded="false">
                             Brands
                         </a>
                         <ul class="dropdown-menu p-3" style="min-width: 700px; max-width: 1000px;">
@@ -146,7 +169,8 @@
                                     <div class="col-4">
                                         @foreach ($brandChunk as $brand)
                                             <li>
-                                                <a class="dropdown-item" href="{{ route('brands.show', $brand->id) }}">{{ $brand->name }}</a>
+                                                <a class="dropdown-item"
+                                                    href="{{ route('brands.show', $brand->id) }}">{{ $brand->name }}</a>
                                             </li>
                                         @endforeach
                                     </div>
@@ -154,23 +178,26 @@
                             </div>
                         </ul>
                     </li>
-                    
+                    {{-- to show brands end --}}
                 </ul>
-                
-                
-                <div class="d-flex ms-auto align-items-center">
-                    <form class="d-flex me-2" role="search" action="{{ route('search') }}" method="GET">
-                        <input class="form-control me-2" type="search" id="search" name="search"
-                            placeholder="Search" aria-label="Search" autocomplete="off">
-                        <button class="btn btn-outline-success" type="submit">Search</button>
-                    </form>
+                {{-- categories and brands end --}}
 
-                    <div class="me-3">
-                        @php
-                            $cart = session('cart', []);
-                            $cartCount = array_sum(array_column($cart, 'quantity'));
-                        @endphp
+                {{-- search bar start --}}
+                <form class="d-flex mt-2" role="search" action="{{ route('search') }}" method="GET">
+                    <input class="form-control me-2" type="search" id="search" name="search"
+                        placeholder="Search" aria-label="Search" autocomplete="off">
+                    <button class="btn btn-outline-success" type="submit">Search</button>
+                </form>
+                {{-- search bar end --}}
 
+                {{-- cart icon to go to cart if you logged in start --}}
+                <div class="mx-3">
+                    @php
+                        $cart = session('cart', []);
+                        $cartCount = array_sum(array_column($cart, 'quantity'));
+                    @endphp
+
+                    @auth
                         <a href="{{ route('user.cart') }}" class="nav-link position-relative ms-3">
                             <i class="fa-solid fa-cart-shopping"></i>
                             @if ($cartCount > 0)
@@ -181,84 +208,114 @@
                                 </span>
                             @endif
                         </a>
-                    </div>
-
-                    <ul class="navbar-nav">
-                        @guest
-                            @if (Route::has('login'))
-                                <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
-                                </li>
-                            @endif
-                            @if (Route::has('register'))
-                                <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
-                                </li>
-                            @endif
-                        @else
-                            <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
-                                    data-bs-toggle="dropdown" aria-expanded="false">
-                                    {{ Auth::user()->name }}
-                                </a>
-                                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                    <li><a class="dropdown-item" href="{{ route('profile') }}#tab-profile">Profile</a>
-                                    </li>
-                                    <li><a class="dropdown-item" href="{{ route('profile') }}#tab-orders">Rendeléseim</a>
-                                    </li>
-                                    <li>
-                                        <hr class="dropdown-divider">
-                                    </li>
-                                    <li>
-                                        <a class="dropdown-item" href="{{ route('logout') }}"
-                                            onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-                                            {{ __('Logout') }}
-                                        </a>
-                                        <form id="logout-form" action="{{ route('logout') }}" method="POST"
-                                            class="d-none">
-                                            @csrf
-                                        </form>
-                                    </li>
-                                </ul>
-                            </li>
-                        @endguest
-                    </ul>
+                    @else
+                        <a href="{{ route('login') }}" class="nav-link position-relative ms-3">
+                            <i class="fa-solid fa-cart-shopping"></i>
+                        </a>
+                    @endauth
                 </div>
+                {{-- cart icon to go to cart if you logged in end --}}
+
+                {{-- login and register button start --}}
+                <ul class="navbar-nav">
+
+                    {{-- show this if the user is not logged in --}}
+                    @guest
+                        @if (Route::has('login'))
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
+                            </li>
+                        @endif
+                        @if (Route::has('register'))
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
+                            </li>
+                        @endif
+                    @else
+                        {{-- show this if the user is logged in --}}
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                                data-bs-toggle="dropdown" aria-expanded="false">
+                                {{ Auth::user()->name }}
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <li><a class="dropdown-item" href="{{ route('profile') }}#tab-profile">Profile</a>
+                                </li>
+                                <li><a class="dropdown-item" href="{{ route('profile') }}#tab-orders">Rendeléseim</a>
+                                </li>
+                                <li>
+                                    <hr class="dropdown-divider">
+                                </li>
+                                <li>
+                                    <a class="dropdown-item" href="{{ route('logout') }}"
+                                        onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                                        {{ __('Logout') }}
+                                    </a>
+                                    <form id="logout-form" action="{{ route('logout') }}" method="POST"
+                                        class="d-none">
+                                        @csrf
+                                    </form>
+                                </li>
+                            </ul>
+                        </li>
+                    @endguest
+                </ul>
+                {{-- login and register button end --}}
             </div>
         </div>
     </nav>
+    {{-- navbar end --}}
 
-    <div id="searchResults" class="list-group"
-        style="position: absolute; top: 100%; left: 0; z-index: 1000; width: 100%; display: none;">
-    </div>
-
+    {{-- main page start --}}
     <main class="flex-fill">
         @yield('content')
     </main>
+    {{-- main page end --}}
 
+    {{-- footer start --}}
     <footer class="bg-dark text-white mt-5 py-4">
         <div class="container">
             <div class="row">
-                <div class="col-md-6">
+                <!-- Kapcsolat + térkép -->
+                <div class="col-md-4 mb-3">
                     <h5>Contact</h5>
                     <p>Phone number: +36 1 234 5678</p>
                     <p>Email: projectmakeupstore2025@gmail.com</p>
+                    <div class="mt-3">
+                        <iframe width="100%" height="150" frameborder="0" style="border:0" allowfullscreen
+                            referrerpolicy="no-referrer-when-downgrade"
+                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d10722.82433437299!2d19.0402352!3d47.4979122!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4741dc1e3e2b9b0f%3A0x400c4290c1e1c50!2sBudapest!5e0!3m2!1sen!2shu!4v1715447740000!5m2!1sen!2shu">
+                        </iframe>
+                    </div>
                 </div>
-                <div class="col-md-6">
+
+                <!-- Navigation -->
+                <div class="col-md-4 mb-3">
+                    <h5>Pages</h5>
                     <nav class="footer-nav">
-                        <a href="#" class="text-white d-block">Map</a>
                         <a href="#" class="text-white d-block">Management</a>
                         <a href="#" class="text-white d-block">About us</a>
                         <a href="#" class="text-white d-block">Follow us</a>
-                        {{-- <a href="#" class="text-white d-block">Csatlakozz hozzánk</a> --}}
                     </nav>
+                </div>
+
+                <!-- Social media -->
+                <div class="col-md-4 mb-3">
+                    <h5>Follow us</h5>
+                    <a href="#" class="text-white me-2"><i class="fab fa-facebook fa-2x"></i></a>
+                    <a href="#" class="text-white me-2"><i class="fab fa-instagram fa-2x"></i></a>
+                    <a href="#" class="text-white me-2"><i class="fab fa-twitter fa-2x"></i></a>
+                    <a href="#" class="text-white me-2"><i class="fab fa-youtube fa-2x"></i></a>
+                    <p class="mt-3">© {{ date('Y') }} Project Makeup Store</p>
                 </div>
             </div>
         </div>
     </footer>
+    {{-- footer end --}}
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    {{-- js code start --}}
     <script>
+        /* handle the dropdowm menu */
         document.addEventListener('DOMContentLoaded', function() {
             const dropdowns = document.querySelectorAll('.dropdown');
 
@@ -274,62 +331,8 @@
                 });
             });
         });
-
-        document.addEventListener('DOMContentLoaded', function() {
-            const searchInput = document.getElementById('search');
-            const searchResults = document.getElementById('searchResults');
-
-            searchInput.addEventListener('input', function() {
-                let query = this.value;
-
-                if (query.length > 2) {
-                    fetch('/search/autocomplete?query=' + query)
-                        .then(response => response.json())
-                        .then(data => {
-                            searchResults.innerHTML = '';
-                            if (data.length > 0) {
-                                data.forEach(product => {
-                                    let a = document.createElement('a');
-                                    a.href = '/product/' + product.id;
-                                    a.classList.add('list-group-item',
-                                        'list-group-item-action');
-                                    a.textContent = product.name;
-                                    searchResults.appendChild(a);
-                                });
-                                searchResults.style.display = 'block';
-                            } else {
-                                let noResults = document.createElement('div');
-                                noResults.classList.add('list-group-item');
-                                noResults.textContent = 'Nincs találat.';
-                                searchResults.appendChild(noResults);
-                                searchResults.style.display = 'block';
-                            }
-                        });
-                } else {
-                    searchResults.style.display = 'none';
-                }
-            });
-
-            document.addEventListener('click', function(event) {
-                if (!searchInput.contains(event.target) && !searchResults.contains(event.target)) {
-                    searchResults.style.display = 'none';
-                }
-            });
-        });
-
-        document.addEventListener('DOMContentLoaded', function() {
-            var hash = window.location.hash;
-            if (hash) {
-                var tabTrigger = document.querySelector('a[href="' + hash + '"]');
-                if (tabTrigger) {
-                    var tab = new bootstrap.Tab(tabTrigger);
-                    tab.show();
-                }
-            }
-        });
     </script>
-
-
+    {{-- js code end --}}
 </body>
 
 </html>

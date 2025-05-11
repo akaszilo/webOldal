@@ -1,6 +1,7 @@
 @extends('app')
 
 @section('content')
+    {{-- handle messages start --}}
     @if (session('success'))
         <div class="alert alert-success alert-dismissible fade show position-fixed top-0 start-50 translate-middle-x mt-3"
             role="alert" style="z-index:9999; min-width:300px;">
@@ -14,36 +15,40 @@
             }, 2500);
         </script>
     @endif
+    {{-- handle messages end --}}
+
     <form action="{{ route('cart.add', $product->id) }}" method="POST">
         @csrf
         <div class="container py-4">
+            {{-- product card start --}}
             <div class="card">
                 <div class="card-body">
                     <div class="row">
                         <div class="col-md-3">
                             <img src="{{ asset($product->image_link) }}" class="img-fluid" alt="{{ $product->name }}"
-                                style="max-width: 150px;">
+                                style="max-width: 250px;">
                         </div>
                         <div class="col-md-6">
                             <div class="d-flex justify-content-between align-items-center">
                                 <h1 class="card-title">{{ $product->name }}</h1>
                             </div>
-                            <h5 class="card-subtitle mb-2 text-muted">
+                            <h5 class="card-subtitle mb-2 text-muted mt-2">
                                 <a href="{{ route('brands.show', $product->brand->id) }}">
                                     {{ $product->brand->name }}
                                 </a>
                             </h5>
-                            <p class="card-text">In stock: {{ $product->instock }} db</p>
-                            <p class="card-text">Sold: {{ $product->sold_quantity }} db</p>
+                            <p class="card-text">In stock: {{ $product->instock }}</p>
+                            <p class="card-text">Sold: {{ $product->sold_quantity }}</p>
+                            <p style="font-weight: bolder">Description</p>
+                            <p class="card-text">{{ $product->description }}</p>
                             <p style="font-weight: bolder">Ingredients</p>
                             <p class="card-text">{{ $product->ingredients }}</p>
-                            <p style="font-weight: bolder">How to use</p>
-                            <p class="card-text">{{ $product->howtouse }}</p>
                         </div>
                         <div class="col-md-3 d-flex flex-column align-items-center">
                             <h1 class="card-text mt-5 mb-5" style="font-weight: bold;">
                                 {{ $product->price }} $
                             </h1>
+                            {{-- add to cart handler --}}
                             <div class="d-flex align-items-center mb-2">
                                 <input type="number" name="quantity" class="form-control me-2" value="1"
                                     min="1" style="width: 60px;">
@@ -54,8 +59,10 @@
                     </div>
                 </div>
             </div>
-        </div>
+            {{-- product card end --}}
     </form>
+
+    {{-- recommended start --}}
     <div class="row mt-4">
         <div class="col-md-12">
             <h3>Recommended</h3>
@@ -76,17 +83,5 @@
             </div>
         @endforeach
     </div>
-    </div>
-
-    <script>
-        window.onload = function() {
-            var popup = document.getElementById('successPopup');
-            if (popup) {
-                popup.style.display = 'block';
-                setTimeout(function() {
-                    popup.style.display = 'none';
-                }, 10000); 
-            }
-        };
-    </script>
+    {{-- recommended end --}}
 @endsection

@@ -3,7 +3,6 @@
 @section('content')
     <div class="container">
         <h2>Checkout</h2>
-
         @if (empty($cartItems))
             <p>Your cart is empty</p>
         @else
@@ -30,12 +29,6 @@
 
             <h4>Total: ${{ number_format($total, 2) }}</h4>
 
-
-            {{--         <form action="{{ route('apply.coupon') }}" method="POST">
-            @csrf
-            <input type="text" name="coupon" placeholder="Add coupon code">
-            <button type="submit" class="btn btn-primary">Apply</button>
-        </form> --}}
             <form action="{{ route('order.select_payment') }}" method="GET">
                 <button type="submit" class="btn btn-primary">Go to pay</button>
             </form>

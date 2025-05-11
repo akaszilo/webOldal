@@ -1,6 +1,9 @@
 @extends('app')
+
 @vite('resources/css/app.css')
+
 @section('content')
+    {{-- message handler start --}}
     @if (session('success'))
         <div class="alert alert-success alert-dismissible fade show position-fixed top-0 start-50 translate-middle-x mt-3"
             role="alert" style="z-index:9999; min-width:300px;">
@@ -14,12 +17,13 @@
             }, 2500);
         </script>
     @endif
+    {{-- message handler end --}}
 
 
-    <main class="container mt-4">
-        <!-- Bestsellers -->
-        <br>
-        <section class="bestsellers mb-5">
+    {{-- main page start --}}
+    <main class="container">
+        <!-- bestsellers start -->
+        <section class="bestsellers mb-5 mt-3">
             <h1 class="mb-4">Bestsellers</h1>
             <div class="row">
                 @foreach ($bestsellers as $product)
@@ -35,20 +39,22 @@
                                     <p class="card-text">Sold: {{ $product->sold_quantity }}</p>
                                     <p class="card-text">In stock: {{ $product->instock }}</p>
                                 </div>
+                            </div>
                         </a>
                     </div>
-            </div>
-            @endforeach
+                @endforeach
             </div>
         </section>
-        <!-- Kiemelt márkák közvetlenül utána -->
+        {{-- bestsellers end --}}
+
+        <!-- top brands start -->
         <section class="brands mb-5">
             <h1>TOP 5 sold brand</h1>
             <div class="row">
                 @foreach ($brands as $brand)
                     <div class="col-md-3 mb-4">
                         <a href="{{ route('brands.show', $brand->id) }}">
-                            <button class="btn btn-lg btn-outline-primary w-100">
+                            <button class="btn btn-lg btn-outline-primary w-100 mt-3">
                                 {{ $brand->name }}
                             </button>
                         </a>
@@ -56,8 +62,9 @@
                 @endforeach
             </div>
         </section>
-        
-        <!-- Legfrissebb termékek -->
+        {{-- top brands end --}}
+
+        <!-- newest products start -->
         <section class="latest-products">
             <h2>Newest products</h2>
             <div class="row">
@@ -73,13 +80,13 @@
                                     <p class="card-text">Price: {{ $product->price }} $</p>
                                     <p class="card-text">Sold: {{ $product->sold_quantity }}</p>
                                     <p class="card-text">In stock: {{ $product->instock }}</p>
+                                </div>
+                            </div>
                         </a>
                     </div>
-            </div>
-            </div>
-            @endforeach
+                @endforeach
             </div>
         </section>
-
+        {{-- newest products end --}}
     </main>
 @endsection

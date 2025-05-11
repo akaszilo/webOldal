@@ -14,6 +14,7 @@
             }, 2500);
         </script>
     @endif
+    
     <div class="container">
         <h2>Add new addresses</h2>
         <form action="{{ route('addresses.store') }}" method="POST">
