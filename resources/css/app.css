@@ -1,26 +1,37 @@
-/* Theme customization */
 :root {
     --font-sans: 'Instrument Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
         'Segoe UI Symbol', 'Noto Color Emoji';
 
-    --color-primary: #4f46e5; /* indigo-600 */
-    --color-secondary: #ec4899; /* pink-500 */
-    --color-accent: #10b981; /* emerald-500 */
+    --color-primary: #4f46e5;
+    --color-secondary: #ec4899;
+    --color-accent: #10b981;
 
     --border-radius: 0.75rem;
     --transition-duration: 300ms;
     --box-shadow-soft: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
-/* Example of base element styling */
+/* elements */
 body {
     font-family: var(--font-sans);
     background-color: white;
-    color: #111827; 
+    color: #111827;
     line-height: 1.6;
     transition: background-color var(--transition-duration), color var(--transition-duration);
 }
 
+a {
+    text-decoration: none;
+    color: black;
+}
+
+a:hover {
+    color: var(--color-secondary);
+    text-decoration: underline;
+}
+
+
+/* classes */
 .popup {
     position: fixed;
     top: 20px;
@@ -31,11 +42,10 @@ body {
     border-radius: 5px;
     z-index: 1000;
     display: none;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
     font-weight: bold;
 }
 
-/* Buttons */
 .button {
     display: inline-block;
     padding: 0.5rem 1.25rem;
@@ -50,10 +60,9 @@ body {
     background-color: var(--color-secondary);
 }
 
-/* Dark mode (if handled via class strategy) */
 .dark body {
-    background-color: #1f2937; /* gray-800 */
-    color: #f9fafb; /* gray-50 */
+    background-color: #1f2937;
+    color: #f9fafb;
 }
 
 .dark a {
@@ -63,7 +72,6 @@ body {
 .dark a:hover {
     color: var(--color-secondary);
 }
-
 
 .product-suggestion-card {
     cursor: pointer;
@@ -79,48 +87,40 @@ body {
 }
 
 .product-card:hover {
-    background-color: #f8f9fa; /* Világos szürke háttérszín hover esetén */
-    text-decoration: none; /* Eltávolítja a link aláhúzását */
-}
-
-#searchResults {
-.div {
-    position: absolute;
-    top: 56px; /* A navbar magassága */
-    left: 0;
-    width: 600px; /* Tetszőleges szélesség */
-    margin: 0 auto; /* Középre igazítás */
-    z-index: 1000;
-    background-color: white;
-    border: 1px solid #ccc;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-}
-
+    background-color: #f8f9fa;
+    text-decoration: none;
 }
 
 .simplebar-scrollbar:before {
     background: var(--color-border) !important;
-  }
+}
 
-[data-simplebar], .simplebar-offset, .simplebar-content,.simplebar-wrapper,.simplebar-mask,.simplebar-content-wrapper{
-    outline:none !important;
-    border:none !important
+[data-simplebar],
+.simplebar-offset,
+.simplebar-content,
+.simplebar-wrapper,
+.simplebar-mask,
+.simplebar-content-wrapper {
+    outline: none !important;
+    border: none !important
 }
 
 @keyframes gradient {
     0% {
-      background-position: 0% 50%;
+        background-position: 0% 50%;
     }
+
     50% {
-      background-position: 100% 50%;
+        background-position: 100% 50%;
     }
+
     100% {
-      background-position: 0% 50%;
+        background-position: 0% 50%;
     }
 }
 
 @media screen and (max-width:1280px) {
-    .page-wrapper{
+    .page-wrapper {
         margin-left: 0px;
     }
 }
@@ -130,43 +130,33 @@ body {
 }
 
 .card-img-top {
-    width: 100%;      /* A kártya szélességéhez igazodik */
-    height: 250px;    /* Fix magasság */
-    object-fit: contain; /* Kitölti a területet, levágja ami kilóg */
-    border-radius: 0.25rem; /* opcionális, szép lekerekítés */
+    width: 100%;
+    height: 250px;
+    object-fit: contain;
+    border-radius: 0.25rem;
 }
-a {
-    text-decoration: none; /* aláhúzás eltávolítása */
-    color: black;          /* fekete szín */
-}
-
-a:hover {
-    color: var(--color-secondary); /* vagy más szín hoverre */
-    text-decoration: underline;    /* opcionális: hoverkor aláhúzás */
-}
-
 
 .nav-link.dropdown-toggle::after {
     display: none;
 }
 
+/* for smaller display */
 @media (max-width: 768px) {
-    /* Stílusok kisebb képernyőkre */
     .elem {
         font-size: 16px;
     }
 }
 
-
-
-.popup {
-    position: fixed;
-    top: 20px;
-    right: 20px;
-    background-color: #5cb85c;
-    color: white;
-    padding: 15px 20px;
-    border-radius: 5px;
-    z-index: 1000;
-    display: none;
+#searchResults {
+    .div {
+        position: absolute;
+        top: 56px;
+        left: 0;
+        width: 600px;
+        margin: 0 auto;
+        z-index: 1000;
+        background-color: white;
+        border: 1px solid #ccc;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    }
 }
