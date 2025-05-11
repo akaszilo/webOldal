@@ -2,14 +2,15 @@
 
 namespace Database\Seeders;
 
+
+use Illuminate\Database\Seeder;
+use Illuminate\Support\Arr;
+
 use App\Models\Brand;
 use App\Models\Category;
 use App\Models\Product;
-use Illuminate\Database\Seeder;
-use Illuminate\Support\Arr;
-use Nette\Utils\Random;
+
 use Faker\Factory as Faker;
-use SebastianBergmann\Environment\Console;
 
 class ProductSeeder extends Seeder
 {
@@ -482,7 +483,6 @@ class ProductSeeder extends Seeder
         $brands = Brand::all()->pluck('id')->toArray();
         $categories = Category::all()->pluck('id')->toArray();
 
-        // Ellenőrizd, hogy vannak-e márkák és kategóriák
         if (empty($brands) || empty($categories)) {
             $this->command->info('Kérlek, először futtasd a BrandSeeder és CategorySeeder seedereket!');
             return;
