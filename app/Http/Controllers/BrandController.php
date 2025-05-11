@@ -13,7 +13,7 @@ class BrandController extends Controller
     {
         $sort = $request->query('sort', 'newest');
         $products = Product::where('brand_id', $brand->id);
-        $products = $this->applySort($products, $sort)->get();
+        $products = $this->apply_sort($products, $sort)->get();
         return view('brand.show', compact('brand', 'products', 'sort'));
     }
 

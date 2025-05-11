@@ -13,7 +13,7 @@ class CategoryController extends Controller
     {
         $sort = $request->query('sort', 'newest');
         $products = $category->products();
-        $products = $this->applySort($products, $sort)->get();
+        $products = $this->apply_sort($products, $sort)->get();
         return view('categories.show', compact('category', 'products', 'sort'));
     }
 
@@ -21,7 +21,7 @@ class CategoryController extends Controller
     {
         $sort = $request->query('sort', 'newest');
         $products = Product::where('category_id', $subcategoryId);
-        $products = $this->applySort($products, $sort)->get();
+        $products = $this->apply_sort($products, $sort)->get();
         $subcategory = Category::find($subcategoryId);
         return view('categories.subcategory', compact('products', 'sort', 'subcategory'));
     }
@@ -30,7 +30,7 @@ class CategoryController extends Controller
     {
         $sort = $request->query('sort', 'newest');
         $products = Product::query();
-        $products = $this->applySort($products, $sort)->get();
+        $products = $this->apply_sort($products, $sort)->get();
         return view('categories.all', compact('products', 'sort'));
     }
 
@@ -39,7 +39,7 @@ class CategoryController extends Controller
         $eyeCategories = [11, 12, 13, 14];
         $sort = $request->query('sort', 'newest');
         $products = Product::whereIn('category_id', $eyeCategories);
-        $products = $this->applySort($products, $sort)->get();
+        $products = $this->apply_sort($products, $sort)->get();
         return view('categories.eyes', compact('products', 'sort'));
     }
     
@@ -48,7 +48,7 @@ class CategoryController extends Controller
         $lipCategories = [7, 8, 9, 10];
         $sort = $request->query('sort', 'newest');
         $products = Product::whereIn('category_id', $lipCategories);
-        $products = $this->applySort($products, $sort)->get();
+        $products = $this->apply_sort($products, $sort)->get();
         return view('categories.lips', compact('products', 'sort'));
     }
     
@@ -57,7 +57,7 @@ class CategoryController extends Controller
         $faceCategories = [1, 2, 3, 4, 5, 6];
         $sort = $request->query('sort', 'newest');
         $products = Product::whereIn('category_id', $faceCategories);
-        $products = $this->applySort($products, $sort)->get();
+        $products = $this->apply_sort($products, $sort)->get();
         return view('categories.face', compact('products', 'sort'));
     }
 
