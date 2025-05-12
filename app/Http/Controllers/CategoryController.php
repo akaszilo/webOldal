@@ -34,7 +34,7 @@ class CategoryController extends Controller
         return view('categories.all', compact('products', 'sort'));
     }
 
-    public function show_eyes(Request $request)
+    public function showeyes(Request $request)
     {
         $eyeCategories = [11, 12, 13, 14];
         $sort = $request->query('sort', 'newest');
@@ -43,7 +43,7 @@ class CategoryController extends Controller
         return view('categories.eyes', compact('products', 'sort'));
     }
     
-    public function show_lips(Request $request)
+    public function showlips(Request $request)
     {
         $lipCategories = [7, 8, 9, 10];
         $sort = $request->query('sort', 'newest');
@@ -52,7 +52,7 @@ class CategoryController extends Controller
         return view('categories.lips', compact('products', 'sort'));
     }
     
-    public function show_face(Request $request)
+    public function showface(Request $request)
     {
         $faceCategories = [1, 2, 3, 4, 5, 6];
         $sort = $request->query('sort', 'newest');

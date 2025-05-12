@@ -17,7 +17,7 @@ class ResetPasswordController extends Controller
     use ResetsPasswords;
     protected $redirectTo = '/';
 
-    public function passwordEmail(Request $request)
+    public function password_email(Request $request)
     {
         $request->validate(['email' => 'required|email']);
         $status = Password::sendResetLink(
@@ -28,12 +28,12 @@ class ResetPasswordController extends Controller
             : back()->withErrors(['email' => __($status)]);
     }
 
-    public function passwordReset(string $token)
+    public function password_reset(string $token)
     {
         return view('auth.reset-password', ['token' => $token]);
     }
 
-    public function passwordUpdate(Request $request)
+    public function password_update(Request $request)
     {
         $request->validate([
             'token' => 'required',
