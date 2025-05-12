@@ -13,17 +13,17 @@ class CreditCardPolicy
 
     public function viewAny(User $user): bool
     {
-        return false;
+        return true;
     }
 
     public function view(User $user, CreditCard $creditCard): bool
     {
-        return false;
+        return $user->id === $creditCard->user_id;
     }
 
     public function create(User $user): bool
     {
-        return false;
+        return true;
     }
 
     public function update(User $user, CreditCard $creditCard): bool

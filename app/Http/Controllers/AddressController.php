@@ -32,7 +32,7 @@ class AddressController extends Controller
         $this->authorize('update', $address);
         return view('addresses.edit', compact('address'));
     }
-    
+
     public function update(Request $request, Address $address)
     {
         $validated = $request->validate([
@@ -46,11 +46,16 @@ class AddressController extends Controller
         $address->update($validated);
         return redirect()->to(route('profile') . '#tab-addresses')->with('success', 'Address updated successfully!');
     }
-    
+
     public function destroy(Address $address)
     {
         $this->authorize('delete', $address);
         $address->delete();
         return redirect()->to(route('profile') . '#tab-addresses')->with('success', 'Address deleted successfully!');
+    }
+
+    public function __construct()
+    {
+        $this->middleware('auth');
     }
 }

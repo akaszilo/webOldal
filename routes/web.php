@@ -22,7 +22,6 @@ Route::delete('/order/{order}', [OrderController::class, 'destroy'])->name('orde
 // Ha csak az OrderController-ben van orderSuccess, EZT a sort töröld, mert duplikált!
 // Route::get('/order/success', [CartController::class, 'orderSuccess'])->name('order.success');
 
-
 Auth::routes();
 Route::get('/email/verify', function () {
     return view('auth.verify');
@@ -58,6 +57,9 @@ Route::middleware(['web'])->group(function () {
     Route::post('/cart/clear', [CartController::class, 'clear'])->name('cart.clear');
 });
 
+Route::resource('addresses', AddressController::class);
+Route::resource('credit_cards', CreditCardController::class);
+
 Route::post('/email/verification-notification', [VerificationController::class, 'resend'])->name('verification.resend');
 
 Route::post('/order/process_payment', [OrderController::class, 'process_payment'])->name('order.process_payment');
@@ -71,7 +73,6 @@ Route::get('/order/next', [OrderController::class, 'go_to_next_step'])->name('or
 
 Route::get('/order/{order}/details', [ProfileController::class, 'show_order_details'])->name('order.details');
 Route::put('/profile/update', [ProfileController::class, 'update_profile'])->name('profile.update');
-
 
 Route::get('/brand/{brand}', [BrandController::class, 'show'])->name('brands.show');
 
