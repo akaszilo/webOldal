@@ -282,10 +282,7 @@
                     <p>Phone number: +36 1 234 5678</p>
                     <p>Email: projectmakeupstore2025@gmail.com</p>
                     <div class="mt-3">
-                        <iframe width="100%" height="150" frameborder="0" style="border:0" allowfullscreen
-                            referrerpolicy="no-referrer-when-downgrade"
-                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d10722.82433437299!2d19.0402352!3d47.4979122!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4741dc1e3e2b9b0f%3A0x400c4290c1e1c50!2sBudapest!5e0!3m2!1sen!2shu!4v1715447740000!5m2!1sen!2shu">
-                        </iframe>
+                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1929.1885449791614!2d54.713402833626105!3d59.020101920530905!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x43efbeeb5c9103b7%3A0xab617b476cf6c3d1!2sServinskaya%20Srednyaya%20Obshcheobrazovatel&#39;naya%20Shkola%20Oosh!5e1!3m2!1sen!2shu!4v1747074302080!5m2!1sen!2shu" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
                     </div>
                 </div>
 
