@@ -51,6 +51,16 @@ Route::get('/profile', [ProfileController::class, 'index'])
     ->name('profile')
     ->middleware('auth', App\Http\Middleware\OrderStatus::class);
 
+Route::middleware(['web'])->group(function () {
+    Route::post('/cart/add/{id}', [CartController::class, 'add'])->name('cart.add');
+    Route::post('/cart/confirm_order', [CartController::class, 'confirm_order'])->name('cart.confirm_order');
+    Route::post('/cart/process_order', [CartController::class, 'process_order'])->name('cart.process_order');
+    Route::post('/cart/confirm-order', [CartController::class, 'confirm_order'])->name('cart.confirmOrder');
+    Route::post('/cart/place-order', [CartController::class, 'place_order'])->name('cart.placeOrder');
+    Route::get('/user_pages/cart', [CartController::class, 'show_user_cart'])->name('user.cart');
+    Route::post('/cart/clear', [CartController::class, 'clear'])->name('cart.clear');
+});
+
 Route::post('/email/verification-notification', [VerificationController::class, 'resend'])->name('verification.resend');
 
 Route::post('/order/process_payment', [OrderController::class, 'process_payment'])->name('order.process_payment');
@@ -65,13 +75,6 @@ Route::get('/order/next', [OrderController::class, 'go_to_next_step'])->name('or
 Route::get('/order/{order}/details', [ProfileController::class, 'show_order_details'])->name('order.details');
 Route::put('/profile/update', [ProfileController::class, 'update_profile'])->name('profile.update');
 
-Route::post('/cart/confirm_order', [CartController::class, 'confirm_order'])->name('cart.confirm_order');
-Route::post('/cart/process_order', [CartController::class, 'process_order'])->name('cart.process_order');
-Route::post('/cart/confirm-order', [CartController::class, 'confirm_order'])->name('cart.confirmOrder');
-Route::post('/cart/place-order', [CartController::class, 'place_order'])->name('cart.placeOrder');
-Route::get('/user_pages/cart', [CartController::class, 'show_user_cart'])->name('user.cart');
-Route::post('/cart/clear', [CartController::class, 'clear'])->name('cart.clear');
-Route::post('/cart/add/{id}', [CartController::class, 'add'])->name('cart.add');
 
 Route::get('/brand/{brand}', [BrandController::class, 'show'])->name('brands.show');
 
