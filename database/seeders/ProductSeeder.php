@@ -76,7 +76,25 @@ class ProductSeeder extends Seeder
         ];
 
         $concealerImg = [
-            "https://img.freepik.com/free-vector/oops-404-error-with-broken-robot-concept-illustration_114360-5529.jpg"
+'    https://media.dm-static.com/images/f_auto,q_auto,c_fit,h_320,w_320/v1744713225/products/pim/hu_03607349791292_b_p1_miss_sporty_so_clear_01_korrektor_t820/miss-sporty-korrektor-so-clear-01
+',
+'https://media.dm-static.com/images/f_auto,q_auto,c_fit,h_320,w_320/v1744752224/products/pim/219916_essence_korrektor_stift_30_4251232219890/essence-korrektor-cover-stick-nr-30-matt-honey
+',
+'https://media.dm-static.com/images/f_auto,q_auto,c_fit,h_320,w_320/v1744825533/products/pim/4066447212662_sk/alverde-naturkosmetik-alapozo-korrektor-perfect-cover-40-caramel
+',
+'https://cache.rossmann.hu/asset/w_384/4059729394484_226925_1_jpg_9ae140b7.jpg',
+
+'https://media.dm-static.com/images/f_auto,q_auto,c_fit,h_320,w_320/v1744752225/products/pim/219912_essence_korrektor_stift_10_4251232219876/essence-korrektor-cover-stick-nr-10-matt-naturelle
+',
+'https://media.dm-static.com/images/f_auto,q_auto,c_fit,h_320,w_320/v1744756396/products/pim/467317_catrice_korrektor_folyekony_camouflage_10_4250947544662/catrice-korrektor-liquid-camouflage-nr-010-porcellain
+',
+'https://cache.rossmann.hu/asset/w_384/800897129781_216442_1_jpg_ca51c644.jpg
+',
+'https://cache.rossmann.hu/asset/w_384/800897168568_216459_1_jpg_3a68fa94.jpg
+',
+'https://cache.rossmann.hu/asset/w_384/5057566016841_186394_jpg_ed1fb90f.jpg
+',
+'https://cache.rossmann.hu/asset/w_384/800897129873_216439_1_jpg_70fcae80.jpg'
         ];
 
         $powderName = [
