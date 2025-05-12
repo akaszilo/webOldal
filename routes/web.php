@@ -13,14 +13,11 @@ use App\Http\Controllers\OrderController;
 use App\Http\Controllers\BrandController;
 use App\Http\Controllers\CartController;
 
-//Route::view('/forgot-password', 'auth.forgot-password')->name('password.request');
-//Route::post('/forgot-password', [ResetPasswordController::class, 'password_email']);
-//Route::get('/reset-password/{token}', [ResetPasswordController::class, 'password_reset'])->name('password.reset');
-//Route::post('/reset-password', [ResetPasswordController::class, 'password_update'])->name('password.update');
-//Route::get('/product/{product}', [ProductController::class, 'show_recommended'])->name('product.show');
-//Route::post('/cart/destroy/{id}', [CartController::class, 'destroy'])->name('cart.destroy');
-//Route::post('/cart/update/{id}', [CartController::class, 'update'])->name('cart.update');
-//Route::delete('/order/{order}', [OrderController::class, 'destroy'])->name('order.destroy');
+Route::get('/product/{product}', [ProductController::class, 'show_recommended'])->name('product.show');
+Route::post('/cart/destroy/{id}', [CartController::class, 'destroy'])->name('cart.destroy');
+Route::post('/cart/update/{id}', [CartController::class, 'update'])->name('cart.update');
+Route::delete('/order/{order}', [OrderController::class, 'destroy'])->name('order.destroy');
+
 /* Succesful order */
 // Ha csak az OrderController-ben van orderSuccess, EZT a sort töröld, mert duplikált!
 // Route::get('/order/success', [CartController::class, 'orderSuccess'])->name('order.success');
